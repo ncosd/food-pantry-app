@@ -9,3 +9,6 @@ The Food Pantry application is designed to:
 * Admins can maintain hours the pantry is open/available
 * Admins can maintain the list of volunteers that will attend on specific dates
 * Admins can maintain an inventory of what is available and amounts of items.
+
+## Project Roadmap
+The project uses Github projects for its roadmap, you can find it here: https://github.com/ncosd/food-pantry-app/projects/1
