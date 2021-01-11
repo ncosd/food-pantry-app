@@ -1,0 +1,3 @@
+this.config = {
+  appNavName: 'NCFB'
+};
