@@ -1,3 +1,5 @@
 this.config = {
-  appNavName: 'NCFB'
+  appNavName: 'NCFB',
+  OrganizationName: 'NCFB',
+  ProjectLongName: 'Narberth Community Food Bank'
 };
