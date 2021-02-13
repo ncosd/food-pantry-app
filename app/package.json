@@ -10,9 +10,7 @@
     "serve": "run-s build:dev watch",
     "serve:firebase:emulator": "firebase emulators:start",
     "serve:firebase": "firebase serve",
-    "serve:vue": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve:vue": "vue-cli-service serve"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",

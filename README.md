@@ -20,6 +20,15 @@ You can run this project locally against the firebase emulators.  You can see ho
 
 To run the project locally, clone this repo and then go into the `app` directory:
 
+> The first time you need to login to firebase and configure this project to use your application.
+>
+>     firebase login
+>     firebase use _projectid_
+>
+> Then copy your `firebase-config.js` from the web console and save it to `src/firebase-config.js`.
+
+Use these command for developing locally:
+
     npm run server:firebase:emulator  # leave this running in one terminal
     npm run build:watch               # leave this running in another terminal
 
