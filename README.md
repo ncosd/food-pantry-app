@@ -29,7 +29,7 @@ To run the project locally, clone this repo and then go into the `app` directory
 
 Use these command for developing locally:
 
-    npm run server:firebase:emulator  # leave this running in one terminal
+    npm run serve:firebase:emulator  # leave this running in one terminal
     npm run build:watch               # leave this running in another terminal
 
 Running these two commands will run the emulators in one terminal, and the vue-cli-service in the other.  The vue service will not do hot-reloading, it will rebuild to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work.
@@ -38,7 +38,27 @@ Running these two commands will run the emulators in one terminal, and the vue-c
 It will get easier over time as the process is refined.   Currently, the best way for you to use this project is to:
 
 1. Fork this repo
-2. Configure for your organization name
-3. Deploy it to your firebase project
+2. Configure for your organization name by creating a `.env` file in  `app/src/.env`
+
+    file: app/src/.env
+```sh
+APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
+ORGANIZATION_NAME = 'org name' # this is your organization name.
+PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
+```
+
+3. Create a firebase project with hosting, firestore, and functions.  Get the config.js file and save it to:
+
+    file: app/src/firebase-config.js
+
+4. Build the vue project:
+
+    cd app;
+    npm run build
+
+5. Deploy it to your firebase project
+
+   cd app;
+   firebase deploy
 
 If you have a question, open a [Question issue](https://github.com/ncosd/food-pantry-app/issues/new?assignees=&labels=question&template=question.md&title=%5BQ%5D+)

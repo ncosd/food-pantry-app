@@ -1,5 +1,5 @@
 this.config = {
-  appNavName: 'NCFB',
-  OrganizationName: 'NCFB',
-  ProjectLongName: 'Narberth Community Food Bank'
+  appNavName: process.env.APP_NAV_NAME || 'APP_NAV_NAME',
+  OrganizationName: process.env.ORGANIZATION_NAME || 'ORGANIZATION_NAME',
+  ProjectLongName: process.env.PROJECT_LONG_NAME || 'PROJECT_LONG_NAME'
 };
