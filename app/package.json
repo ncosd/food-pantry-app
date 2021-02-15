@@ -10,7 +10,8 @@
     "serve": "run-s build:dev watch",
     "serve:firebase:emulator": "firebase emulators:start",
     "serve:firebase": "firebase serve",
-    "serve:vue": "vue-cli-service serve"
+    "serve:vue": "vue-cli-service serve",
+    "storybook": "start-storybook -p 9001 -c .storybook -s dist"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -23,6 +24,7 @@
     "vuex": "^3.6.0"
   },
   "devDependencies": {
+    "@storybook/vue": "^6.1.18",
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/cli-plugin-eslint": "^4.5.9",
     "@vue/cli-plugin-router": "^4.5.9",
