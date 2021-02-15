@@ -17,25 +17,23 @@
       </template>
     </v-card>
 
-    <v-card elevation="2" max-width="90%" class="mx-auto my-12">
-      <v-card-title>Items we need</v-card-title>
-      <v-card-text v-html="neededList">
-      {{neededList}}
-      </v-card-text>
-    </v-card>
-
+    <NeededListCard></NeededListCard>
 
   </div>
 </template>
 
 <script>
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { mapGetters } from 'vuex';
 import { config } from '@/config';
 
+import NeededListCard from '@/components/NeededListCard';
+
 export default {
   name: 'Home',
+  components: {
+    NeededListCard
+  },
   computed: {
     ...mapGetters({
     user: "user"
@@ -43,19 +41,8 @@ export default {
   },
   data() {
     return {
-      neededList: "loading...",
       config: config
-
     }
-  },
-  mounted() {
-    const db = firebase.firestore();
-    db.collection('needed').doc('latest').get().then( (docRef) => {
-      this.neededList = docRef.data().text;
-    }).catch(err => {
-      console.log(err);
-      this.neededList = 'Something is wrong, please try again.';
-    });
   }
 }
 </script>
