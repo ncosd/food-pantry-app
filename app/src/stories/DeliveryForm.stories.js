@@ -7,11 +7,8 @@ export default {
 
 export const Form = () => ({
   props: {
-    name: {
-      type: String
-    },
     user: {
-      loggedIn() { return false },
+      loggedIn() { return true },
       data: {
         email: "someone@example.com"
       }
