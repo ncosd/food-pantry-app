@@ -42,9 +42,9 @@ It will get easier over time as the process is refined.   Currently, the best wa
 
     file: app/src/.env
 ```sh
-APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
-ORGANIZATION_NAME = 'org name' # this is your organization name.
-PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
+VUE_APP_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
+VUE_APP_ORGANIZATION_NAME = 'org name' # this is your organization name.
+VUE_APP_PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
 ```
 
 3. Create a firebase project with hosting, firestore, and functions.  Get the config.js file and save it to:
