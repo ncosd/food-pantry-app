@@ -19,4 +19,7 @@ export default {
 </script>
 
 <style>
+.no-uppercase {
+  text-transform: none !important;
+}
 </style>
