@@ -19,12 +19,13 @@
       </template>
     </v-card>
 
-    <NeededListCard></NeededListCard>
+    <NeededListCard v-bind:neededList="neededList"></NeededListCard>
 
   </div>
 </template>
 
 <script>
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { mapGetters } from 'vuex';
 import { config } from '@/config';
@@ -43,8 +44,23 @@ export default {
   },
   data() {
     return {
-      config: config
+      config: config,
+      neededList: ""
     }
+  },
+  created() {
+    const db = firebase.firestore();
+    db.collection('needed').doc('latest').get().then( (docRef) => {
+      if (docRef && docRef.data()) {
+        this.neededList = docRef.data().text;
+      } else {
+        this.neededList = "needed.latest is not in firestore";
+        console.log("needed.latest is not in firestore");
+      }
+    }).catch(err => {
+      console.log(err);
+      this.neededList = 'Something is wrong, please try again.';
+    });
   }
 }
 </script>

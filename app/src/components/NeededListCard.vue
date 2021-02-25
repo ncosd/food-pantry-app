@@ -8,28 +8,12 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
 export default {
   name: "NeededListCard",
-  data() {
-    return {
-      neededList: "loading..."
-    }
-  },
-  mounted() {
-    const db = firebase.firestore();
-    db.collection('needed').doc('latest').get().then( (docRef) => {
-      this.neededList = docRef.data().text;
-    }).catch(err => {
-      console.log(err);
-      this.neededList = 'Something is wrong, please try again.';
-    });
+  props: {
+    neededList: String
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
