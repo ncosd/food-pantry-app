@@ -15,5 +15,10 @@ service cloud.firestore {
     allow read: if request.auth.token.admin == true;
     allow write: if request.auth.token.admin == true;
     }
+
+    match /deliveryprofile/{userid} {
+      allow read, update: if request.auth != null && request.auth.uid == resource.data.userid;
+      allow create: if request.auth != null && request.auth.uid == userid;
+    }
   }
 }

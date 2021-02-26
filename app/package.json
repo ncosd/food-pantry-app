@@ -9,11 +9,12 @@
     "build:dev": "vue-cli-service build --mode development",
     "build:watch": "vue-cli-service build --mode development --watch --no-clean",
     "serve:firebase": "firebase serve",
-    "serve:firebase:emulator": "firebase emulators:start",
+    "serve:firebase:emulator": "firebase emulators:start --import=./fixtures",
     "serve:vue": "vue-cli-service serve",
     "storybook": "start-storybook -p 9001 -c .storybook -s dist",
     "storybook:build": "vue-cli-service storybook:build -c config/storybook",
-    "storybook:serve": "vue-cli-service storybook:serve -p 9000 -c config/storybook"
+    "storybook:serve": "vue-cli-service storybook:serve -p 9000 -c config/storybook",
+    "firebase:export": "firebase emulators:export ./fixtures"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
