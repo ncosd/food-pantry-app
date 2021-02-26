@@ -59,12 +59,24 @@ export default {
       db.collection("deliveryprofile").doc(firebase.auth().currentUser.uid).set({
         userid: firebase.auth().currentUser.uid,
         email: this.user.data.email,
-        firstname: profileForm.firstname
-        }).then((doc) => {
-          console.log("doc id", doc);
-          }).catch((error) => {
-            console.log("error adding doc", error);
-            });
+        firstname: profileForm.firstname,
+        lastname: profileForm.lastname,
+        phone: profileForm.phone,
+        address1: profileForm.address1,
+        address2: profileForm.address2 || "",
+        city: profileForm.city,
+        state: profileForm.state,
+        zip: profileForm.zip,
+        num_60: profileForm.num_60 || "0",
+        num_1859: profileForm.num_1859 || "0",
+        num_1017: profileForm.num_1017 || "0",
+        num_10: profileForm.num_10 || "0",
+        notes: profileForm.notes || ""
+      }).then(() => {
+        console.log("Successfully saved");
+      }).catch((error) => {
+        console.log("error adding doc", error);
+      });
 
     }
   }
