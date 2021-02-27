@@ -54,7 +54,10 @@ VUE_APP_PROJECT_LONG_NAME = 'long name' # this is the name of the website you ar
 4. Build the vue project:
 
 > *NOTE*
-> npm7 does not currently work with storybook [see here](https://github.com/storybookjs/storybook/issues/13683), use `npm install -g npm@6` to use npm6
+>
+> npm7 does not currently work with storybook [see here](https://github.com/storybookjs/storybook/issues/13683)
+>
+> use `npm install -g npm@6` to use npm6
 
     cd app;
     npm run build
