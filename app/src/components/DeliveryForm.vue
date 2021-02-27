@@ -10,7 +10,11 @@
                 <v-alert v-if="error" type="error">{{error}}</v-alert>
                 <v-form v-model="valid" @submit.prevent="submit">
                 <div><label>Your Email:</label> {{user.data.email}}</div>
-                <v-text-field v-model="profile.firstname" label="First Name" autocomplete="First Name"></v-text-field>
+                <v-text-field v-model="profile.firstname"
+                label="First Name"
+                autocomplete="First Name"
+                :rules="[rules.required]"
+                ></v-text-field>
                 <v-text-field v-model="profile.lastname" label="Last Name" autocomplete="Last Name"></v-text-field>
                 <v-text-field v-model="profile.phone" label="Phone 610-555-1212" autocomplete="phone"></v-text-field>
                 <v-text-field v-model="profile.address1" label="Street Address" autocomplete="street1"></v-text-field>
