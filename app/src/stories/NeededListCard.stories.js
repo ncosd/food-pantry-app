@@ -8,7 +8,10 @@ export default {
   title: "NeededListCard",
   component: NeededListCard,
   argTypes: {
-    neededList: { control: 'text' },
+    neededList: {
+      control: 'text',
+      description: 'Information to display',
+    },
   },
 };
 
@@ -17,7 +20,7 @@ export const Card = () => ({
     neededList: {type: String},
   },
   components: { NeededListCard },
-  template: `<NeededListCard v-bind="$props"></NeededList>`,
+  template: `<NeededListCard v-bind="$props"></NeededListCard>`,
 });
 Card.args = {
   neededList: `<ul><li>Canned food that is not expired</li></ul><p>We cannot accept:</p><ul><li>Alcohol</li></ul>`
