@@ -35,18 +35,22 @@
                   :rules="[rules.required]"
                 ></v-text-field>
                 <v-text-field v-model="profile.num_60" label="Number in houshold age 60+"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.number]"
                 ></v-text-field>
                 <v-text-field v-model="profile.num_1859" label="Number in houshold age 18-59"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.number]"
                 ></v-text-field>
                 <v-text-field v-model="profile.num_1017" label="Number in houshold age 10-17"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.number]"
                 ></v-text-field>
                 <v-text-field v-model="profile.num_10" label="Number in houshold under age 10"
-                  :rules="[rules.required]"
+                  :rules="[rules.required, rules.number]"
                 ></v-text-field>
                 <v-textarea v-model="profile.notes" label="Dietary restrictions or notes."></v-textarea>
+
+                <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
+                <v-alert v-if="error" type="error">{{error}}</v-alert>
+
                 <v-btn type="submit" color="success" class="mr-4" :disabled="!valid">Submit</v-btn>
                 </v-form>
               </template>
@@ -65,19 +69,19 @@ export default {
   name: 'DeliveryForm',
   props: [
      "user",
-     "profile"
+     "profile",
+     "showSuccess",
+     "successMessage",
+     "error"
   ],
   data() {
     return {
-      error: "",
-      showSuccess: false,
-      successMessage: "",
-      showPass: false,
       valid: false,
       rules: {
         required: value => !!value || 'Required.',
-        phone: (v) => /^([0-9]){3}[.-]]{0,1}([0-9]){3}[.-]]{0,1}[0-9]{4}$/.test(v) || "Phone must be 111-222-3333",
-        state: (v) => v == 'PA' || "Only PA supported at this time"
+        phone: (v) => /^([0-9]){3}[.-]{0,1}([0-9]){3}[.-]{0,1}[0-9]{4}$/.test(v) || "Phone must be 111-222-3333",
+        state: (v) => v && v.toUpperCase() == 'PA' || "Only PA supported at this time",
+        number: (v) => parseInt(v) < 10 && parseInt(v) >= 0 || "Number between 0-10"
       }
     }
   },
