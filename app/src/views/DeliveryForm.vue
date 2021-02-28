@@ -2,6 +2,9 @@
   <DeliveryForm
         v-bind:user="user"
         v-bind:profile="profile"
+        v-bind:showSuccess="showSuccess"
+        v-bind:successMessage="successMessage"
+        v-bind:error="error"
         @clicked="onFormSubmit"
   />
 </template>
@@ -23,7 +26,10 @@ export default {
   },
   data() {
     return {
-      profile: { firstname: "", lastname:"" }
+      profile: { firstname: "", lastname:"" },
+      showSuccess: false,
+      successMessage: "",
+      error: "",
     }
   },
   components: {
@@ -74,8 +80,14 @@ export default {
         notes: profileForm.notes || ""
       }).then(() => {
         console.log("Successfully saved");
+        this.showSuccess = true,
+        this.successMessage = "Application Form Saved",
+        this.error = ""
       }).catch((error) => {
         console.log("error adding doc", error);
+        this.error = "There was a problem saving the application form, please try again.",
+        this.showSuccess = false,
+        this.successMessage = ""
       });
 
     }
