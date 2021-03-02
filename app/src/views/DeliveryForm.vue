@@ -36,11 +36,10 @@ export default {
     DeliveryForm
   },
   created() {
-    console.log("currentUser=", firebase.auth().currentUser);
     if (firebase.auth().currentUser != null) {
            console.log("currentUser.uid=", firebase.auth().currentUser.uid);
     } else {
-       console.log("user is null, no uid");
+       console.log("user is null, no uid.  Are you logged in?");
     }
     const db = firebase.firestore();
     db.collection("deliveryprofile").doc(firebase.auth().currentUser.uid).get().then( (docRef) => {

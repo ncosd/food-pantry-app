@@ -5,7 +5,7 @@
         <div class="card">
            <v-card-title>Delivery Application</v-card-title>
            <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
-           <div class="card-body">
+           <v-card-text>
               <template v-if="user && user.loggedIn">
                 <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
                 <v-alert v-if="error" type="error">{{error}}</v-alert>
@@ -58,7 +58,7 @@
               <template v-else>
                 <div>You must be logged in.</div>
               </template>
-           </div>
+           </v-card-text>
         </div>
       </div>
    </div>
