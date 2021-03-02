@@ -3,7 +3,8 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
-           <div class="card-header">Delivery Application</div>
+           <v-card-title>Delivery Application</v-card-title>
+           <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
            <div class="card-body">
               <template v-if="user && user.loggedIn">
                 <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
@@ -32,7 +33,7 @@
                   :rules="[rules.required, rules.state]"
                 ></v-text-field>
                 <v-text-field v-model="profile.zip" label="Zip" autocomplete="zip"
-                  :rules="[rules.required]"
+                  :rules="[rules.required,rules.deliveryArea]"
                 ></v-text-field>
                 <v-text-field v-model="profile.num_60" label="Number in houshold age 60+"
                   :rules="[rules.required, rules.number]"
@@ -65,6 +66,8 @@
 </template>
 
 <script>
+import { config } from '@/config';
+
 export default {
   name: 'DeliveryForm',
   props: [
@@ -76,12 +79,14 @@ export default {
   ],
   data() {
     return {
+      deliveryAreaNames: config.DeliveryAreaNames || "",
       valid: false,
       rules: {
         required: value => !!value || 'Required.',
         phone: (v) => /^([0-9]){3}[.-]{0,1}([0-9]){3}[.-]{0,1}[0-9]{4}$/.test(v) || "Phone must be 111-222-3333",
         state: (v) => v && v.toUpperCase() == 'PA' || "Only PA supported at this time",
-        number: (v) => parseInt(v) < 10 && parseInt(v) >= 0 || "Number between 0-10"
+        number: (v) => parseInt(v) < 10 && parseInt(v) >= 0 || "Number between 0-10",
+        deliveryArea: (v) => parseInt(v) && config.DeliveryZipcodes && config.DeliveryZipcodes.includes(parseInt(v)) || "Address is outside of our service area.  You can search for another delivery provider at " + config.DeliveryOutsideAreaUrl,
       }
     }
   },
