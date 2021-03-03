@@ -1,15 +1,10 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-//exports.addUserRole = functions.https.onRequest((request, response) => {
+const db = admin.firestore();
 
-
+// Every user is a guest.
 exports.addUserRoleOnCreate = functions.auth.user().onCreate(async (authUser) => {
   if (authUser.email) {
     const customClaims = {
@@ -26,3 +21,20 @@ exports.addUserRoleOnCreate = functions.auth.user().onCreate(async (authUser) =>
     }
   }
 });
+
+// When a deliveryProfile is first created, set status to in-review.
+exports.addDeliveryProfileOnCreate = functions.firestore
+  .document('deliveryprofile/{userId}')
+  .onCreate((snap, context) => {
+    // create a DeliveryProfileState
+    const profile = snap.data();
+    var profileState = {
+      userid: context.params.userId,
+      status: "in-review",
+      created: admin.firestore.Timestamp.now(),
+      updated: admin.firestore.Timestamp.now()
+    };
+
+    db.collection("deliveryprofilestate").doc(context.params.userId).set(profileState);
+
+  });
