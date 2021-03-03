@@ -1,24 +1,21 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-           <v-card-title>Delivery Application</v-card-title>
-           <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
-           <v-card-text>
-              <template v-if="user && user.loggedIn">
-                <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
-                <v-alert v-if="error" type="error">{{error}}</v-alert>
-                <v-form v-model="valid" @submit.prevent="submit" name="x">
-                <div><label>Your Email:</label> {{user.data.email}}</div>
-                <v-text-field v-model="profile.firstname"
+ <v-card flat>
+   <v-card-title>Delivery Application</v-card-title>
+      <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
+         <v-card-text>
+           <template v-if="user && user.loggedIn">
+             <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
+             <v-alert v-if="error" type="error">{{error}}</v-alert>
+             <v-form v-model="valid" @submit.prevent="submit" name="x">
+               <div><label>Your Email:</label> {{user.data.email}}</div>
+               <v-text-field v-model="profile.firstname"
                   label="First Name"
                   autocomplete="First Name"
                   :rules="[rules.required]"
-                ></v-text-field>
-                <v-text-field v-model="profile.lastname" label="Last Name" autocomplete="Last Name"
+               ></v-text-field>
+               <v-text-field v-model="profile.lastname" label="Last Name" autocomplete="Last Name"
                   :rules="[rules.required]"
-                ></v-text-field>
+               ></v-text-field>
                 <v-text-field v-model="profile.phone" label="Phone 610-555-1212" autocomplete="phone"
                   :rules="[rules.required, rules.phone]"
                 ></v-text-field>
@@ -59,10 +56,7 @@
                 <div>You must be logged in.</div>
               </template>
            </v-card-text>
-        </div>
-      </div>
-   </div>
- </div>
+   </v-card>
 </template>
 
 <script>

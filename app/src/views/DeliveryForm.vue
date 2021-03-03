@@ -1,16 +1,26 @@
 <template>
-  <DeliveryForm
-        v-bind:user="user"
-        v-bind:profile="profile"
-        v-bind:showSuccess="showSuccess"
-        v-bind:successMessage="successMessage"
-        v-bind:error="error"
-        @clicked="onFormSubmit"
-  />
+  <v-container>
+    <v-row no-gutters>
+      <v-col cols="12" md="3">
+        <DeliveryApplicationState :deliveryAppState="deliveryAppState"></DeliveryApplicationState>
+      </v-col>
+      <v-col cols="12" md="9">
+        <DeliveryForm
+          v-bind:user="user"
+          v-bind:profile="profile"
+          v-bind:showSuccess="showSuccess"
+          v-bind:successMessage="successMessage"
+          v-bind:error="error"
+          @clicked="onFormSubmit"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import DeliveryForm from "@/components/DeliveryForm.vue";
+import DeliveryApplicationState from "@/components/DeliveryApplicationState.vue";
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -27,25 +37,42 @@ export default {
   data() {
     return {
       profile: { firstname: "", lastname:"" },
+      deliveryAppState: null,
       showSuccess: false,
       successMessage: "",
       error: "",
     }
   },
   components: {
-    DeliveryForm
+    DeliveryForm,
+    DeliveryApplicationState,
   },
   created() {
-    if (firebase.auth().currentUser != null) {
-           console.log("currentUser.uid=", firebase.auth().currentUser.uid);
-    } else {
+    this.error = "";
+    if (firebase.auth().currentUser == null) {
        console.log("user is null, no uid.  Are you logged in?");
+       this.error = "Error loading profile, please go back and try again.";
+       return
     }
     const db = firebase.firestore();
-    db.collection("deliveryprofile").doc(firebase.auth().currentUser.uid).get().then( (docRef) => {
+    const uid = firebase.auth().currentUser.uid;
+    db.collection("deliveryprofile").doc(uid).get().then( (docRef) => {
       if (docRef.exists) {
-        console.log('got the profile ', docRef.data());
+        console.log('got the profile ', docRef.data(), uid);
         this.profile = docRef.data();
+
+        db.collection("deliveryprofilestate").doc(uid).get().then( (stateRef) => {
+
+          if (stateRef.exists) {
+            console.log("got state", stateRef.data().status);
+            this.deliveryAppState = stateRef
+          } else {
+            console.log("no state");
+          }
+        }).catch(err => {
+          console.log("err during profilestate lookup", err);
+        });
+
       } else {
         console.log("no deliveryprofile");
       }
