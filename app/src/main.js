@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify';
 import '@babel/polyfill'
 import router from './router'
 import firebase from 'firebase/app';
+import 'firebase/analytics';
 import store from "./store";
 
 
@@ -11,6 +12,8 @@ fetch('/__/firebase/init.json').then(async response => {
   const config = await response.json();
   console.log('response.json='+ JSON.stringify(config));
   firebase.initializeApp(config);
+  firebase.analytics();
+
 
   const db = firebase.firestore();
   if (window.location.hostname == "localhost") {
@@ -28,6 +31,9 @@ fetch('/__/firebase/init.json').then(async response => {
 
 
   Vue.config.productionTip = false
+
+  // alias
+  Vue.prototype.$analytics = firebase.analytics();
 
   new Vue({
     vuetify,
