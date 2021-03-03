@@ -32,6 +32,9 @@ fetch('/__/firebase/init.json').then(async response => {
 
   Vue.config.productionTip = false
 
+  // alias
+  Vue.prototype.$analytics = firebase.analytics();
+
   new Vue({
     vuetify,
     router,
