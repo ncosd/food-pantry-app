@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # firebase caching
 .firebase
+.runtimeconfig.json
