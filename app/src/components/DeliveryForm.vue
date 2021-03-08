@@ -4,6 +4,7 @@
       <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
          <v-card-text>
            <template v-if="user && user.loggedIn">
+             <div v-html="deliveryMessage"></div>
              <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
              <v-alert v-if="error" type="error">{{error}}</v-alert>
              <v-form v-model="valid" @submit.prevent="submit" name="x">
@@ -74,13 +75,14 @@ export default {
   data() {
     return {
       deliveryAreaNames: config.DeliveryAreaNames || "",
+      deliveryMessage: config.DeliveryMessage || "",
       valid: false,
       rules: {
         required: value => !!value || 'Required.',
         phone: (v) => /^([0-9]){3}[.-]{0,1}([0-9]){3}[.-]{0,1}[0-9]{4}$/.test(v) || "Phone must be 111-222-3333",
         state: (v) => v && v.toUpperCase() == 'PA' || "Only PA supported at this time",
         number: (v) => parseInt(v) < 10 && parseInt(v) >= 0 || "Number between 0-10",
-        deliveryArea: (v) => parseInt(v) && config.DeliveryZipcodes && config.DeliveryZipcodes.includes(parseInt(v)) || "Address is outside of our service area.  You can search for another delivery provider at " + config.DeliveryOutsideAreaUrl,
+        deliveryArea: (v) => parseInt(v) && config.DeliveryZipcodes.includes(parseInt(v)) || "Address is outside of our service area.  You can search for another delivery provider at " + config.DeliveryOutsideAreaUrl,
       }
     }
   },
