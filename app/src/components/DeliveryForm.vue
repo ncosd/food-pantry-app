@@ -1,5 +1,5 @@
 <template>
- <v-card flat>
+ <v-card text>
    <v-card-title>Delivery Application</v-card-title>
       <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
          <v-card-text>
