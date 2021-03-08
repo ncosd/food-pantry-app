@@ -70,6 +70,16 @@ this.config = {
           content: 'Terms of use.'
         }
       ]
+    },
+    ForgotPassword: {
+      title: 'Forgot Password',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Enter your email if you have forgotten your password.'
+        }
+      ]
     }
+
   }
 };

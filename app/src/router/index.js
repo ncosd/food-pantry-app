@@ -53,8 +53,13 @@ const routes = [
     name: 'Terms',
     component: () => import(/* webpackChunkName: "delivery-form" */ '../views/Terms.vue'),
     meta: config.meta.Terms
+  },
+  {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/ForgotPassword.vue'),
+    meta: config.meta.ForgotPassword
   }
-
 ]
 
 const router = new VueRouter({
