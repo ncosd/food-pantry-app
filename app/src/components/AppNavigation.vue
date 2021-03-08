@@ -4,7 +4,12 @@
     <v-toolbar-title to="/"><v-btn to="/" text>{{config.appNavName}}</v-btn></v-toolbar-title>
     <v-spacer></v-spacer>
     <template v-if="user.loggedIn">
-      <div>{{user.data.email}}</div>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on,attrs}">
+            <v-icon aria-label="My Account" role="img" aria-hidden="false" v-bind="attrs" v-on="on">mdi-account-circle</v-icon>
+          </template>
+          <span>My Account</span>
+        </v-tooltip>
       <v-btn text to="/logout" @click.prevent="signOut">SIGN OUT</v-btn>
     </template>
     <template v-else>
