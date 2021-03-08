@@ -41,7 +41,20 @@ const routes = [
     name: 'DeliveryForm',
     component: () => import(/* webpackChunkName: "delivery-form" */ '../views/DeliveryForm.vue'),
     meta: config.meta.DeliveryForm
+  },
+  {
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/PrivacyPolicy.vue'),
+    meta: config.meta.PrivacyPolicy
+  },
+  {
+    path: '/terms',
+    name: 'Terms',
+    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/Terms.vue'),
+    meta: config.meta.Terms
   }
+
 ]
 
 const router = new VueRouter({

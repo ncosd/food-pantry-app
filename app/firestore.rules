@@ -24,5 +24,14 @@ service cloud.firestore {
     match /deliveryprofilestate/{userid} {
       allow read: if request.auth != null && request.auth.uid == userid;
     }
+
+    match /privacypolicy/{version} {
+      allow read
+    }
+
+    match /terms/{version} {
+      allow read
+    }
+
   }
 }

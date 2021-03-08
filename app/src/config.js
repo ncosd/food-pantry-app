@@ -51,6 +51,24 @@ this.config = {
           content: 'Your delivery application/profile page.'
         }
       ]
+    },
+    PrivacyPolicy: {
+      title: 'Privacy Policy',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Privacy policy.'
+        }
+      ]
+    },
+    Terms: {
+      title: 'Terms',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Terms of use.'
+        }
+      ]
     }
   }
 };
