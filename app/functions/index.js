@@ -49,6 +49,7 @@ exports.addDeliveryProfileOnCreate = functions.firestore
     htmlMsg = `New delivery profile was added for ${profile.firstname} ${profile.lastname}<br>
 Link to profile: not available yet<br>
 Email: ${profile.email}<br>
+Phone: ${profile.phone}<br>
 ${profile.address1}<br>`
     if (profile.address2) { htmlMsg += `${profile.address2}<br>`;}
     htmlMsg += `${profile.city}, ${profile.state} ${profile.zip}<br><br>
@@ -61,6 +62,7 @@ Notes: ${profile.notes}<br>`
     textMsg = `New delivery profile was added for ${profile.firstname} ${profile.lastname}\n
 Link to profile: not available yet\n
 Email: ${profile.email}\n
+Phone: ${profile.phone}\n
 ${profile.address1}\n
 ${profile.address2}\n
 ${profile.city}, ${profile.state} ${profile.zip}\n
