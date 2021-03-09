@@ -1,6 +1,8 @@
 <template>
   <div>
-    <ForgotPasswordForm :showSuccess="showSuccess"/>
+    <ForgotPasswordForm :showSuccess="showSuccess" :successMessage="successMessage"
+    @clicked="onFormSubmit"
+    />
 
   </div>
 </template>
@@ -16,12 +18,15 @@ export default {
   data() {
     return {
       showSuccess: false,
+      successMessage: ""
+    }
+  },
+  methods: {
+    onFormSubmit(email) {
+       console.log('forgot ', email);
     }
   }
-
-
 }
 </script>
-
 
 <style></style>
