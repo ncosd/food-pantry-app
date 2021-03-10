@@ -4,6 +4,7 @@
     <v-card-subtitle>Enter your email address and a link to reset your password will be emailed to you.</v-card-subtitle>
     <v-card-text>
       <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
+      <v-alert v-if="showError" type="error">{{errorMessage}}</v-alert>
       <v-form v-model="valid" @submit.prevent="submit">
         <v-text-field v-model="email" :rules="[rules.required, rules.emailRule]" label="Email" autocomplete="username"></v-text-field>
 
@@ -22,6 +23,9 @@ export default {
   name: 'ForgotPasswordForm',
   props: [
     "showSuccess",
+    "successMessage",
+    "showError",
+    "errorMessage",
   ],
   data() {
     return {
