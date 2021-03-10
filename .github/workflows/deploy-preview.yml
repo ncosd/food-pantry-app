@@ -2,7 +2,10 @@ name: Deploy PR preview
 
 on:
   pull_request:
-    - "app/**"
+    branches:
+      - main
+    paths:
+      - "app/**"
 
 jobs:
   build_and_preview:
