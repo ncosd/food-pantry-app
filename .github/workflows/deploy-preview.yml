@@ -20,3 +20,4 @@ jobs:
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
           expires: 5d
           projectId: "${{ secrets.FIREBASE_PROJECT_ID }}"
+          entryPoint: "./app"
