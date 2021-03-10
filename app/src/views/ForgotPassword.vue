@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app';
+import 'firebase/functions';
 import ForgotPasswordForm from '@/components/ForgotPasswordForm';
 
 export default {
@@ -24,6 +26,12 @@ export default {
   methods: {
     onFormSubmit(email) {
        console.log('forgot ', email);
+       var resetMsg = firebase.functions().httpsCallable('passwordReset');
+       resetMsg({email: email}).then((result) => {
+          console.log(result);
+       }).catch((error)=>{
+          console.log(error);
+       });
     }
   }
 }

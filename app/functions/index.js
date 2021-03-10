@@ -42,8 +42,6 @@ exports.addDeliveryProfileOnCreate = functions.firestore
     };
 
     db.collection("deliveryprofilestate").doc(context.params.userId).set(profileState);
-
-    console.log('profile', profile);
     subject = `New Delivery Profile ${profile.firstname}  ${profile.lastname}`;
 
     htmlMsg = `New delivery profile was added for ${profile.firstname} ${profile.lastname}<br>
@@ -90,5 +88,18 @@ Notes: ${profile.notes}`
         console.log(error.response.body);
       }
     });
+
+});
+
+// Send the forgot password reset email
+exports.passwordReset = functions.https.onCall((data, context) => {
+  const email = data.email;
+  admin.auth().generatePasswordResetLink(email).then((link) => {
+    // console.log('resetlink ',link);
+    return { text: 'Password reset email was sent.'};
+  }).catch((error) => {
+    console.log(error);
+    return { text: 'Password reset email was sent.'};
+  });
 
 });

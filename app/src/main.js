@@ -5,6 +5,7 @@ import '@babel/polyfill'
 import router from './router'
 import firebase from 'firebase/app';
 import 'firebase/analytics';
+import 'firebase/functions';
 import store from "./store";
 
 
@@ -23,6 +24,7 @@ fetch('/__/firebase/init.json').then(async response => {
       ssl: false
     });
     firebase.auth().useEmulator('http://localhost:9099/');
+    firebase.functions().useFunctionsEmulator("http://localhost:5001");
   }
 
   firebase.auth().onAuthStateChanged(user => {
