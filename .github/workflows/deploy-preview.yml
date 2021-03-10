@@ -1,0 +1,19 @@
+name: Deploy PR preview
+
+on:
+  pull_request:
+    - "app/**"
+
+jobs:
+  build_and_preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          cd app && npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          expires: 5d
+          projectId: "${{ secrets.FIREBASE_PROJECT_ID }}"
