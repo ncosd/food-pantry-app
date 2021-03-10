@@ -31,7 +31,6 @@ fetch('/__/firebase/init.json').then(async response => {
     store.dispatch("fetchUser", user);
   });
 
-
   Vue.config.productionTip = false
 
   Vue.prototype.$analytics = firebase.analytics();
