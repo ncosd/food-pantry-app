@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 export default {
   name: 'App',
 
@@ -24,5 +27,18 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    signOut() {
+      firebase.auth().signOut().then( () => {
+        // router replace
+      });
+    }
+  }
 };
 </script>
+
+<style>
+.no-uppercase {
+  text-transform: none !important;
+}
+</style>
