@@ -1,13 +1,13 @@
 # Food Pantry App
 Web application for Food Pantries.
 
-The Food Pantry application is designed to:
+The Food Pantry application is designed to some of the things below.  The full roadmap is at the link below:
 
-* [x] Customers and Volunteers can register with the application
-* [ ] Customers can apply to be on the delivery list
+* [X] Customers and Volunteers can register with the application
+* [X] Customers can apply to be on the delivery list
 * [ ] Volunteers can apply for specific days/hours they would like to volunteer
-* [ ] Admins can maintain hours the pantry is open/available
 * [ ] Admins can maintain the list of volunteers that will attend on specific dates
+* [ ] Admins can maintain the list of deliveries that will be made on delivery days
 * [ ] Admins can maintain an inventory of what is available and amounts of items.
 
 ## Project Roadmap
@@ -24,12 +24,11 @@ To run the project locally, clone this repo and then go into the `app` directory
 >
 >     firebase login
 >     firebase use _projectid_
->
-> Then copy your `firebase-config.js` from the web console and save it to `src/firebase-config.js`.
+
 
 Use these command for developing locally:
 
-    npm run serve:firebase:emulator  # leave this running in one terminal
+    npm run serve:firebase:emulator   # leave this running in one terminal
     npm run build:watch               # leave this running in another terminal
 
 Running these two commands will run the emulators in one terminal, and the vue-cli-service in the other.  The vue service will not do hot-reloading, it will rebuild to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work.
