@@ -28,6 +28,29 @@ exports.addUserRoleOnCreate = functions.auth.user().onCreate(async (authUser) =>
   }
 });
 
+// Admins can change users roles.
+exports.setRole = functions.https.onCall(async (data, context) => {
+
+  // Check the calling user has the admin custom claim
+  if (!context.auth.token.admin) return;
+
+  admin
+    .auth().setCustomUserClaims(data.uid, { admin: true }).then(function() {
+
+
+      db.collection("roles".doc(data.uid).set({ role: { admin: true} }).catch( (error) => {
+        console.log("Error setting admin role for user.", error);
+      });
+
+      response.end(JSON.stringify({
+        status: 'success'
+      }));
+    });
+
+});
+
+
+
 // When a deliveryProfile is first created, set status to in-review.
 exports.addDeliveryProfileOnCreate = functions.firestore
   .document('deliveryprofile/{userId}')
