@@ -38,7 +38,7 @@ exports.setRole = functions.https.onCall(async (data, context) => {
     .auth().setCustomUserClaims(data.uid, { admin: true }).then(function() {
 
 
-      db.collection("roles".doc(data.uid).set({ role: { admin: true} }).catch( (error) => {
+      db.collection("roles").doc(data.uid).set({ role: { admin: true} }).catch( (error) => {
         console.log("Error setting admin role for user.", error);
       });
 

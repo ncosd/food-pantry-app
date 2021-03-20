@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "core-js": "^3.8.1",
-    "firebase": "^8.2.1",
-    "firebase-admin": "^9.4.2",
+    "core-js": "^3.6.5",
+    "firebase": "^8.3.1",
+    "firebase-admin": "^9.5.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.9",
-    "vuetify": "^2.3.21",
-    "vuex": "^3.6.0"
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.4.7",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.1.20",
@@ -38,7 +38,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "firebase-tools": "^9.1.2",
+    "firebase-tools": "^9.6.1",
     "npm-run-all": "^4.1.5",
     "sass-loader": "^10.1.1",
     "vue-cli-plugin-i18n": "^1.0.1",

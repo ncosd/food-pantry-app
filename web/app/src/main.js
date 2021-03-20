@@ -8,13 +8,11 @@ import 'firebase/analytics';
 import 'firebase/functions';
 import store from "./store";
 
-
 fetch('/__/firebase/init.json').then(async response => {
   const config = await response.json();
   console.log('response.json='+ JSON.stringify(config));
   firebase.initializeApp(config);
   firebase.analytics();
-
 
   const db = firebase.firestore();
   if (window.location.hostname == "localhost") {

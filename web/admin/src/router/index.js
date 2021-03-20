@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '@/views/Login.vue'
+import firebase from 'firebase'
 
 import { config } from '@/config'
 
@@ -13,6 +15,12 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: config.meta.Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: config.meta.Login
   },
 ]
 
@@ -56,6 +64,20 @@ router.beforeEach((to, from, next) => {
   })
   // Add the meta tags to the document head.
   .forEach(tag => document.head.appendChild(tag));
+
+  // firebase routing
+  firebase.auth().onAuthStateChanged(userAuth=> {
+    if (userAuth) {
+      firebase.auth().currentUser.getIdTokenResult()
+        .then(function ({
+          claims
+        }) {
+          if (!claims.admin) {
+            return next({ path: '/login' })
+          }
+        })
+    }
+  });
 
   next();
 });

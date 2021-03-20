@@ -12,8 +12,16 @@ this.config = {
           content: 'Admin Home'
         }
       ]
-    }
+    },
+    Login: {
+      title: 'Login',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Login'
+        }
+      ]
+    },
+
   }
-
-
 };

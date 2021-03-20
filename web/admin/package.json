@@ -5,15 +5,19 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:watch": "vue-cli-service build --mode development --watch --no-clean",
+    "serve:firebase": "firebase serve",
+    "serve:firebase:emulator": "firebase emulators:start --import=./fixtures"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "firebase": "^8.3.0",
+    "firebase": "^8.3.1",
     "firebase-admin": "^9.5.0",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.7",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -22,6 +26,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "firebase-tools": "^9.6.1",
     "sass": "^1.32.0",
     "sass-loader": "^10.1.1",
     "vue-cli-plugin-vuetify": "~2.2.2",
