@@ -1,7 +1,7 @@
 # Food Pantry App
 Web application for Food Pantries.
 
-The Food Pantry application is designed to some of the things below.  The full roadmap is at the link below:
+The Food Pantry Application is designed to help run day to day operations.  The highest priority items are these below, and you can see the full roadmap at the project link.  If there is something you need added, please create a new issue.
 
 * [X] Customers and Volunteers can register with the application
 * [X] Customers can apply to be on the delivery list
@@ -14,20 +14,39 @@ The Food Pantry application is designed to some of the things below.  The full r
 The project uses Github projects for its roadmap, you can find it here: https://github.com/ncosd/food-pantry-app/projects/1
 
 ## Developing
-This project uses firebase and Vue.js.  It does not have a firebase project configured.  To run this you will need to use the firebase emulators locally.
+This project uses firebase and Vue.js.  The project can be configured with information stored in local files which are not stored in github, and then you can deploy it to your own firebase project.  Because firebase functions are used, the Blaze plan is needed.  However, to develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.
 
 You can run this project locally against the firebase emulators.  You can see how to install and configure the firebase emulators here https://firebase.google.com/docs/emulator-suite/install_and_configure.
-
-To run the project locally, clone this repo and then go into the `app` directory:
 
 > The first time you need to login to firebase and configure this project to use your application.
 >
 >     firebase login
 >     firebase use _projectid_
 
+After login and configuring a project (on the spark plan) clone the repo:
+
+    git clone git@github.com:ncosd/food-pantry-app.git
+    cd web/functions && npm install
+    cd ../admin npm install
+    cd ../app; npm install
+
+> Also the first time you'll need to configure the functions for local development.  The emulator expects a json file named .runtimeconfig.json
+>    cd web/functions
+>    # create a file named .runtimeconfig.json
+>    {
+>       "sendgrid": {
+>          "key": "",
+>          "from": ""
+>       },
+>       "delivery": {
+>         "to": "",
+>         "bcc": ""
+>       }
+>    }
 
 Use these command for developing locally:
 
+    # you should be in the web/app directory
     npm run serve:firebase:emulator   # leave this running in one terminal
     npm run build:watch               # leave this running in another terminal
 
@@ -46,10 +65,7 @@ VUE_APP_ORGANIZATION_NAME = 'org name' # this is your organization name.
 VUE_APP_PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
 ```
 
-3. Create a firebase project with hosting, firestore, and functions.  Get the config.js file and save it to:
-
-    file: app/src/firebase-config.js
-
+3. Create a firebase project with hosting, firestore, and functions.  You will need to configure the functions similar to the json file above.
 4. Build the vue project:
 
 > *NOTE*
