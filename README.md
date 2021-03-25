@@ -44,7 +44,7 @@ After login and configuring a project (on the spark plan) clone the repo:
 >       }
 >    }
 
-Use these command for developing locally:
+Use these commands for developing locally:
 
     # you should be in the web/app directory
     npm run serve:firebase:emulator   # leave this running in one terminal
