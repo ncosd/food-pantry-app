@@ -7,12 +7,13 @@ service cloud.firestore {
 
     match /needed/{docId} {
       allow read;
+      allow write: if request.auth.token.admin == true;
     }
 
-    match /users/{userId} {
+    match /user/{userId} {
       allow read: if request.auth != null && request.auth.uid == userId;
       allow update: if request.auth != null && request.auth.uid == userId;
-      allow create: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == userId;
     }
 
     match /delivery/{userId} {
@@ -21,7 +22,7 @@ service cloud.firestore {
     }
 
     match /deliveryprofile/{userid} {
-      allow read, update: if request.auth != null && request.auth.uid == resource.data.userid;
+      allow read, update: if request.auth != null && request.auth.uid == resource.data.userid || request.auth.token.admin == true;
       allow create: if request.auth != null && request.auth.uid == userid;
     }
 

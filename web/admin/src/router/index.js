@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
+import DeliveryApplications from '@/views/DeliveryApplications.vue'
 import firebase from 'firebase'
 
 import { config } from '@/config'
@@ -21,6 +22,12 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: config.meta.Login
+  },
+  {
+    path: '/delivery-applications',
+    name: 'DeliveryApplications',
+    component: DeliveryApplications,
+    meta: config.meta.DeliveryApplications
   },
 ]
 
