@@ -22,6 +22,14 @@ this.config = {
         }
       ]
     },
-
+    DeliveryApplications: {
+      title: 'Delivery Applications',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Delivery Applications'
+        }
+      ]
+    }
   }
 };
