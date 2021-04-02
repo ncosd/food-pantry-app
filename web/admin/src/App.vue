@@ -8,23 +8,20 @@
       <v-list nav dense>
           <v-list-item>
             <v-badge color="pink" dot>
-              <v-list-item-title>Delivery Applicants</v-list-item-title>
+              <v-list-item-title><v-btn text plain to="/delivery-applicants">Delivery Applicants</v-btn></v-list-item-title>
             </v-badge>
-
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>Delivery Schedule</v-list-item-title>
+            <v-list-item-title><v-btn text plain to="/delivery-schedule">Delivery Schedule</v-btn></v-list-item-title>
           </v-list-item>
           <v-list-item>
             <v-badge color="blue" dot>
-            <v-list-item-title>Volunteer Applicants</v-list-item-title>
+            <v-list-item-title><v-btn text plain to="/volunteer-applicants">Volunteer Applicants</v-btn></v-list-item-title>
             </v-badge>
-
           </v-list-item>
           <v-list-item>
-            <v-list-item-title>Volunteer Schedule</v-list-item-title>
+            <v-list-item-title><v-btn text plain to="/volunteer-schedule">Volunteer Schedule</v-btn></v-list-item-title>
           </v-list-item>
-
       </v-list>
     </v-navigation-drawer>
 
@@ -53,8 +50,7 @@ export default {
   },
 
   data: () => ({
-    drawer: false,
-    group: null,
+    drawer: null,
   }),
   methods: {
     signOut() {
@@ -62,11 +58,6 @@ export default {
         // router replace
       });
     }
-  },
-  watch: {
-    group() {
-      this.drawer = false
-    },
   },
 };
 </script>
