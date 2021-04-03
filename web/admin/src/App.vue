@@ -8,7 +8,7 @@
       <v-list nav dense>
           <v-list-item>
             <v-badge color="pink" dot>
-              <v-list-item-title><v-btn text plain to="/delivery-applicants">Delivery Applicants</v-btn></v-list-item-title>
+              <v-list-item-title><v-btn text plain to="/delivery-applications">Delivery Applications</v-btn></v-list-item-title>
             </v-badge>
           </v-list-item>
           <v-list-item>

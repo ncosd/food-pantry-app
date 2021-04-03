@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import DeliveryApplications from '@/views/DeliveryApplications.vue'
+import NotFound from '@/components/NotFound.vue'
 import firebase from 'firebase'
 
 import { config } from '@/config'
@@ -28,6 +29,12 @@ const routes = [
     name: 'DeliveryApplications',
     component: DeliveryApplications,
     meta: config.meta.DeliveryApplications
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: NotFound,
+    meta: config.meta.NotFound
   },
 ]
 
