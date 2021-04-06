@@ -31,36 +31,45 @@ export default {
           num_1017: '1',
           num_1859: '1',
           num_60: '0',
+          created: '2021-03-09',
+          status: 'in-review',
+          updated: '2021-03-09',
         },
         {
           firstname: 'Two',
-          lastname: 'last',
+          lastname: 'Last2',
           userid: '1',
           address1: '101 Sabine Ave',
           address2: 'address2',
-          city: 'narberth',
+          city: 'Ardmore',
           state: 'pa',
-          zip: '19072',
+          zip: '19004',
           phone: '610-555-1112',
           num_10: '1',
           num_1017: '1',
           num_1859: '1',
           num_60: '0',
+          created: '2021-03-09',
+          status: 'in-review',
+          updated: '2021-03-09',
         },
         {
           firstname: 'three',
-          lastname: 'last',
+          lastname: 'last3',
           userid: '1',
           address1: '201 Sabine Ave',
           address2: 'address2',
-          city: 'narberth',
+          city: 'Bryn Mawr',
           state: 'pa',
-          zip: '19072',
+          zip: '19010',
           phone: '610-555-1113',
           num_10: '1',
           num_1017: '1',
           num_1859: '1',
           num_60: '0',
+          created: '2021-03-09',
+          status: 'in-review',
+          updated: '2021-03-09',
         },
         {
           firstname: 'four',
@@ -76,6 +85,9 @@ export default {
           num_1017: '1',
           num_1859: '1',
           num_60: '0',
+          created: '2021-03-09',
+          status: 'in-review',
+          updated: '2021-03-09',
         },
         {
           firstname: 'five',
@@ -91,11 +103,10 @@ export default {
           num_1017: '1',
           num_1859: '1',
           num_60: '0',
+          created: '2021-03-09',
+          status: 'in-review',
+          updated: '2021-03-09',
         }
-
-
-
-
       ]
     }
   }
