@@ -14,8 +14,23 @@ The Food Pantry Application is designed to help run day to day operations.  The 
 The project uses Github projects for its roadmap, you can find it here: https://github.com/ncosd/food-pantry-app/projects/1
 
 ## Developing
-This project uses firebase and Vue.js.  The project can be configured with information stored in local files which are not stored in github, and then you can deploy it to your own firebase project.  Because firebase functions are used, the Blaze plan is needed.  However, to develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.
+Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
 
+This project uses firebase and Vue.js.  The project can be configured with information stored in local files which are not stored in github, and then you can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
+
+### Prerequisites
+1. You should have node and npm installed.  If you do not have npm [look here to install npm](https://www.npmjs.com/get-npm).
+1. You will need the firebase cli.  You can install it using npm.
+```shell
+npm install -g firebase-tools
+```
+1. You will need the [Vue cli](https://cli.vuejs.org)
+1. You will need to create a free firebase application at https://console.firebase.google.com/
+   1. Click Add Project, give it a name and follow the defaults.
+   1. Click Authentication, and turn on authentication, enable the "email and password" option.
+   1. Click Firestore and create a database, the default options should work.
+
+### Setup
 You can run this project locally against the firebase emulators.  You can see how to install and configure the firebase emulators here https://firebase.google.com/docs/emulator-suite/install_and_configure.
 
 > The first time you need to login to firebase and configure this project to use your application.
