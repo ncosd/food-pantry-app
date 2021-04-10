@@ -26,6 +26,10 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == userid;
     }
 
+    match /deliveryprofile {
+      allow read: if request.auth.token.admin == true;
+    }
+
     match /deliveryprofilestate/{userid} {
       allow read: if request.auth != null && request.auth.uid == userid;
     }
