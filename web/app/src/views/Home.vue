@@ -19,6 +19,8 @@
       </template>
     </v-card>
 
+    <DeliveryExplainer></DeliveryExplainer>
+
     <NeededListCard v-bind:neededList="neededList"></NeededListCard>
 
   </div>
@@ -31,11 +33,13 @@ import { mapGetters } from 'vuex';
 import { config } from '@/config';
 
 import NeededListCard from '@/components/NeededListCard';
+import DeliveryExplainer from '@/components/DeliveryExplainer';
 
 export default {
   name: 'Home',
   components: {
-    NeededListCard
+    NeededListCard,
+    DeliveryExplainer
   },
   computed: {
     ...mapGetters({
