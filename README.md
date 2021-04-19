@@ -5,9 +5,9 @@ The Food Pantry Application is designed to help run day to day operations.  The 
 
 * [X] Customers and Volunteers can register with the application
 * [X] Customers can apply to be on the delivery list
+* [ ] Admins can maintain the list of deliveries that will be made on delivery days
 * [ ] Volunteers can apply for specific days/hours they would like to volunteer
 * [ ] Admins can maintain the list of volunteers that will attend on specific dates
-* [ ] Admins can maintain the list of deliveries that will be made on delivery days
 * [ ] Admins can maintain an inventory of what is available and amounts of items.
 
 ## Project Roadmap
