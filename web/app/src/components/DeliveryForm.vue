@@ -33,16 +33,16 @@
                 <v-text-field v-model="profile.zip" label="Zip" autocomplete="zip"
                   :rules="[rules.required,rules.deliveryArea]"
                 ></v-text-field>
-                <v-text-field v-model="profile.num_60" label="Number in houshold age 60+"
+                <v-text-field v-model="profile.num_60" label="Number in household age 60+"
                   :rules="[rules.required, rules.number]"
                 ></v-text-field>
-                <v-text-field v-model="profile.num_1859" label="Number in houshold age 18-59"
+                <v-text-field v-model="profile.num_1859" label="Number in household age 18-59"
                   :rules="[rules.required, rules.number]"
                 ></v-text-field>
-                <v-text-field v-model="profile.num_1017" label="Number in houshold age 10-17"
+                <v-text-field v-model="profile.num_1017" label="Number in household age 10-17"
                   :rules="[rules.required, rules.number]"
                 ></v-text-field>
-                <v-text-field v-model="profile.num_10" label="Number in houshold under age 10"
+                <v-text-field v-model="profile.num_10" label="Number in household under age 10"
                   :rules="[rules.required, rules.number]"
                 ></v-text-field>
                 <v-textarea v-model="profile.notes" label="Dietary restrictions or notes."></v-textarea>
@@ -54,7 +54,9 @@
                 </v-form>
               </template>
               <template v-else>
-                <div>You must be logged in.</div>
+                <div><p><v-btn to="/login">Sign In</v-btn> to create an application.</p>
+                <p><v-btn to="/register">Join</v-btn> if you do not have an account.</p>
+                </div>
               </template>
            </v-card-text>
    </v-card>
