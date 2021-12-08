@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
-import '@babel/polyfill'
+//import '@babel/polyfill'
 import router from './router'
-import firebase from 'firebase/app';
-import 'firebase/analytics';
-import 'firebase/functions';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/analytics';
+import 'firebase/compat/functions';
 import store from "./store";
 
 fetch('/__/firebase/init.json').then(async response => {

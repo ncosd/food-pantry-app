@@ -21,24 +21,20 @@
 
     <DeliveryExplainer></DeliveryExplainer>
 
-    <NeededListCard v-bind:neededList="neededList"></NeededListCard>
-
   </div>
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+//import firebase from 'firebase/compat/app';
+//import 'firebase/compat/firestore';
 import { mapGetters } from 'vuex';
 import { config } from '@/config';
 
-import NeededListCard from '@/components/NeededListCard';
 import DeliveryExplainer from '@/components/DeliveryExplainer';
 
 export default {
   name: 'Home',
   components: {
-    NeededListCard,
     DeliveryExplainer
   },
   computed: {
@@ -53,18 +49,6 @@ export default {
     }
   },
   created() {
-    const db = firebase.firestore();
-    db.collection('needed').doc('latest').get().then( (docRef) => {
-      if (docRef && docRef.data()) {
-        this.neededList = docRef.data().text;
-      } else {
-        this.neededList = "needed.latest is not in firestore";
-        console.log("needed.latest is not in firestore");
-      }
-    }).catch(err => {
-      console.log(err);
-      this.neededList = 'Something is wrong, please try again.';
-    });
   }
 }
 </script>

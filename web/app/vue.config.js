@@ -6,5 +6,8 @@ module.exports = {
       localeDir: 'assets/locales',
       enableInSFC: true
     }
-  }
+  },
+  transpileDependencies: [
+    'vuetify'
+  ]
 }

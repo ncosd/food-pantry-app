@@ -1,33 +1,24 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /roles/{uid} {
-      allow read, write: if request.auth.token.admin == true;
-    }
-
     match /needed/{docId} {
       allow read;
-      allow write: if request.auth.token.admin == true;
     }
 
-    match /user/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow update: if request.auth != null && request.auth.uid == userId;
-      allow create: if request.auth != null && request.auth.uid == userId;
+    match /users/{userId} {
+    allow read: if request.auth != null && request.auth.uid == userId;
+    allow update: if request.auth != null && request.auth.uid == userId;
+    allow create: if request.auth != null;
     }
 
     match /delivery/{userId} {
-      allow read: if request.auth.token.admin == true;
-      allow write: if request.auth.token.admin == true;
+    allow read: if request.auth.token.admin == true;
+    allow write: if request.auth.token.admin == true;
     }
 
     match /deliveryprofile/{userid} {
-      allow read, update: if request.auth != null && request.auth.uid == resource.data.userid || request.auth.token.admin == true;
+      allow read, update: if request.auth != null && request.auth.uid == resource.data.userid;
       allow create: if request.auth != null && request.auth.uid == userid;
-    }
-
-    match /deliveryprofile {
-      allow read: if request.auth.token.admin == true;
     }
 
     match /deliveryprofilestate/{userid} {
