@@ -45,18 +45,22 @@
   ],
   "emulators": {
     "functions": {
+      "host": "127.0.0.1",
       "port": 5001
     },
     "firestore": {
+      "host": "127.0.0.1",
       "port": 8080
     },
     "ui": {
       "enabled": true
     },
     "auth": {
+      "host": "127.0.0.1",
       "port": 9099
     },
     "hosting": {
+      "host": "127.0.0.1",
       "port": 5000
     }
   }

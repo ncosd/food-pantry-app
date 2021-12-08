@@ -11,8 +11,8 @@
 <script>
 import AppNavigation from '@/components/AppNavigation'
 import Footer from '@/components/Footer'
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
 
 export default {
   name: 'App',
