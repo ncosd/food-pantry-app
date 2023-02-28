@@ -24,7 +24,6 @@ This project uses firebase and Vue.js.  The project can be configured with infor
 ```shell
 npm install -g firebase-tools
 ```
-1. You will need the [Vue cli](https://cli.vuejs.org)
 1. You will need to create a free firebase application at https://console.firebase.google.com/
    1. Click Add Project, give it a name and follow the defaults.
    1. Click Authentication, and turn on authentication, enable the "email and password" option.

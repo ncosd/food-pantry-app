@@ -22,15 +22,12 @@
 <script>
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { mapGetters } from 'vuex';
-import { config } from '@/config';
+import { config } from '../config';
 
 export default {
   name: 'AppNavigation',
   computed: {
-    ...mapGetters({
-    user: "user"
-    })
+
   },
   data: ()=> ({
     config: config
@@ -43,7 +40,7 @@ export default {
       });
    }
   }
-};
+}
 </script>
 
 <style scoped>

@@ -25,12 +25,8 @@
 </template>
 
 <script>
-//import firebase from 'firebase/compat/app';
-//import 'firebase/compat/firestore';
-import { mapGetters } from 'vuex';
 import { config } from '@/config';
-
-import DeliveryExplainer from '@/components/DeliveryExplainer';
+import DeliveryExplainer from '@/components/DeliveryExplainer.vue';
 
 export default {
   name: 'Home',
@@ -38,9 +34,7 @@ export default {
     DeliveryExplainer
   },
   computed: {
-    ...mapGetters({
-    user: "user"
-    })
+
   },
   data() {
     return {

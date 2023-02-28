@@ -1,11 +1,11 @@
-this.config = {
-  appNavName: process.env.VUE_APP_APP_NAV_NAME || 'APP_NAV_NAME',
-  OrganizationName: process.env.VUE_APP_ORGANIZATION_NAME || 'ORGANIZATION_NAME',
-  ProjectLongName: process.env.VUE_APP_PROJECT_LONG_NAME || 'PROJECT_LONG_NAME',
-  DeliveryAreaNames: process.env.VUE_APP_DELIVERY_AREA_NAMES || "",
-  DeliveryZipcodes: [19003,19010,19041,19072,19096,19004,19035,19066,19085,19428],
-  DeliveryOutsideAreaUrl: process.env.VUE_APP_DELIVERY_OUTSIDE_AREA_URL || "",
-  DeliveryMessage: process.env.VUE_APP_DELIVERY_MESSAGE || "",
+export let config = {
+  appNavName: import.meta.env.VITE_APP_NAV_NAME || 'APP_NAV_NAME',
+  OrganizationName: import.meta.env.VITE_ORGANIZATION_NAME || 'ORGANIZATION_NAME',
+  ProjectLongName: import.meta.env.VITE_PROJECT_LONG_NAME || 'PROJECT_LONG_NAME',
+  DeliveryAreaNames: import.meta.env.VITE_DELIVERY_AREA_NAMES || "",
+  DeliveryZipcodes: import.meta.env.VITE_DELIVERY_ZIPCODES || [19003,19010,19041,19072,19096,19004,19035,19066,19085,19428],
+  DeliveryOutsideAreaUrl: import.meta.env.VITE_DELIVERY_OUTSIDE_AREA_URL || "",
+  DeliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || "",
 
   meta: {
     Home: {
@@ -82,4 +82,4 @@ this.config = {
     }
 
   }
-};
+}

@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import AppNavigation from '@/components/AppNavigation'
-import Footer from '@/components/Footer'
+import AppNavigation from './components/AppNavigation.vue'
+import Footer from './components/Footer.vue'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
