@@ -11,7 +11,7 @@ The Food Pantry Application is designed to help run day to day operations.  The 
 * [ ] Admins can maintain an inventory of what is available and amounts of items.
 
 ## Project Roadmap
-The project uses Github projects for its roadmap, you can find it here: https://github.com/ncosd/food-pantry-app/projects/1
+The project uses Github projects for its roadmap, you can find it here: https://github.com/orgs/ncosd/projects/2
 
 ## Developing
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
@@ -19,7 +19,7 @@ Pull requests are welcome, and will be reviewed.   If you are new to open source
 This project uses firebase and Vue.js.  The project can be configured with information stored in local files which are not stored in github, and then you can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
 
 ### Prerequisites
-1. You should have node and npm installed.  If you do not have npm [look here to install npm](https://www.npmjs.com/get-npm).
+1. You should have node and npm installed.  If you do not have npm [look here to install npm](https://www.npmjs.com/get-npm).  Firebase is a dependency in the project.
 1. You will need the firebase cli.  You can install it using npm.
 ```shell
 npm install -g firebase-tools
