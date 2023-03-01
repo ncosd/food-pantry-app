@@ -1,16 +1,14 @@
 <template>
-  <v-app>
-    <v-main>
+  <div>
       <app-navigation></app-navigation>
       <router-view></router-view>
-      <Footer></Footer>
-     </v-main>
-  </v-app>
+      <PageFooter></PageFooter>
+  </div>
 </template>
 
 <script>
-import AppNavigation from './components/AppNavigation.vue'
-import Footer from './components/Footer.vue'
+import AppNavigation from '@/components/AppNavigation.vue'
+import PageFooter from '@/components/PageFooter.vue'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 
@@ -18,7 +16,7 @@ export default {
   name: 'App',
   components: {
     AppNavigation,
-    Footer
+    PageFooter
   },
   methods: {
     signOut() {

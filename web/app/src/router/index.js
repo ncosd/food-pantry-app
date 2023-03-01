@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
-import Register from '@/views/Register.vue'
+import HomePage from '@/views/HomePage.vue'
+import LoginPage from '@/views/LoginPage.vue'
+import RegisterPage from '@/views/RegisterPage.vue'
 import { config } from '@/config'
 
 Vue.use(VueRouter)
@@ -11,19 +11,19 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: HomePage,
     meta: config.meta.Home
   },
   {
     path: '/login',
     name: 'login',
-    component: Login,
+    component: LoginPage,
     meta: config.meta.Login
   },
   {
     path: '/register',
     name: 'register',
-    component: Register,
+    component: RegisterPage,
     meta: config.meta.Register
   },
   {
@@ -32,32 +32,32 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import('../views/AboutPage.vue'),
     meta: config.meta.About
 
   },
   {
     path: '/delivery-form',
     name: 'DeliveryForm',
-    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/DeliveryForm.vue'),
+    component: () => import('../views/DeliveryForm.vue'),
     meta: config.meta.DeliveryForm
   },
   {
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
-    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/PrivacyPolicy.vue'),
+    component: () => import('../views/PrivacyPolicy.vue'),
     meta: config.meta.PrivacyPolicy
   },
   {
     path: '/terms',
     name: 'Terms',
-    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/Terms.vue'),
+    component: () => import('../views/TermsPage.vue'),
     meta: config.meta.Terms
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: () => import(/* webpackChunkName: "delivery-form" */ '../views/ForgotPassword.vue'),
+    component: () => import('../views/ForgotPassword.vue'),
     meta: config.meta.ForgotPassword
   }
 ]

@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import { config } from '../config';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import { config } from '@/config'
 
 export default {
   name: 'AppNavigation',

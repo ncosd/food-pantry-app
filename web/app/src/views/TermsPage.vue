@@ -18,7 +18,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 
 export default {
-  name: 'Terms',
+  name: 'TermsPage',
   data() {
     return {
       termHtml: ""

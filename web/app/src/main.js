@@ -10,6 +10,10 @@ import 'firebase/compat/analytics';
 import 'firebase/compat/functions';
 import store from "@/store";
 
+import './scss/styles.scss'
+import * as bootstrap from 'bootstrap'
+
+
 fetch('/__/firebase/init.json').then(async response => {
   await response;
   if (response.ok) {
