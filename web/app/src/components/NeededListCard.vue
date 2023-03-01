@@ -1,10 +1,11 @@
 <template>
-<v-card elevation="2" max-width="90%" class="mx-auto my-12">
-  <v-card-title>Items we need</v-card-title>
-  <v-card-text v-html="neededList">
-  {{neededList}}
-  </v-card-text>
-</v-card>
+<div class="card">
+  <div class="card-body">
+    <h5>Items we need</h5>
+    <div class="card-text">
+      {{ neededList }}
+    </div>
+  </div>
 </template>
 
 <script>

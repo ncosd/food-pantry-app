@@ -1,21 +1,19 @@
 <template>
-  <v-card text>
-    <v-card-title>Forgot Password</v-card-title>
-    <v-card-subtitle>Enter your email address and a link to reset your password will be emailed to you.</v-card-subtitle>
-    <v-card-text>
-      <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
-      <v-alert v-if="showError" type="error">{{errorMessage}}</v-alert>
-      <v-form v-model="valid" @submit.prevent="submit">
-        <v-text-field v-model="email" :rules="[rules.required, rules.emailRule]" label="Email" autocomplete="username"></v-text-field>
-
-        <v-btn type="submit" color="success" class="mr-4" :disabled="!valid">Submit</v-btn>
-
-      </v-form>
-
-
-    </v-card-text>
-
-  </v-card>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Forgot Password</h5>
+    <h6 class="card-subtitle">Enter your email address and a link to reset your password will be emailed to you.</h6>
+    <div class="card-text">
+      <p class="text-bg-success" v-if="showSuccess">{{successMessage}}</p>
+      <p class="text-bg-danger" v-if="showError">{{errorMessage}}</p>
+      <form v-model="valid" @submit.prevent="submit">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" v-model="email" :rules="[rules.required, rules.emailRule]" autocomplete="username" placeholder="email">
+        <button class="btn btn-primary" type="submit" :disabled="!valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>

@@ -17,7 +17,7 @@
               ></v-text-field>
 
               <v-btn type="submit" color="success" class="mr-4" :disabled="!valid">Submit</v-btn>
-              <v-btn text to="/forgot-password">Forgot Password?</v-btn>
+              <a href="/forgot-password">Forgot Password?</a>
               </v-form>
            </div>
         </div>
