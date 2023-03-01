@@ -12,6 +12,7 @@ import store from "@/store";
 
 import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
+import * as colorModes from '@/color-modes'
 
 
 fetch('/__/firebase/init.json').then(async response => {
