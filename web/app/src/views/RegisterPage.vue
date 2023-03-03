@@ -20,11 +20,11 @@
               <div>
               <label>Password</label>
               <input type="password" v-model="password" autocomplete="new-password"
-                :rules="[rules.required, rules.min]"
+
               ></input>
               </div>
 
-              <button type="submit" class="btn btn-primary" :disabled="!valid">Submit</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
               <a href="/login" class="m-3">Sign In</a>
               <a href="/forgot-password" class="m-3">Forgot Password?</a>
               </form>
@@ -46,7 +46,6 @@ export default {
       error: "",
       showSuccess: false,
       successMessage: "",
-      showPass: false,
       valid: false,
       password: '',
       email: '',
@@ -61,20 +60,42 @@ export default {
     submit() {
       this.error = "";
       this.showSuccess = false;
-      firebase.auth()
-      .createUserWithEmailAndPassword(this.email, this.password)
-      .then(data => {
-        this.showSuccess = true;
-        this.successMessage = "Account registered.";
-        data.user.updateProfile({
-          displayName: this.email
-        })
-        .then(() => { this.$router.replace({name:'Home'}); });
-      })
-      .catch(err => {
-        this.showSuccess = false;
-        this.error = err.message;
-        });
+
+      if (!this.email) {
+        this.error = "Email is required"
+      } else {
+        if (!(/.+@.+/.test(this.email))) {
+          this.error += " Invalid email address."
+        }
+      }
+
+      if (!this.password) {
+        this.error += " Password is required"
+      }
+      if (this.password && (this.password.length < 8)) {
+        this.error += " Password must be at least 8 characters"
+      }
+
+      if (!this.error) {
+        this.showSuccess = false
+        return false
+      }
+
+
+      // firebase.auth()
+      // .createUserWithEmailAndPassword(this.email, this.password)
+      // .then(data => {
+      //   this.showSuccess = true;
+      //   this.successMessage = "Account registered.";
+      //   data.user.updateProfile({
+      //     displayName: this.email
+      //   })
+      //   .then(() => { this.$router.replace({name:'Home'}); });
+      // })
+      // .catch(err => {
+      //   this.showSuccess = false;
+      //   this.error = err.message;
+      //   });
     }
   }
 }
