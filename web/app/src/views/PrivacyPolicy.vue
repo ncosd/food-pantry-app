@@ -1,14 +1,10 @@
 <template>
   <div>
     <template v-if="policyHtml == ''">
-       <v-card elevation="0" max-width="90%">
-         <v-card-text>Policy is missing, please set it in firestore.</v-card-text>
-       </v-card>
+      <p>Policy is missing, please set it in firestore.</p>
     </template>
     <template v-else>
-      <v-card elevation="0" max-width="90%">
-        <v-card-text v-html="policyHtml"></v-card-text>
-      </v-card>
+      <div v-html="policyHtml"></div>
     </template>
   </div>
 </template>

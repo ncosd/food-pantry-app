@@ -1,65 +1,113 @@
 <template>
- <v-card text>
-   <v-card-title>Delivery Application</v-card-title>
-      <v-card-subtitle v-if="deliveryAreaNames">Service area is {{deliveryAreaNames}}.</v-card-subtitle>
-         <v-card-text>
-           <template v-if="user && user.loggedIn">
-             <div v-html="deliveryMessage"></div>
-             <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
-             <v-alert v-if="error" type="error">{{error}}</v-alert>
-             <v-form v-model="valid" @submit.prevent="submit" name="x">
-               <div><label>Your Email:</label> {{user.data.email}}</div>
-               <v-text-field v-model="profile.firstname"
-                  label="First Name"
+<div>
+  <h4>Delivery Application</h4>
+  <p>Service area is {{deliveryAreaNames}}.</p>
+  <template v-if="user && user.loggedIn">
+    <div v-html="deliveryMessage"></div>
+    <template v-if="showSuccess" class="text-bg-success">{{successMessage}}</template>
+    <template v-if="error" type="error">{{error}}</template>
+    <form v-model="valid" @submit.prevent="submit" name="x">
+      <div><label>Your Email:</label> user.data.email</div>
+
+      <div>
+      <label>First Name</label>
+      <input v-model="profile.firstname"
                   autocomplete="First Name"
                   :rules="[rules.required]"
-               ></v-text-field>
-               <v-text-field v-model="profile.lastname" label="Last Name" autocomplete="Last Name"
+               ></input>
+               </div>
+
+      <div>
+      <label>Last Name</label>
+      <input v-model="profile.lastname" autocomplete="Last Name"
                   :rules="[rules.required]"
-               ></v-text-field>
-                <v-text-field v-model="profile.phone" label="Phone 610-555-1212" autocomplete="phone"
+               ></input>
+      </div>
+      <div>
+      <label>Phone</label>
+      <input v-model="profile.phone" autocomplete="phone"
                   :rules="[rules.required, rules.phone]"
-                ></v-text-field>
-                <v-text-field v-model="profile.address1" label="Street Address" autocomplete="street1"
+                ></input>
+      </div>
+
+      <div><label>Street Address</label>
+      <input v-model="profile.address1" autocomplete="street1"
                   :rules="[rules.required]"
-                ></v-text-field>
-                <v-text-field v-model="profile.address2" label="Apt/Suite" autocomplete="street2"></v-text-field>
-                <v-text-field v-model="profile.city" label="City" autocomplete="city"
+                ></input>
+      </div>
+      <div>
+      <label>Apt/Suite</label>
+      <input v-model="profile.address2" autocomplete="street2"></input>
+      </div>
+
+      <div>
+        <label>City</label>
+        <input v-model="profile.city" label="City" autocomplete="city"
                   :rules="[rules.required]"
-                ></v-text-field>
-                <v-text-field v-model="profile.state" label="State" autocomplete="state"
+                   ></input>
+      </div>
+
+      <div>
+      <label>State</label>
+      <input v-model="profile.state" label="State" autocomplete="state"
                   :rules="[rules.required, rules.state]"
-                ></v-text-field>
-                <v-text-field v-model="profile.zip" label="Zip" autocomplete="zip"
+                ></input>
+      </div>
+
+      <div>
+      <label>Zip</label>
+      <input v-model="profile.zip" label="Zip" autocomplete="zip"
                   :rules="[rules.required,rules.deliveryArea]"
-                ></v-text-field>
-                <v-text-field v-model="profile.num_60" label="Number in household age 60+"
-                  :rules="[rules.required, rules.number]"
-                ></v-text-field>
-                <v-text-field v-model="profile.num_1859" label="Number in household age 18-59"
-                  :rules="[rules.required, rules.number]"
-                ></v-text-field>
-                <v-text-field v-model="profile.num_1017" label="Number in household age 10-17"
-                  :rules="[rules.required, rules.number]"
-                ></v-text-field>
-                <v-text-field v-model="profile.num_10" label="Number in household under age 10"
-                  :rules="[rules.required, rules.number]"
-                ></v-text-field>
-                <v-textarea v-model="profile.notes" label="Dietary restrictions or notes."></v-textarea>
+                ></input>
+      </div>
 
-                <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
-                <v-alert v-if="error" type="error">{{error}}</v-alert>
-
-                <v-btn type="submit" color="success" class="mr-4" :disabled="!valid">Submit</v-btn>
-                </v-form>
-              </template>
-              <template v-else>
-                <div><p><v-btn to="/login">Sign In</v-btn> to create an application.</p>
-                <p><v-btn to="/register">Join</v-btn> if you do not have an account.</p>
+      <div>
+      <label>Number in household age 60+</label>
+      <input v-model="profile.num_60" label="Number in household age 60+"
+                  :rules="[rules.required, rules.number]"
+                ></input>
                 </div>
-              </template>
-           </v-card-text>
-   </v-card>
+
+                <div>
+                <label>Number in household age 18-59</label>
+      <input v-model="profile.num_1859" label="Number in household age 18-59"
+                  :rules="[rules.required, rules.number]"
+                ></input>
+                </div>
+
+                <div>
+                <label>Number in household age 10-17</label>
+      <input v-model="profile.num_1017" label="Number in household age 10-17"
+                  :rules="[rules.required, rules.number]"
+                ></input></div>
+
+
+      <div>
+      <label>Number in household under age 10</label>
+      <input v-model="profile.num_10" label="Number in household under age 10"
+                  :rules="[rules.required, rules.number]"
+                ></input>
+      </div>
+
+
+      <div>
+      <label>Dietary restrictions or notes.</label>
+      <textarea v-model="profile.notes" label="Dietary restrictions or notes."></textarea>
+      </div>
+
+      <template v-if="showSuccess"><div class="text-bg-success">{{successMessage}}</div></template>
+      <template v-if="error"><div class="text-bg-danger">{{error}}</div></template>
+
+      <button type="submit" color="success" class="btn btn-primary" :disabled="!valid">Submit</button>
+    </form>
+   </template>
+   <template v-else>
+     <div>
+       <p><a class="btn btn-primary" href="/login">Sign In</a> to create an application.</p>
+       <p><a class="btn btn-primary" href="/register">Join</a> if you do not have an account.</p>
+     </div>
+   </template>
+</div>
 </template>
 
 <script>

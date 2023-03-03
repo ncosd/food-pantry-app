@@ -1,14 +1,10 @@
 <template>
   <div>
     <template v-if="termHtml == ''">
-       <v-card elevation="0" max-width="90%">
-         <v-card-text>Terms missing, please set in firestore.</v-card-text>
-       </v-card>
+      <p>Terms missing, please set in firestore.</p>
     </template>
     <template v-else>
-      <v-card elevation="0" max-width="90%">
-        <v-card-text v-html="termHtml"></v-card-text>
-      </v-card>
+      <div v-html="termHtml"></div>
     </template>
   </div>
 </template>

@@ -1,11 +1,8 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col cols="12" md="3">
-        <DeliveryApplicationState :deliveryAppState="deliveryAppState"></DeliveryApplicationState>
-      </v-col>
-      <v-col cols="12" md="9">
-        <DeliveryForm
+<div>
+  <DeliveryApplicationState :deliveryAppState="deliveryAppState"></DeliveryApplicationState>
+
+  <DeliveryForm
           v-bind:user="user"
           v-bind:profile="profile"
           v-bind:showSuccess="showSuccess"
@@ -13,9 +10,7 @@
           v-bind:error="error"
           @clicked="onFormSubmit"
         />
-      </v-col>
-    </v-row>
-  </v-container>
+</div>
 </template>
 
 <script>
@@ -30,12 +25,11 @@ import { defineStore } from 'pinia';
 export default {
   name: 'DeliveryFormView',
   computed: {
-    ...mapGetters({
-     user: "user"
-    })
+
   },
   data() {
     return {
+      user: {},
       profile: { firstname: "", lastname:"" },
       deliveryAppState: null,
       showSuccess: false,

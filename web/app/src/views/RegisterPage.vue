@@ -5,21 +5,29 @@
         <div class="card">
            <div class="card-header">Register</div>
            <div class="card-body">
-              <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
-              <v-alert v-if="error" type="error">{{error}}</v-alert>
-              <v-form v-model="valid" @submit.prevent="submit">
-              <v-text-field v-model="email" :rules="[rules.emailRule]" label="Email" autocomplete="username"></v-text-field>
-              <v-text-field v-model="password" label="Password" autocomplete="new-password"
-                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
-                :type="showPass ? 'text' : 'password'"
-                @click:append="showPass = !showPass"
-              ></v-text-field>
+              <template v-if="showSuccess">
+                <div class="text-bg-success">{{successMessage}}</div>
+              </template>
+              <template v-if="error">
+                <div class="text-bg-danger">{{error}}</div>
+              </template>
+              <form v-model="valid" @submit.prevent="submit">
+              <div>
+                <label>Email</label>
+                <input type="text" v-model="email" :rules="[rules.emailRule]" label="Email" autocomplete="email"></input>
+              </div>
 
-              <v-btn type="submit" color="success" class="mr-4" :disabled="!valid">Submit</v-btn>
-              <v-btn text to="/login">Sign In</v-btn>
-              <v-btn text to="/forgot-password">Forgot Password?</v-btn>
-              </v-form>
+              <div>
+              <label>Password</label>
+              <input type="password" v-model="password" autocomplete="new-password"
+                :rules="[rules.required, rules.min]"
+              ></input>
+              </div>
+
+              <button type="submit" class="btn btn-primary" :disabled="!valid">Submit</button>
+              <a href="/login" class="m-3">Sign In</a>
+              <a href="/forgot-password" class="m-3">Forgot Password?</a>
+              </form>
            </div>
         </div>
       </div>

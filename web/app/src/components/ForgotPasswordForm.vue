@@ -4,8 +4,8 @@
     <h5 class="card-title">Forgot Password</h5>
     <h6 class="card-subtitle">Enter your email address and a link to reset your password will be emailed to you.</h6>
     <div class="card-text">
-      <p class="text-bg-success" v-if="showSuccess">{{successMessage}}</p>
-      <p class="text-bg-danger" v-if="showError">{{errorMessage}}</p>
+      <template class="text-bg-success" v-if="showSuccess">{{successMessage}}</template>
+      <template class="text-bg-danger" v-if="showError">{{errorMessage}}</template>
       <form v-model="valid" @submit.prevent="submit">
         <label class="form-label">Email</label>
         <input type="email" class="form-control" v-model="email" :rules="[rules.required, rules.emailRule]" autocomplete="username" placeholder="email">
