@@ -8,7 +8,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/analytics';
 import 'firebase/compat/functions';
-import store from "@/store";
+import { useAuthUserStore } from '@/stores/authUser';
 
 import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
@@ -47,7 +47,7 @@ fetch('/__/firebase/init.json').then(async response => {
   }
 
   firebase.auth().onAuthStateChanged(user => {
-    store.dispatch("fetchUser", user);
+    //store.dispatch("fetchUser", user);
   });
 
   Vue.use(PiniaVuePlugin)
@@ -58,7 +58,7 @@ fetch('/__/firebase/init.json').then(async response => {
   new Vue({
     router,
     pinia: createPinia(),
-    store,
+    useAuthUserStore,
     render: h => h(App)
   }).$mount('#app')
 });

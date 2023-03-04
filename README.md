@@ -16,7 +16,7 @@ The project uses Github projects for its roadmap, you can find it here: https://
 ## Developing
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
 
-This project uses firebase and Vue.js.  The project can be configured with information stored in local files which are not stored in github, and then you can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
+This project uses firebase and Vue.js (version 2).  The project can be configured with information stored in local files which are not stored in github, and then you can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
 
 ### Prerequisites
 1. You should have node and npm installed.  If you do not have npm [look here to install npm](https://www.npmjs.com/get-npm).  Firebase is a dependency in the project.
@@ -28,14 +28,18 @@ npm install -g firebase-tools
    1. Click Add Project, give it a name and follow the defaults.
    1. Click Authentication, and turn on authentication, enable the "email and password" option.
    1. Click Firestore and create a database, the default options should work.
+   1. Click Hosting and create a site.
+   1. At the bottom of the hosting page, there is a "add another site".  Click this and create another site by adding `-admin` to the `projectid` you just created.
 
 ### Setup
 You can run this project locally against the firebase emulators.  You can see how to install and configure the firebase emulators here https://firebase.google.com/docs/emulator-suite/install_and_configure.
 
-> The first time you need to login to firebase and configure this project to use your application.
+> The first time you need to login to firebase and configure this project to use your application.  The `projectid` is from the firebase project you created above.
 >
 >     firebase login
 >     firebase use _projectid_
+>     firebase target:apply hosting app _projectid_
+>     firebase target:apply hosting admin _projectid_-admin
 
 After login and configuring a project (on the spark plan) clone the repo:
 
@@ -65,6 +69,24 @@ Use these commands for developing locally:
     npm run build:watch               # leave this running in another terminal
 
 Running these two commands will run the emulators in one terminal, and the vue-cli-service in the other.  The vue service will not do hot-reloading, it will rebuild to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work.
+
+### Java installed?
+The firebase emulator needs node.js 8.0 or higher and Java JDK version 11 or higher.
+
+If you see an error message like: "Error: Process `java -version` has exited with code 1. Please make sure Java is installed and on your system PATH."
+you can follow the instructions at https://firebase.google.com/docs/emulator-suite/install_and_configure.
+
+#### macos java?
+The easiest way to install the open source jdk on mac is to use homebrew to install java.  At the end of the install it will tell you how to create a symlink to openjdk.jdk
+```shell
+brew install java
+sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+```
+
+#### Hosting port 5000 is not open?
+If you see `hosting: Port 5000 is not open on 127.0.0.1, could not start Hosting Emulator.`
+
+This is because the airplay receiver is listening on port 5000.  You can either turn it off in System Preferences | Sharing | uncheck "airport receiver" or configure firebase to use a different port.
 
 ## This is great, how can I use this for my Food Pantry or Food Bank?
 It will get easier over time as the process is refined.   Currently, the best way for you to use this project is to:

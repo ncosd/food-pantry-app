@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <ForgotPasswordForm :showSuccess="showSuccess" :successMessage="successMessage"
     :showError="showError" :errorMessage="errorMessage"
     @clicked="onFormSubmit"
