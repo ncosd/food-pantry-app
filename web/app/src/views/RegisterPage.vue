@@ -22,7 +22,7 @@
               <div class="row my-3">
                 <label class="form-label">Password</label>
                 <div class="col-sm-10">
-                  <input type="password" v-model="password" autocomplete="new-password" class="form-control"></input>
+                  <input type="password" v-model="password" autocomplete="new-password" class="form-control">
                 </div>
               </div>
 
@@ -66,7 +66,7 @@ export default {
       if (!this.email) {
         this.error = "Email is required"
       } else {
-        if (!(/.+@.+/.test(this.email))) {
+        if (!(/.+@.+\..+/.test(this.email))) {
           this.error += " Invalid email address."
         }
       }
@@ -78,26 +78,28 @@ export default {
         this.error += " Password must be at least 8 characters"
       }
 
-      if (!this.error) {
+      if (this.error) {
         this.showSuccess = false
+        console.log("error  "+this.error)
         return false
       }
 
+      console.log("before firebase.auth")
 
-      // firebase.auth()
-      // .createUserWithEmailAndPassword(this.email, this.password)
-      // .then(data => {
-      //   this.showSuccess = true;
-      //   this.successMessage = "Account registered.";
-      //   data.user.updateProfile({
-      //     displayName: this.email
-      //   })
-      //   .then(() => { this.$router.replace({name:'Home'}); });
-      // })
-      // .catch(err => {
-      //   this.showSuccess = false;
-      //   this.error = err.message;
-      //   });
+      firebase.auth()
+      .createUserWithEmailAndPassword(this.email, this.password)
+      .then(data => {
+        this.showSuccess = true;
+        this.successMessage = "Account registered.";
+        data.user.updateProfile({
+          displayName: this.email
+        })
+        .then(() => { this.$router.replace({name:'Home'}); });
+      })
+      .catch(err => {
+        this.showSuccess = false;
+        this.error = err.message;
+        });
     }
   }
 }

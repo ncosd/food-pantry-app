@@ -1,3 +1,23 @@
+<script setup>
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import { config } from '@/config'
+import { useRouter } from 'vue-router'
+//import { RouterLink, RouterView } from 'vue-router'
+import { useAuthUserStore } from '@/stores/authUser'
+
+var user = useAuthUserStore()
+const router = useRouter()
+
+const signOut = () => {
+  firebase.auth().signOut()
+  .then( () => {
+    user.save(null)
+    router.replace({ name: "Home" })
+  })
+}
+</script>
+
 <template>
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
@@ -74,7 +94,13 @@
         </div>
 
         <div class="d-flex">
+          <template v-if="user.isLoggedIn === true">
+          <span class="nav-item py-2">{{ user.data && user.data.email }}</span>
+          <a class="btn btn-primary mx-2" @click.prevent="signOut">Sign Out</a>
+          </template>
+          <template v-else>
           <a class="btn btn-primary mx-2" href="/login" role="button">Login</a>
+          </template>
         </div>
       </ul>
     </div>
@@ -82,29 +108,6 @@
 </nav>
 </template>
 
-<script>
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-import { config } from '@/config'
-
-export default {
-  name: 'AppNavigation',
-  computed: {
-
-  },
-  data: ()=> ({
-    config: config
-  }),
-  methods: {
-    signOut() {
-      firebase.auth().signOut()
-      .then( () => {
-        this.$router.replace({ name: "Home" });
-      });
-   }
-  }
-}
-</script>
 
 <style scoped>
 

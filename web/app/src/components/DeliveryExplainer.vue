@@ -1,3 +1,7 @@
+<script setup>
+import { config } from '@/config';
+</script>
+
 <template>
  <div class="card">
    <div class="card-body">
@@ -7,18 +11,5 @@
    </div>
  </div>
 </template>
-
-<script>
-import { config } from '@/config';
-
-export default {
-  name: 'DeliveryExplainer',
-  data() {
-    return {
-      config:config,
-    }
-  }
-}
-</script>
 
 <style></style>

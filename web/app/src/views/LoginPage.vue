@@ -16,18 +16,18 @@
                <div class="row my-3">
                  <label class="form-label">Email</label>
                  <div class="col-sm-10">
-                 <input type="email" v-model="email" autocomplete="username" class="form-control"></input>
+                 <input type="email" v-model="email" autocomplete="username" class="form-control" required>
                  </div>
                </div>
 
                <div class="row my-3">
                  <label class="form-label">Password</label>
-                 <div class="col"><input class="form-control" type="password" autocomplete="password" v-model="password"></input></div>
+                 <div class="col"><input class="form-control" type="password" autocomplete="password" v-model="password" required></div>
                </div>
 
                <div class="row">
                  <div class="col-sm-offset-2 col-sm-10">
-                   <button type="submit" class="btn btn-primary">Submit</button>
+                   <button type="submit" class="btn btn-primary">Login</button>
                    <a href="/forgot-password" class="m-3">Forgot Password?</a>
                    <a href="/register" class="m-3">Sign Up</a>
                  </div>
@@ -74,9 +74,22 @@ export default {
 
       })
       .catch(err => {
-        this.showSuccess = false;
-        this.error = err.message;
-        });
+        this.showSuccess = false
+        switch(err.code) {
+          case "auth/invalid-email":
+            this.error = "Invalid email"
+            break
+          case "auth/user-not-found":
+            this.error = "No account found, have you registered with this email address?"
+            break
+          case "auth/wrong-password":
+            this.error = "Incorrect password"
+            break
+          default:
+            this.error = err.message;
+            break
+        }
+      })
     }
   }
 }
