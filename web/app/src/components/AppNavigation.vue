@@ -12,7 +12,6 @@ const router = useRouter()
 const signOut = () => {
   firebase.auth().signOut()
   .then( () => {
-    user.save(null)
     router.replace({ name: "Home" })
   })
 }

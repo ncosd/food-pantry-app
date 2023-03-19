@@ -47,7 +47,6 @@ fetch('/__/firebase/init.json').then(async response => {
   }
 
   firebase.auth().onAuthStateChanged(user => {
-    console.log('main.js onAuthStateChanged user='+ JSON.stringify(user))
     useAuthUserStore().save(user)
   });
 
