@@ -6,8 +6,6 @@ export const useAuthUserStore = defineStore('authUser', {
     data: JSON.parse(localStorage.getItem('authUser'))
   }),
   actions: {
-
-    // easily reset state using `$reset`
     clearUser () {
       this.$reset()
     },
@@ -17,7 +15,5 @@ export const useAuthUserStore = defineStore('authUser', {
       localStorage.setItem('authUserLoggedIn', this.isLoggedIn)
       localStorage.setItem('authUser', JSON.stringify(user))
     }
-
-
   }
 })
