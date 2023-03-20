@@ -20,7 +20,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { defineStore } from 'pinia';
-
+import { useAuthUserStore } from '@/stores/authUser'
 
 export default {
   name: 'DeliveryFormView',
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      user: {},
+      user: useAuthUserStore(),
       profile: { firstname: "", lastname:"" },
       deliveryAppState: null,
       showSuccess: false,
@@ -41,10 +41,9 @@ export default {
     DeliveryForm,
     DeliveryApplicationState,
   },
-  created() {
+  mounted() {
     this.error = "";
-    if (firebase.auth().currentUser == null) {
-       console.log("user is null, no uid.  Are you logged in?");
+    if (firebase.auth().currentUser === null) {
        this.error = "Error loading profile, please go back and try again.";
        return
     }

@@ -1,16 +1,3 @@
-<script setup>
-const props = defineProps({
-  deliveryAppState: Object
-  })
-
-const status = () => {
-      if (this.deliveryAppState != null) {
-        return this.deliveryAppState.data().status;
-      }
-      return "new";
-    }
-</script>
-
 <template>
 <div class="card">
   <div class="card-body">
@@ -20,6 +7,23 @@ const status = () => {
 </div>
 </template>
 
+<script>
+export default {
+  name: 'DeliveryApplicationState',
+  props: [
+    "deliveryAppState"
+  ],
+  computed: {
+    status() {
+      if (this.deliveryAppState != null) {
+        return this.deliveryAppState.data().status;
+      }
+      return "new";
+    }
+  }
+}
+
+</script>
 
 <style>
 </style>
