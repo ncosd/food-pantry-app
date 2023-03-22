@@ -38,8 +38,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   name: 'RegisterPage',
@@ -86,8 +85,8 @@ export default {
 
       console.log("before firebase.auth")
 
-      firebase.auth()
-      .createUserWithEmailAndPassword(this.email, this.password)
+      const auth = getAuth()
+      createUserWithEmailAndPassword(auth, this.email, this.password)
       .then(data => {
         this.showSuccess = true;
         this.successMessage = "Account registered.";

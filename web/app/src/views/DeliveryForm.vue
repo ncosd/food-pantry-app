@@ -16,10 +16,7 @@
 <script>
 import DeliveryForm from "@/components/DeliveryForm.vue";
 import DeliveryApplicationState from "@/components/DeliveryApplicationState.vue";
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import { defineStore } from 'pinia';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuthUserStore } from '@/stores/authUser'
 
 export default {
@@ -41,48 +38,43 @@ export default {
     DeliveryForm,
     DeliveryApplicationState,
   },
-  mounted() {
+  async mounted() {
     this.error = "";
-    if (firebase.auth().currentUser === null) {
-       this.error = "Error loading profile, please go back and try again.";
+    if (!this.user.isLoggedIn) {
+       this.error = "Error, user not logged in.";
        return
     }
-    const db = firebase.firestore();
-    const uid = firebase.auth().currentUser.uid;
-    db.collection("deliveryprofile").doc(uid).get().then( (docRef) => {
-      if (docRef.exists) {
-        console.log('got the profile ', docRef.data(), uid);
-        this.profile = docRef.data();
+    const db = getFirestore()
+    const uid = this.user.data.uid;
+    const deliveryProfileRef = doc(db, "deliveryprofile", uid)
 
-        db.collection("deliveryprofilestate").doc(uid).get().then( (stateRef) => {
+    try {
+    const deliveryProfileSnap = await getDoc(deliveryProfileRef)
 
-          if (stateRef.exists) {
-            console.log("got state", stateRef.data().status);
-            this.deliveryAppState = stateRef
-          } else {
-            console.log("no state");
-          }
-        }).catch(err => {
-          console.log("err during profilestate lookup", err);
-        });
+    if (deliveryProfileSnap.exists()) {
+        this.profile = deliveryProfileSnap.data()
 
-      } else {
-        console.log("no deliveryprofile");
-      }
-    }).catch(err => {
-      console.log('error getting deliveryprofile', err);
-      this.profile = { firstname: "", lastname: "" };
-    });
+        const deliveryProfileStateRef = doc(db, "deliveryprofilestate", uid)
+        const deliveryProfileStateSnap = await getDoc(deliveryProfileStateRef)
+
+        if (deliveryProfileStateSnap.exists()) {
+            this.deliveryAppState = deliveryProfileStateSnap
+        } else {
+            console.log("no dpstate");
+        }
+    } else {
+      console.log("no deliveryprofile")
+    }
+    } catch (err) {
+       console.log("error ", err)
+    }
   },
   methods: {
-    onFormSubmit(profileForm) {
-      console.log("onFormSubmit: value", profileForm.firstname);
-      console.log("user", this.user.data.email);
-      console.log("uid", firebase.auth().currentUser.uid);
-      const db = firebase.firestore();
+   onFormSubmit(profileForm) {
+      const db = getFirestore()
 
-      db.collection("deliveryprofile").doc(firebase.auth().currentUser.uid).set({
-        userid: firebase.auth().currentUser.uid,
+      setDoc(doc(db, "deliveryprofile", this.user.data.uid), {
+        userid: this.user.data.uid,
         email: this.user.data.email,
         firstname: profileForm.firstname,
         lastname: profileForm.lastname,
@@ -107,7 +99,7 @@ export default {
         this.error = "There was a problem saving the application form, please try again.",
         this.showSuccess = false,
         this.successMessage = ""
-      });
+      })
 
     }
   }

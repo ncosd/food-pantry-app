@@ -41,8 +41,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   name: 'LoginPage',
@@ -65,8 +64,9 @@ export default {
     submit() {
       this.error = "";
       this.showSuccess = false;
-      firebase.auth()
-      .signInWithEmailAndPassword(this.email, this.password)
+      const auth = getAuth()
+
+      signInWithEmailAndPassword(auth, this.email, this.password)
       .then( () => {
         this.showSuccess = true;
         this.successMessage = "You have signed in.";

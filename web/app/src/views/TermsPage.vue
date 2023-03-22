@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import { getFirestore, doc, getDoc } from 'firebase/firestore'
 
 export default {
   name: 'TermsPage',
@@ -20,18 +19,18 @@ export default {
       termHtml: ""
     }
   },
-  created() {
-    const db = firebase.firestore();
-    db.collection('terms').doc('latest').get().then( (docRef) => {
-       if (docRef && docRef.data()) {
-         this.termHtml = docRef.data().html;
-       }
-    }).catch(err => {
-       console.log(err);
+  async mounted() {
+    const db = getFirestore()
+    const docRef = doc(db, 'terms', 'latest')
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      this.termHtml = docSnap.data().html;
+    } else {
        this.termHtml = 'Something is wrong, please try again.';
-    });
+    }
   }
-};
+}
 </script>
 
 <style></style>

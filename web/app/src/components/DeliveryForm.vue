@@ -115,15 +115,85 @@
 
       <div class="mb-3">
         <div class="d-inline-flex text-right">
-      <label class="form-label d-flex justify-content-end align-items-end pe-3">Dietary restrictions or notes.</label>
-      <textarea v-model="profile.notes" label="Dietary restrictions or notes."></textarea>
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Produce</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Shelf Stable</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Feminine Hygiene</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Kids</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Cold</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Personal Care</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Diapers</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">Vegetarian (no beef, chicken, pork, fish)</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">No Beef</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+           <label class="form-label d-flex justify-content-end align-items-end pe-3">No Pork</label>
+           <input class="form-check-input" type="checkbox">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-inline-flex text-right">
+      <label class="form-label d-flex justify-content-end align-items-end pe-3">Allergies and other notes.</label>
+      <textarea v-model="profile.notes" ></textarea>
       </div>
       </div>
 
       <template v-if="showSuccess"><div class="text-bg-success">{{successMessage}}</div></template>
       <template v-if="error"><div class="text-bg-danger">{{error}}</div></template>
 
-      <button type="submit" color="success" class="btn btn-primary" :disabled="!valid">Submit</button>
+      <button type="submit" color="success" class="btn btn-primary">Submit</button>
     </form>
     </div>
    </template>
@@ -163,7 +233,15 @@ export default {
     }
   },
   methods: {
+    validate() {
+      console.log('Running validate')
+    },
+
     submit() {
+       this.validate()
+       console.log('after validate')
+
+
        this.$emit('clicked', this.profile);
     }
   }

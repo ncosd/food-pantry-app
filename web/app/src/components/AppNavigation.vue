@@ -1,18 +1,18 @@
 <script setup>
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
+import { getAuth, signOut } from 'firebase/auth'
 import { config } from '@/config'
 import { useRouter } from 'vue-router'
-//import { RouterLink, RouterView } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 
 var user = useAuthUserStore()
 const router = useRouter()
-
-const signOut = () => {
-  firebase.auth().signOut()
+const signOutClick = () => {
+  const auth = getAuth()
+  signOut(auth)
   .then( () => {
     router.replace({ name: "Home" })
+  }).catch((err) => {
+    console.log("Error logging out: " + err)
   })
 }
 </script>
@@ -94,8 +94,8 @@ const signOut = () => {
 
         <div class="d-flex">
           <template v-if="user.isLoggedIn === true">
-          <span class="nav-item py-2">{{ user.data && user.data.email }}</span>
-          <a class="btn btn-primary mx-2" @click.prevent="signOut">Sign Out</a>
+          <span class="nav-item py-2"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</span>
+          <a class="btn btn-primary mx-2" @click.prevent="signOutClick">Sign Out</a>
           </template>
           <template v-else>
           <a class="btn btn-primary mx-2" href="/login" role="button">Login</a>

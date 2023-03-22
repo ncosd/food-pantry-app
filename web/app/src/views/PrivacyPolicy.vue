@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import { getFirestore, doc, getDoc } from 'firebase/firestore'
 
 export default {
   name: 'PrivacyPolicy',
@@ -20,18 +19,17 @@ export default {
       policyHtml: ""
     }
   },
-  created() {
-    const db = firebase.firestore();
-    db.collection('privacypolicy').doc('latest').get().then( (docRef) => {
-       if (docRef && docRef.data()) {
-         this.policyHtml = docRef.data().html;
-       }
-    }).catch(err => {
-       console.log(err);
-       this.policyHtml = 'Something is wrong, please try again.';
-    });
+  async mounted() {
+    const db = getFirestore()
+    const docRef = doc(db, 'privacypolicy', 'latest')
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      this.policyHtml = docSnap.data().html;
+    } else {
+      this.policyHtml = 'Something is wrong, please try again.';
+    }
   }
-};
+}
 </script>
 
 <style></style>
