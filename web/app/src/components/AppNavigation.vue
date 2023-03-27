@@ -1,22 +1,3 @@
-<script setup>
-import { getAuth, signOut } from 'firebase/auth'
-import { config } from '@/config'
-import { useRouter } from 'vue-router'
-import { useAuthUserStore } from '@/stores/authUser'
-
-var user = useAuthUserStore()
-const router = useRouter()
-const signOutClick = () => {
-  const auth = getAuth()
-  signOut(auth)
-  .then( () => {
-    router.replace({ name: "Home" })
-  }).catch((err) => {
-    console.log("Error logging out: " + err)
-  })
-}
-</script>
-
 <template>
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
@@ -107,6 +88,38 @@ const signOutClick = () => {
 </nav>
 </template>
 
+<script>
+import { getAuth, signOut } from 'firebase/auth'
+import { config } from '@/config'
+import { useRouter } from 'vue-router'
+import { useAuthUserStore } from '@/stores/authUser'
+
+
+export default {
+  name: 'AppNavigation',
+  data() {
+    return {
+      user: null,
+      config: config
+    }
+  },
+  mounted() {
+    this.user = useAuthUserStore()
+  },
+  methods: {
+   signOutClick() {
+     const router = useRouter()
+     const auth = getAuth()
+     signOut(auth)
+     .then( () => {
+       router.replace({ name: "Home" })
+     }).catch((err) => {
+     console.log("Error logging out: " + err)
+   })
+  }
+ }
+}
+</script>
 
 <style scoped>
 

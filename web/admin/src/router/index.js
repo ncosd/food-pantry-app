@@ -1,15 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import DeliveryApplications from '@/views/DeliveryApplications.vue'
 import NotFound from '@/components/NotFound.vue'
-import firebase from 'firebase'
-
 import { config } from '@/config'
-
-
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -31,16 +25,15 @@ const routes = [
     meta: config.meta.DeliveryApplications
   },
   {
-    path: '*',
+    path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
     meta: config.meta.NotFound
   },
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = new createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
@@ -79,26 +72,7 @@ router.beforeEach((to, from, next) => {
   // Add the meta tags to the document head.
   .forEach(tag => document.head.appendChild(tag));
 
-  // firebase routing
-  firebase.auth().onAuthStateChanged(userAuth=> {
-    if (userAuth) {
-      firebase.auth().currentUser.getIdTokenResult()
-        .then(function ({
-          claims
-        }) {
-          if (!claims.admin) {
-            return next({ path: '/login' })
-          }
-        })
-    } else {
-      if (to.path != '/login') {
-        return next({ path:'/login'})
-      }
-    }
-  });
-
   next();
 });
-
 
 export default router

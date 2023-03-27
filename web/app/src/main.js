@@ -11,7 +11,7 @@ import { getAnalytics } from "firebase/analytics"
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
 // TODO: this is a workaround for the vite-sass compiler issue
-import 'bootstrap-icons/font/bootstrap-icons.scss'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
 //import * as colorModes from '@/color-modes.js'
@@ -22,7 +22,6 @@ fetch('/__/firebase/init.json').then(async response => {
   var firebaseApp
   if (response.ok) {
     const config = await response.json()
-    console.log('response.json='+ JSON.stringify(config))
     firebaseApp = initializeApp(config)
     getAnalytics(firebaseApp)
   } else {
@@ -44,7 +43,7 @@ fetch('/__/firebase/init.json').then(async response => {
     connectFirestoreEmulator(db, 'localhost', 8080);
 
     const auth = getAuth();
-    connectAuthEmulator(auth, "http://localhost:9099");
+    connectAuthEmulator(auth, "http://localhost:9099")
     const functions = getFunctions(firebaseApp)
     connectFunctionsEmulator(functions, 'localhost', 5001)
   }
@@ -54,11 +53,9 @@ fetch('/__/firebase/init.json').then(async response => {
     useAuthUserStore().save(user)
   });
 
-
   const app = createApp(App)
   app.use(createPinia())
   app.use(router)
   app.mount('#app')
 
-  // Vue.prototype.$analytics = firebase.analytics();
 })

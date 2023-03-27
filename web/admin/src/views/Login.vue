@@ -5,20 +5,34 @@
         <div class="card">
            <div class="card-header">Sign In</div>
            <div class="card-body">
-              <v-alert v-if="showSuccess" type="success">{{successMessage}}</v-alert>
-              <v-alert v-if="error" type="error">{{error}}</v-alert>
-              <v-form v-model="valid" @submit.prevent="submit">
-              <v-text-field v-model="email" :rules="[rules.emailRule]" label="Email" autocomplete="username"></v-text-field>
-              <v-text-field v-model="password" label="Password" autocomplete="password"
-                :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required]"
-                :type="showPass ? 'text' : 'password'"
-                @click:append="showPass = !showPass"
-              ></v-text-field>
+             <template v-if="showSuccess">
+               <div class="text-bg-success">{{ successMessage }}</div>
+             </template>
+             <template v-if="error">
+               <div class="text-bg-danger">{{error}}</div>
+             </template>
 
-              <v-btn type="submit" color="success" class="mr-4" :disabled="!valid">Submit</v-btn>
-              <v-btn text to="/forgot-password">Forgot Password?</v-btn>
-              </v-form>
+             <form @submit.prevent="submit" >
+               <div class="row my-3">
+                 <label class="form-label">Email</label>
+                 <div class="col-sm-10">
+                 <input type="email" v-model="email" autocomplete="username" class="form-control" required>
+                 </div>
+               </div>
+
+               <div class="row my-3">
+                 <label class="form-label">Password</label>
+                 <div class="col"><input class="form-control" type="password" autocomplete="password" v-model="password" required></div>
+               </div>
+
+               <div class="row">
+                 <div class="col-sm-offset-2 col-sm-10">
+                   <button type="submit" class="btn btn-primary">Login</button>
+                   <a href="/forgot-password" class="m-3">Forgot Password?</a>
+                   <a href="/register" class="m-3">Sign Up</a>
+                 </div>
+               </div>
+             </form>
            </div>
         </div>
       </div>
@@ -27,11 +41,10 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   data() {
     return {
       error: "",
@@ -51,8 +64,9 @@ export default {
     submit() {
       this.error = "";
       this.showSuccess = false;
-      firebase.auth()
-      .signInWithEmailAndPassword(this.email, this.password)
+      const auth = getAuth()
+
+      signInWithEmailAndPassword(auth, this.email, this.password)
       .then( () => {
         this.showSuccess = true;
         this.successMessage = "You have signed in.";
@@ -60,9 +74,22 @@ export default {
 
       })
       .catch(err => {
-        this.showSuccess = false;
-        this.error = err.message;
-        });
+        this.showSuccess = false
+        switch(err.code) {
+          case "auth/invalid-email":
+            this.error = "Invalid email"
+            break
+          case "auth/user-not-found":
+            this.error = "No account found, have you registered with this email address?"
+            break
+          case "auth/wrong-password":
+            this.error = "Incorrect password"
+            break
+          default:
+            this.error = err.message;
+            break
+        }
+      })
     }
   }
 }

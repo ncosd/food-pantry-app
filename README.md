@@ -48,19 +48,16 @@ After login and configuring a project (on the spark plan) clone the repo:
     cd ../admin npm install
     cd ../app; npm install
 
-> Also the first time you'll need to configure the functions for local development.  The emulator expects a json file named .runtimeconfig.json
->    cd web/functions
->    # create a file named .runtimeconfig.json
->    {
->       "sendgrid": {
->          "key": "",
->          "from": ""
->       },
->       "delivery": {
->         "to": "",
->         "bcc": ""
->       }
->    }
+Set the env to be the dev one
+
+    firebase use dev
+
+Create a `.env.dev` file
+
+    SENGRID_KEY='something'
+    SENDGRID_FROM='no-reply@example.com'
+    DELIVERY_TO='to@example.com'
+    DELIVERY_BCC='bcc@example.com'
 
 Use these commands for developing locally:
 

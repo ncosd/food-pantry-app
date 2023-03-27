@@ -1,51 +1,36 @@
 {
   "name": "admin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "build:watch": "vue-cli-service build --mode development --watch --no-clean",
+    "dev": "vite",
+    "build": "vite build -m dev",
+    "build:watch": "vite build --watch",
+    "preview": "vite preview --port 4173",
+    "test:unit": "vitest",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "serve": "firebase serve",
     "serve:firebase": "firebase serve",
     "serve:firebase:emulator": "firebase emulators:start --import=./fixtures"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "firebase": "^8.3.1",
-    "firebase-admin": "^9.5.0",
-    "vue": "^2.6.11",
-    "vue-router": "^3.5.1",
-    "vuetify": "^2.4.7",
-    "vuex": "^3.6.2"
+    "bootstrap": "5.3.0-alpha1",
+    "bootstrap-icons": "git+https://github.com/dherbst/icons#fix-dherbst-scss-1378",
+    "firebase": "9.17.1",
+    "pinia": "^2.0.32",
+    "vue": "^3.2.47",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "firebase-tools": "^9.6.1",
-    "sass": "^1.32.0",
-    "sass-loader": "^10.1.1",
-    "vue-cli-plugin-vuetify": "~2.2.2",
-    "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.7.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/test-utils": "^2.3.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "jsdom": "^21.1.0",
+    "sass": "^1.58.3",
+    "terser": "^5.14.2",
+    "vite": "^4.1.4",
+    "vitest": "^0.29.1"
   },
   "browserslist": [
     "> 1%",

@@ -1,16 +1,23 @@
 <template>
-  <v-container background-color="blue">
-    Admin in view
-  </v-container>
+  <div class="container">
+    <h1>{{config.AdminProjectLongName}}</h1>
+
+  </div>
 
 </template>
 
 <script>
+import { config } from '@/config'
+
+
 export default {
-  name: 'Home'
-
+  name: 'Home',
+  data() {
+    return {
+      config: config,
+    }
+  }
 }
-
 </script>
 
 <style></style>

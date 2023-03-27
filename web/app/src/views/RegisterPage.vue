@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 export default {
   name: 'RegisterPage',
@@ -90,15 +90,20 @@ export default {
       .then(data => {
         this.showSuccess = true;
         this.successMessage = "Account registered.";
-        data.user.updateProfile({
-          displayName: this.email
+        const name = this.email.match(/(.+)@/)
+        updateProfile(auth.currentUser, {
+          displayName: name[1]
         })
-        .then(() => { this.$router.replace({name:'Home'}); });
+        .then(() => { console.log("after updateProfile"); this.$router.replace({name:'Home'}); })
+        .catch(err=>{
+          console.log('err for updateProfile', err)
+        })
       })
       .catch(err => {
+        console.log("err=", err)
         this.showSuccess = false;
         this.error = err.message;
-        });
+      });
     }
   }
 }

@@ -1,13 +1,13 @@
-const functions = require('firebase-functions');
+const functions = require("firebase-functions");
 const admin = require('firebase-admin');
 
 admin.initializeApp();
 
 const db = admin.firestore();
-const sendgridKey = functions.config().sendgrid.key;
-const fromEmail = functions.config().sendgrid.from;
-const toEmail = functions.config().delivery.to;
-const bccEmail = functions.config().delivery.bcc;
+const sendgridKey = process.env.SENDGRID_KEY;
+const fromEmail = process.env.SENDGRID_FROM;
+const toEmail = process.env.DELIVERY_TO;
+const bccEmail = process.env.DELIVERY_BCC;
 
 
 // Every user is a guest.
@@ -48,8 +48,6 @@ exports.setRole = functions.https.onCall(async (data, context) => {
     });
 
 });
-
-
 
 // When a deliveryProfile is first created, set status to in-review.
 exports.addDeliveryProfileOnCreate = functions.firestore

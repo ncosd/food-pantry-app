@@ -2,7 +2,6 @@
 import AppNavigation from '@/components/AppNavigation.vue'
 import { RouterView } from 'vue-router'
 import PageFooter from '@/components/PageFooter.vue'
-import firebase from 'firebase/compat/app'
 </script>
 
 <template>
@@ -13,8 +12,4 @@ import firebase from 'firebase/compat/app'
   </div>
 </template>
 
-<style>
-.no-uppercase {
-  text-transform: none !important;
-}
-</style>
+<style></style>

@@ -1,13 +1,12 @@
 <template>
-  <v-container background-color="blue">
+  <div background-color="blue">
     <Deliveries :deliveries="deliveries"></Deliveries>
-  </v-container>
-
+  </div>
 </template>
 
 <script>
-import Deliveries from '@/components/Deliveries'
-import firebase from 'firebase/app';
+import Deliveries from '@/components/Deliveries.vue'
+//import firebase from 'firebase/app';
 
 export default {
   name: 'DeliveryApplications',
@@ -21,6 +20,7 @@ export default {
     }
   },
   created() {
+/*
     const db = firebase.firestore()
     db.collection('deliveryprofile').get().then( (deliveryQuery) => {
       let deliveries = []
@@ -34,7 +34,7 @@ export default {
     }).catch((error) => {
       console.log('Error getting deliveries ', error)
     })
-
+*/
   }
 }
 
