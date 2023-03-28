@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <div>
     <h1>Not Found</h1>
     <p>Sorry, this page does not exist.</p>
-  </v-container>
+  </div>
 </template>
 
 <script>

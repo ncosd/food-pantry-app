@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <div>
     <h1>Delivery Applications</h1>
     <table class="text-center">
       <thead>
@@ -31,7 +31,7 @@
       </tr>
       </tbody>
     </table>
-  </v-main>
+  </div>
 </template>
 
 <script>
