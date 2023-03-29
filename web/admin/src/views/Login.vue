@@ -28,8 +28,6 @@
                <div class="row">
                  <div class="col-sm-offset-2 col-sm-10">
                    <button type="submit" class="btn btn-primary">Login</button>
-                   <a href="/forgot-password" class="m-3">Forgot Password?</a>
-                   <a href="/register" class="m-3">Sign Up</a>
                  </div>
                </div>
              </form>

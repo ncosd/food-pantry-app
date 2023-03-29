@@ -16,7 +16,7 @@ The project uses Github projects for its roadmap, you can find it here: https://
 ## Developing
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
 
-This project uses firebase and Vue.js (version 2).  The project can be configured with information stored in local files which are not stored in github, and then you can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
+This project uses firebase, Vue.js (version 3), and bootstrap 5.3.  The project can be configured with information stored in local files which are not stored in github.  You can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
 
 ### Prerequisites
 1. You should have node and npm installed.  If you do not have npm [look here to install npm](https://www.npmjs.com/get-npm).  Firebase is a dependency in the project.
@@ -93,9 +93,13 @@ It will get easier over time as the process is refined.   Currently, the best wa
 
     file: app/src/.env
 ```sh
-VUE_APP_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
-VUE_APP_ORGANIZATION_NAME = 'org name' # this is your organization name.
-VUE_APP_PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
+VITE_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
+VITE_ORGANIZATION_NAME = 'org name' # this is your organization name.
+VITE_PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
+VITE_DELIVERY_MESSAGE="Extended message here.<br>It can have HTML in it."
+VITE_DELIVERY_AREA_NAMES="Your Township Name"
+VITE_DELIVERY_OUTSIDE_AREA_URL="https://connect4health.org/"
+VITE_DELIVERY_ZIPCODES="12345"
 ```
 
 3. Create a firebase project with hosting, firestore, and functions.  You will need to configure the functions similar to the json file above.
