@@ -105,12 +105,6 @@ VITE_DELIVERY_ZIPCODES="12345"
 3. Create a firebase project with hosting, firestore, and functions.  You will need to configure the functions similar to the json file above.
 4. Build the vue project:
 
-> *NOTE*
->
-> npm7 does not currently work with storybook [see here](https://github.com/storybookjs/storybook/issues/13683)
->
-> use `npm install -g npm@6` to use npm6
-
     cd app;
     npm run build
 
