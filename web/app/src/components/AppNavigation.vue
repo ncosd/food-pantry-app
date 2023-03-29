@@ -74,7 +74,7 @@
         </div>
 
         <div class="d-flex">
-          <template v-if="user.isLoggedIn === true">
+          <template v-if="user && user.isLoggedIn === true">
           <span class="nav-item py-2"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</span>
           <a class="btn btn-primary mx-2" @click.prevent="signOutClick">Sign Out</a>
           </template>

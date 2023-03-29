@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>{{config.AdminProjectLongName}}</h1>
-
+    <p>Welcome</p>
   </div>
 
 </template>

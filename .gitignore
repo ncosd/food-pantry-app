@@ -130,4 +130,8 @@ dist
 
 # TernJS port file
 .tern-port
+
 firebase-config.js
+
+# Do not force everyone to use the same .firebaserc
+.firebaserc

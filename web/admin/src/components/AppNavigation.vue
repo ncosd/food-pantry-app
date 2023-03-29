@@ -7,24 +7,26 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/delivery-applications">Delivery Applications</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/delivery-schedule">Delivery Schedule</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/volunteer-applicants">Volunteer Applicants</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/volunteer-schedule">Volunteer Schedule</a>
-          </li>
+          <template v-if="user && user.isLoggedIn === true">
+            <li class="nav-item">
+              <a class="nav-link" href="/delivery-applications">Delivery Applications</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/delivery-schedule">Delivery Schedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/volunteer-applicants">Volunteer Applicants</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/volunteer-schedule">Volunteer Schedule</a>
+            </li>
+          </template>
         </ul>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <div class="">
             <div class="d-flex">
-              <template v-if="user.isLoggedIn === true">
+              <template v-if="user && user.isLoggedIn === true">
                 <span class="nav-item py-2"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</span>
                 <a class="btn btn-primary mx-2" @click.prevent="signOutClick">Sign Out</a>
               </template>
@@ -64,7 +66,7 @@ export default {
      const auth = getAuth()
      signOut(auth)
      .then( () => {
-       router.replace({ name: "Home" })
+       router.replace({ name: "Login" })
      }).catch((err) => {
      console.log("Error logging out: " + err)
    })

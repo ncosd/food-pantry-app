@@ -6,7 +6,6 @@
 
 <script>
 import Deliveries from '@/components/Deliveries.vue'
-//import firebase from 'firebase/app';
 
 export default {
   name: 'DeliveryApplications',
