@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/views/HomePage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
+import ContactPage from '@/views/ContactPage.vue'
 import { config } from '@/config'
 
 const routes = [
@@ -56,6 +57,12 @@ const routes = [
     name: 'ForgotPassword',
     component: () => import('../views/ForgotPassword.vue'),
     meta: config.meta.ForgotPassword
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('../views/ContactPage.vue'),
+    meta: config.meta.Contact
   }
 ]
 

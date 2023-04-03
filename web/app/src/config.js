@@ -7,6 +7,7 @@ export let config = {
   DeliveryOutsideAreaUrl: import.meta.env.VITE_DELIVERY_OUTSIDE_AREA_URL || "",
   DeliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || "",
 
+
   meta: {
     Home: {
       title: 'Home',
@@ -41,6 +42,15 @@ export let config = {
         {
           name: 'description',
           content: 'About page'
+        }
+      ]
+    },
+    Contact: {
+      title: 'Contact Us',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'How to contact us'
         }
       ]
     },

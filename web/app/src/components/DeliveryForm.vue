@@ -1,209 +1,255 @@
 <template>
-<div class="m-3">
-  <h4>Delivery Application</h4>
-  <p>Service area is {{deliveryAreaNames}}.</p>
-  <template v-if="user && user.isLoggedIn">
-    <div v-html="deliveryMessage"></div>
-    <template v-if="showSuccess" class="text-bg-success">{{successMessage}}</template>
-    <template v-if="error"><div class="text-bg-danger">{{error}}</div></template>
-    <div class="text-center">
-    <form @submit.prevent="submit" name="x">
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">Your Email</label>
-          {{ user.data.email}}
-        </div>
-      </div>
-
-      <div class="mb-3">
-      <div class="d-inline-flex text-right">
-        <label class="form-label d-flex justify-content-end align-items-end pe-3">First Name</label>
-        <input v-model="profile.firstname" autocomplete="First Name" required>
-      </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">Last Name</label>
-          <input v-model="profile.lastname" autocomplete="Last Name" required>
-        </div>
-      </div>
-
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">Phone</label>
-          <input v-model="profile.phone" autocomplete="phone" required>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">Street Address</label>
-          <input v-model="profile.address1" autocomplete="street1" required>
-        </div>
-      </div>
-
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">Apt/Suite</label>
-          <input v-model="profile.address2" autocomplete="street2">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">City</label>
-          <input v-model="profile.city" label="City" autocomplete="city" required>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-          <label class="form-label d-flex justify-content-end align-items-end pe-3">State</label>
-          <input v-model="profile.state" label="State" autocomplete="state" required>
-        </div>
-      </div>
-
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-      <label class="form-label d-flex justify-content-end align-items-end pe-3">Zip</label>
-      <input v-model="profile.zip" label="Zip" autocomplete="zip"
-                  :rules="[rules.required,rules.deliveryArea]"
-                >
-      </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-      <label class="form-label d-flex justify-content-end align-items-end pe-3">Number in household age 60+</label>
-      <input v-model="profile.num_60" label="Number in household age 60+"
-                  :rules="[rules.required, rules.number]"
-                >
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-                <label class="form-label d-flex justify-content-end align-items-end pe-3">Number in household age 18-59</label>
-      <input v-model="profile.num_1859" label="Number in household age 18-59"
-                  :rules="[rules.required, rules.number]"
-                >
-         </div>
-       </div>
-
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Number in household age 10-17</label>
-           <input v-model="profile.num_1017" label="Number in household age 10-17" required>
-        </div>
-      </div>
-
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-      <label class="form-label d-flex justify-content-end align-items-end pe-3">Number in household under age 10</label>
-      <input v-model="profile.num_10" label="Number in household under age 10"
-                  :rules="[rules.required, rules.number]"
-                >
-      </div>
-      </div>
-
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Produce</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Shelf Stable</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Feminine Hygiene</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Kids</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Cold</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Personal Care</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Diapers</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">Vegetarian (no beef, chicken, pork, fish)</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">No Beef</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-           <label class="form-label d-flex justify-content-end align-items-end pe-3">No Pork</label>
-           <input class="form-check-input" type="checkbox">
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <div class="d-inline-flex text-right">
-      <label class="form-label d-flex justify-content-end align-items-end pe-3">Allergies and other notes.</label>
-      <textarea v-model="profile.notes" ></textarea>
-      </div>
-      </div>
-
-      <template v-if="showSuccess"><div class="text-bg-success">{{successMessage}}</div></template>
+  <div class="m-3">
+    <h4>Delivery Application</h4>
+    <p>Service area is {{deliveryAreaNames}}.</p>
+    <template v-if="user && user.isLoggedIn">
+      <div v-html="deliveryMessage"></div>
+      <template v-if="showSuccess" class="text-bg-success">{{successMessage}}</template>
       <template v-if="error"><div class="text-bg-danger">{{error}}</div></template>
+      <div class="text-center">
+        <form @submit.prevent="submit" name="x">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Your Email</label>
+                <div class="">{{ user.data.email}}</div>
+              </div>
+            </div>
 
-      <button type="submit" color="success" class="btn btn-primary">Submit</button>
-    </form>
-    </div>
-   </template>
-   <template v-else>
-     <div>
-       <p><a class="btn btn-primary" href="/login">Sign In</a> to create an application.</p>
-       <p><a class="btn btn-primary" href="/register">Join</a> if you do not have an account.</p>
-     </div>
-   </template>
-</div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input class="form-control" v-model="profile.phone" autocomplete="phone" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">First Name</label>
+                <input class="form-control" v-model="profile.firstname" autocomplete="First Name" required>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Last Name</label>
+                <input class="form-control" v-model="profile.lastname" autocomplete="Last Name" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Street Address</label>
+                <input class="form-control" v-model="profile.address1" autocomplete="street1" required>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Apt/Suite</label>
+                <input class="form-control" v-model="profile.address2" autocomplete="street2">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label class="form-label">City</label>
+                <input class="form-control" v-model="profile.city" label="City" autocomplete="city" required>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label class="form-label">State</label>
+                <input class="form-control" v-model="profile.state" label="State" autocomplete="state" required>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label class="form-label">Zip</label>
+                <input class="form-control" v-model="profile.zip" label="Zip" autocomplete="zip"
+                       :rules="[rules.required,rules.deliveryArea]"
+                       >
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label class="form-label">Number in household age 60+</label>
+                <select class="form-select" v-model="profile.num_60" required>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label class="form-label">Number in household age 18-59</label>
+                <select class="form-select" v-model="profile.num_1859">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label class="form-label">Number in household age 10-17</label>
+                <select class="form-select" v-model="profile.num_1017" required>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="mb-3">
+                <label class="form-label">Number in household under age 10</label>
+                <select class="form-select" v-model="profile.num_10" required>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Produce</label>
+                <br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Shelf Stable</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Feminine Hygiene</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label class="form-label">Kids</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label class="form-label">Cold</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Personal Care</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label class="form-label">Diapers</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Vegetarian (no beef, chicken, pork, fish)</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">No Beef</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">No Pork</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label class="form-label">Allergies and other notes.</label>
+            <textarea class="form-control" v-model="profile.notes" ></textarea>
+          </div>
+
+          <template v-if="showSuccess"><div class="text-bg-success">{{successMessage}}</div></template>
+          <template v-if="error"><div class="text-bg-danger">{{error}}</div></template>
+
+          <button type="submit" color="success" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </template>
+    <template v-else>
+      <div>
+        <p><a class="btn btn-primary" href="/login">Sign In</a> to create an application.</p>
+        <p><a class="btn btn-primary" href="/register">Join</a> if you do not have an account.</p>
+      </div>
+    </template>
+  </div>
 </template>
 
 <script>
@@ -249,8 +295,4 @@ export default {
 </script>
 
 <style scoped>
-form label {
-min-width:100px !important;
-max-width:100px;
-}
 </style>
