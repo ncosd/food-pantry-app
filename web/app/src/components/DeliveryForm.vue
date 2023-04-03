@@ -155,6 +155,27 @@
             </div>
           </div>
 
+          <div class="border border-1 mb-3">
+            <div class="row">
+              <div class="col">
+                <h5>Pickup or Delivery</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input class="form-check-input" type="radio" name="togo-pickup" value="pickup" id="togo-pickup">
+                <label class="ml-3 form-check-label" for="togo-pickup">Pick up at NCFB</label>
+              </div>
+              <div class="col">
+                <input class="form-check-input" type="radio" name="togo-pickup" value="delivery" id="togo-delivery">
+                <label class="ml-3 form-check-label" for="togo-delivery">Delivered to your door</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-1 mb-3">
+            <h5>Categories</h5>
+            <p>Choose the item categories you will receive.</p>
           <div class="row">
             <div class="col-md-2">
               <div class="mb-3">
@@ -167,6 +188,13 @@
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Shelf Stable</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-1">
+              <div class="mb-3">
+                <label class="form-label">Cold</label><br>
                 <input class="form-check-input" type="checkbox">
               </div>
             </div>
@@ -185,13 +213,6 @@
               </div>
             </div>
 
-            <div class="col-md-1">
-              <div class="mb-3">
-                <label class="form-label">Cold</label><br>
-                <input class="form-check-input" type="checkbox">
-              </div>
-            </div>
-
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Personal Care</label><br>
@@ -206,11 +227,28 @@
               </div>
             </div>
           </div>
+          </div>
+
+          <div class="border border-1 mb-3">
+          <div class="row">
+            <div class="col">
+              <h5>Food Restrictions</h5>
+              <p>Only choose one of these checkboxes if you wish to have one of these restrictions.  Type in the notes field
+                if you have other restrictions not listed here.</p>
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Vegetarian (no beef, chicken, pork, fish)</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Pescatarian (only fish, no other meat)</label><br>
                 <input class="form-check-input" type="checkbox">
               </div>
             </div>
@@ -228,8 +266,16 @@
                 <input class="form-check-input" type="checkbox">
               </div>
             </div>
-          </div>
 
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">Other - type in notes</label><br>
+                <input class="form-check-input" type="checkbox">
+              </div>
+            </div>
+
+          </div>
+          </div>
 
           <div class="mb-3">
             <label class="form-label">Allergies and other notes.</label>
