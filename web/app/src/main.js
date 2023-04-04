@@ -12,7 +12,7 @@ import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
 // TODO: this is a workaround for the vite-sass compiler issue
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import './scss/styles.scss'
+import '@/scss/styles.scss'
 import * as bootstrap from 'bootstrap'
 //import * as colorModes from '@/color-modes.js'
 
