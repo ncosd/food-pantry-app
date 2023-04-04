@@ -74,7 +74,7 @@
             <div class="col-md-4">
               <div class="mb-3">
                 <label class="form-label">Zip</label>
-                <input class="form-control" v-model="profile.zip" label="Zip" autocomplete="zip"
+                <input class="form-control" v-model="profile.zip" label="Zip" autocomplete="zip" required
                        :rules="[rules.required,rules.deliveryArea]"
                        >
               </div>
@@ -103,7 +103,7 @@
             <div class="col-md-3">
               <div class="mb-3">
                 <label class="form-label">Number in household age 18-59</label>
-                <select class="form-select" v-model="profile.num_1859">
+                <select class="form-select" v-model="profile.num_1859" required>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -179,51 +179,50 @@
           <div class="row">
             <div class="col-md-2">
               <div class="mb-3">
-                <label class="form-label">Produce</label>
-                <br>
-                <input class="form-check-input" type="checkbox">
+                <label class="form-label">Produce</label><br>
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_produce">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Shelf Stable</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_stable">
               </div>
             </div>
 
             <div class="col-md-1">
               <div class="mb-3">
                 <label class="form-label">Cold</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_cold">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Feminine Hygiene</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_fem">
               </div>
             </div>
 
             <div class="col-md-1">
               <div class="mb-3">
                 <label class="form-label">Kids</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_kids">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Personal Care</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_personal">
               </div>
             </div>
 
             <div class="col-md-1">
               <div class="mb-3">
                 <label class="form-label">Diapers</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.cat_diapers">
               </div>
             </div>
           </div>
@@ -242,35 +241,35 @@
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Vegetarian (no beef, chicken, pork, fish)</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.isvegetarian">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Pescatarian (only fish, no other meat)</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="profile.ispescatarian">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">No Beef</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="isnobeef">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">No Pork</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="isnopork">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Other - type in notes</label><br>
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input" type="checkbox" v-model="restrictionnotes">
               </div>
             </div>
 
