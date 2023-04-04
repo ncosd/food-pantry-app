@@ -99,6 +99,11 @@ export default {
         cat_kids: profileForm.cat_kids || false,
         cat_personal: profileForm.cat_personal || false,
         cat_diapers: profileForm.cat_diapers || false,
+        risvegetarian: profileForm.risvegetarian || false,
+        rispescatarian: profileForm.rispescatarian || false,
+        risnobeef: profileForm.risnobeef || false,
+        risnopork: profileForm.risnopork || false,
+        rother: profileForm.rother || false
 
       }).then(() => {
         console.log("Successfully saved");

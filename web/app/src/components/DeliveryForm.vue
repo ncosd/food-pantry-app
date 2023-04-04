@@ -241,35 +241,35 @@
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Vegetarian (no beef, chicken, pork, fish)</label><br>
-                <input class="form-check-input" type="checkbox" v-model="profile.isvegetarian">
+                <input class="form-check-input" type="checkbox" v-model="profile.risvegetarian">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Pescatarian (only fish, no other meat)</label><br>
-                <input class="form-check-input" type="checkbox" v-model="profile.ispescatarian">
+                <input class="form-check-input" type="checkbox" v-model="profile.rispescatarian">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">No Beef</label><br>
-                <input class="form-check-input" type="checkbox" v-model="isnobeef">
+                <input class="form-check-input" type="checkbox" v-model="profile.risnobeef">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">No Pork</label><br>
-                <input class="form-check-input" type="checkbox" v-model="isnopork">
+                <input class="form-check-input" type="checkbox" v-model="profile.risnopork">
               </div>
             </div>
 
             <div class="col-md-2">
               <div class="mb-3">
                 <label class="form-label">Other - type in notes</label><br>
-                <input class="form-check-input" type="checkbox" v-model="restrictionnotes">
+                <input class="form-check-input" type="checkbox" v-model="profile.rother">
               </div>
             </div>
 
