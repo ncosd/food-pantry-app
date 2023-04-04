@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       user: useAuthUserStore(),
-      profile: { firstname: "", lastname:"" },
+      profile: { firstname: "", lastname:"", cat_stable: true, cat_produce: true },
       deliveryAppState: null,
       showSuccess: false,
       successMessage: "",
@@ -53,6 +53,7 @@ export default {
 
     if (deliveryProfileSnap.exists()) {
         this.profile = deliveryProfileSnap.data()
+        console.log('this.profile='+JSON.stringify(this.profile))
 
         const deliveryProfileStateRef = doc(db, "deliveryprofilestate", uid)
         const deliveryProfileStateSnap = await getDoc(deliveryProfileStateRef)
@@ -71,6 +72,8 @@ export default {
   },
   methods: {
    onFormSubmit(profileForm) {
+     console.log("profileForm=", JSON.stringify(profileForm))
+
       const db = getFirestore()
 
       setDoc(doc(db, "deliveryprofile", this.user.data.uid), {
@@ -88,7 +91,20 @@ export default {
         num_1859: profileForm.num_1859 || "0",
         num_1017: profileForm.num_1017 || "0",
         num_10: profileForm.num_10 || "0",
-        notes: profileForm.notes || ""
+        notes: profileForm.notes || "",
+        cat_produce: profileForm.cat_produce || false,
+        cat_stable: profileForm.cat_stable || false,
+        cat_cold: profileForm.cat_cold || false,
+        cat_fem: profileForm.cat_fem || false,
+        cat_kids: profileForm.cat_kids || false,
+        cat_personal: profileForm.cat_personal || false,
+        cat_diapers: profileForm.cat_diapers || false,
+        risvegetarian: profileForm.risvegetarian || false,
+        rispescatarian: profileForm.rispescatarian || false,
+        risnobeef: profileForm.risnobeef || false,
+        risnopork: profileForm.risnopork || false,
+        rother: profileForm.rother || false
+
       }).then(() => {
         console.log("Successfully saved");
         this.showSuccess = true,
