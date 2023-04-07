@@ -59,7 +59,14 @@
   }
 }
 
+.cal-week {
+    height:200px !important;
+}
 
+.cal-day {
+    height: 200px !important;
+    text-align: center !important;
+}
 
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";

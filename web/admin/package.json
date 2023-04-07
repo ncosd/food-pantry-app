@@ -11,9 +11,12 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "serve": "firebase serve",
     "serve:firebase": "firebase serve",
-    "serve:firebase:emulator": "firebase emulators:start --import=./fixtures"
+    "serve:firebase:emulator": "firebase emulators:start --import=./fixtures",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@vuepic/vue-datepicker": "^4.3.0",
     "bootstrap": "5.3.0-alpha1",
     "bootstrap-icons": "git+https://github.com/dherbst/icons#fix-dherbst-scss-1378",
     "firebase": "9.17.1",
@@ -22,12 +25,22 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.2",
+    "@storybook/addon-interactions": "^7.0.2",
+    "@storybook/addon-links": "^7.0.2",
+    "@storybook/blocks": "^7.0.2",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@storybook/vue3": "^7.0.2",
+    "@storybook/vue3-vite": "^7.0.2",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/test-utils": "^2.3.0",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
     "jsdom": "^21.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sass": "^1.58.3",
+    "storybook": "^7.0.2",
     "terser": "^5.14.2",
     "vite": "^4.1.4",
     "vitest": "^0.29.1"
