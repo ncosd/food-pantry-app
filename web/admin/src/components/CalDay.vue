@@ -6,14 +6,8 @@
     <div class="badge rounded-pill text-wrap d-block m-1 text-bg-secondary"
     :class="{ 'text-bg-secondary': isCovered(w.status), 'text-bg-warning': isOpen(w.status), 'text-bg-danger': isCancelled(w.status) }">
     {{ formatHour(w.start) }} - {{ formatHour(w.end) }} {{ w.status }}
-    {{ isCovered(w.status) }}
-    {{ isOpen(w.status) }}
-    {{ isCancelled(w.status) }}
-
     </div>
     </template>
-
-
   </div>
 </template>
 
