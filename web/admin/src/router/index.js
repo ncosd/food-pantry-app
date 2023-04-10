@@ -39,9 +39,9 @@ const router = new createRouter({
 })
 
 // This callback runs before every route change, including on page load.
-router.beforeEach((to, from) => {
+router.beforeEach( (to, from) => {
   const user = useAuthUserStore()
-  if (!user || !(user.isLoggedIn === true)) {
+  if (!user || !(user.isLoggedIn === true) || (user.isAdmin !== true)) {
     if (to.path !== '/login') {
       return { name: 'Login' }
     }

@@ -5,7 +5,7 @@ import App from './App.vue'
 import router from './router'
 import { initializeApp } from 'firebase/app'
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
-import { getAuth, connectAuthEmulator } from "firebase/auth"
+import { getAuth, connectAuthEmulator, getIdTokenResult } from "firebase/auth"
 import { getAnalytics } from "firebase/analytics"
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
@@ -47,11 +47,15 @@ fetch('/__/firebase/init.json').then(async response => {
     connectFunctionsEmulator(functions, 'localhost', 5001)
   }
 
+  getAuth().onAuthStateChanged(async user => {
+    let isAdmin = false
+    if (user) {
+      const token = await getIdTokenResult(user)
+      isAdmin = token.claims.admin === true
+    }
+    useAuthUserStore().save(user, isAdmin)
 
-  getAuth().onAuthStateChanged(user => {
-    useAuthUserStore().save(user)
   });
-
 
   const app = createApp(App)
   app.use(createPinia())
