@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-          <template v-if="user && user.isLoggedIn === true">
+          <template v-if="user && user.isAdmin === true">
             <li class="nav-item">
               <a class="nav-link" href="/delivery-applications">Delivery Applications</a>
             </li>
