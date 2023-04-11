@@ -85,6 +85,15 @@ If you see `hosting: Port 5000 is not open on 127.0.0.1, could not start Hosting
 
 This is because the airplay receiver is listening on port 5000.  You can either turn it off in System Preferences | Sharing | uncheck "airport receiver" or configure firebase to use a different port.
 
+### Component development
+When you are developing components, [Storybook](https://storybook.js.org/) helps the process by letting you focus on the component without worrying about all the other dependencies in the site.
+
+You can run storybook with the command:
+
+```sh
+npm run storybook
+```
+
 ## This is great, how can I use this for my Food Pantry or Food Bank?
 It will get easier over time as the process is refined.   Currently, the best way for you to use this project is to:
 
