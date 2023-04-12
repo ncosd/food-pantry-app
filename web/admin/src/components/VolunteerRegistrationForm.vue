@@ -57,7 +57,7 @@
 
             <div class="row mb-3">
               <label class="form-label">Best days/times for you</label>
-              <textarea class="form-control" v-model="profile.notes"></textarea>
+              <textarea class="form-control" v-model="profile.preferredtimes"></textarea>
             </div>
 
             <div class="row">
@@ -118,7 +118,7 @@ export default {
         acceptLiftClean: false,
         acceptParent: false,
         acceptFrontLine: false,
-        notes: '',
+        preferredtimes: '',
         extraNote: '',
       },
       error: '',
@@ -200,7 +200,6 @@ export default {
         this.acceptFrontLineError = true
         this.error += " Accept Front Line worker statement."
       }
-
 
       if (this.error) {
         return false

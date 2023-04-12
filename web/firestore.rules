@@ -25,6 +25,11 @@ service cloud.firestore {
       allow read: if request.auth != null && request.auth.uid == userid;
     }
 
+    match /volunteerprofile/{userid} {
+      allow read, update: if request.auth != null && request.auth.uid == resource.data.userid;
+      allow create: if request.auth != null && request.auth.uid == userid;
+    }
+
     match /privacypolicy/{version} {
       allow read
     }
