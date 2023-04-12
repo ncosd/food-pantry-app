@@ -10,33 +10,31 @@ const toEmail = process.env.DELIVERY_TO;
 const bccEmail = process.env.DELIVERY_BCC;
 
 
-// Every user is a guest.
-exports.addUserRoleOnCreate = functions.auth.user().onCreate(async (authUser) => {
-  if (authUser.email) {
-    const customClaims = {
-      guest: true
-    };
-    try {
-      var _ = await admin.auth().setCustomUserClaims(authUser.uid, customClaims)
-      return db.collection("roles").doc(authUser.uid).set({
-        email: authUser.email,
-        role: customClaims
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-});
+// // Set role for the user based on
+// exports.addUserRoleOnCreate = functions.auth.user().onCreate(async (authUser) => {
+//   if (authUser.email) {
+//     const customClaims = {
+//       guest: true
+//     };
+//     try {
+//       var _ = await admin.auth().setCustomUserClaims(authUser.uid, customClaims)
+//       return db.collection("roles").doc(authUser.uid).set({
+//         email: authUser.email,
+//         role: customClaims
+//       })
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
+// });
 
 // Admins can change users roles.
-exports.setRole = functions.https.onCall(async (data, context) => {
+exports.setAdminRole = functions.https.onCall(async (data, context) => {
 
   // Check the calling user has the admin custom claim
   if (!context.auth.token.admin) return;
 
-  admin
-    .auth().setCustomUserClaims(data.uid, { admin: true }).then(function() {
-
+  admin.auth().setCustomUserClaims(data.uid, { admin: true }).then(function() {
 
       db.collection("roles").doc(data.uid).set({ role: { admin: true} }).catch( (error) => {
         console.log("Error setting admin role for user.", error);

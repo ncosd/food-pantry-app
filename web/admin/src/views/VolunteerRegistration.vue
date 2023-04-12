@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <volunteer-registration-form></volunteer-registration-form>
+    <volunteer-registration-form @submitted='onSubmitted'></volunteer-registration-form>
  </div>
 </template>
 
 <script>
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import VolunteerRegistrationForm from '@/components/VolunteerRegistrationForm.vue'
 
 export default {
@@ -29,43 +30,29 @@ export default {
     VolunteerRegistrationForm,
   },
   methods: {
-    submit() {
-      this.error = "";
-      this.showSuccess = false;
+    onSubmitted(regdata) {
+      console.log('regdata=' + JSON.stringify(regdata))
 
-      if (!this.email) {
-        this.error = "Email is required"
-      } else {
-        if (!(/.+@.+\..+/.test(this.email))) {
-          this.error += " Invalid email address."
-        }
-      }
-
-      if (!this.password) {
-        this.error += " Password is required"
-      }
-      if (this.password && (this.password.length < 8)) {
-        this.error += " Password must be at least 8 characters"
-      }
-
-      if (this.error) {
-        this.showSuccess = false
-        console.log("error  "+this.error)
-        return false
-      }
-
-      console.log("before firebase.auth")
+      console.log("before firebase.auth  email="+regdata.email)
 
       const auth = getAuth()
-      createUserWithEmailAndPassword(auth, this.email, this.password)
+      createUserWithEmailAndPassword(auth, regdata.email, regdata.password)
       .then(data => {
         this.showSuccess = true;
         this.successMessage = "Account registered.";
-        const name = this.email.match(/(.+)@/)
+        const name = regdata.email.match(/(.+)@/)
         updateProfile(auth.currentUser, {
           displayName: name[1]
         })
-        .then(() => { console.log("after updateProfile"); this.$router.replace({name:'Home'}); })
+        .then(() => {
+          console.log("after updateProfile uid=" + auth.currentUser.uid)
+          //this.$router.replace({name:'Home'})
+          const db = getFirestore()
+          regdata.profile.email = regdata.email
+          const vprofile = doc(db, 'volunteerprofile', auth.currentUser.uid)
+          setDoc(vprofile, regdata.profile)
+
+        })
         .catch(err=>{
           console.log('err for updateProfile', err)
         })
