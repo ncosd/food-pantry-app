@@ -24,6 +24,24 @@ export let config = {
         }
       ]
     },
+    ForgotPassword: {
+      title: 'Forgot Password',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Forgot Password'
+        }
+      ]
+    },
+    Register: {
+      title: 'Volunteer Registration',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Register to be a volunteer'
+        }
+      ]
+    },
     DeliveryApplications: {
       title: 'Delivery Applications',
       metaTags: [
