@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import DeliveryApplications from '@/views/DeliveryApplications.vue'
 import NotFound from '@/components/NotFound.vue'
+import VolunteerRegistration from '@/views/VolunteerRegistration.vue'
 import { config } from '@/config'
 import { useAuthUserStore } from '@/stores/authUser'
 
@@ -26,6 +27,18 @@ const routes = [
     meta: config.meta.DeliveryApplications
   },
   {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: () => import('../views/ForgotPassword.vue'),
+    meta: config.meta.ForgotPassword
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: VolunteerRegistration,
+    meta: config.meta.Register
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
@@ -42,7 +55,7 @@ const router = new createRouter({
 router.beforeEach( (to, from) => {
   const user = useAuthUserStore()
   if (!user || !(user.isLoggedIn === true) || (user.isAdmin !== true)) {
-    if (to.path !== '/login') {
+    if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password') {
       return { name: 'Login' }
     }
   }
