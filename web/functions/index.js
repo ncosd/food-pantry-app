@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require('firebase-admin');
+const fs = require('firebase-admin/firestore');
 
 admin.initializeApp();
 
@@ -56,8 +57,8 @@ exports.addDeliveryProfileOnCreate = functions.firestore
     var profileState = {
       userid: context.params.userId,
       status: "in-review",
-      created: admin.firestore.Timestamp.now(),
-      updated: admin.firestore.Timestamp.now()
+      created: fs.Timestamp.now(),
+      updated: fs.Timestamp.now()
     };
 
     db.collection("deliveryprofilestate").doc(context.params.userId).set(profileState);
@@ -109,3 +110,20 @@ Notes: ${profile.notes}`
     });
 
 });
+
+
+// When a VolunteerProfile is created, set status to in-review.
+exports.addVolunteerProfileOnCreate = functions.firestore
+  .document('volunteerprofile/{userId}')
+  .onCreate((snap, context) => {
+    // create a VolunteerProfileState
+    const profile = snap.data();
+    var profileState = {
+      userid: context.params.userId,
+      status: "in-review",
+      created: fs.Timestamp.now(),
+      updated: fs.Timestamp.now()
+    };
+
+    db.collection("volunteerpofilestate").doc(context.params.userId).set(profileState);
+  });
