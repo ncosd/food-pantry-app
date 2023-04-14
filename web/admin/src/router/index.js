@@ -12,38 +12,39 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: config.meta.Home
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: config.meta.Login
   },
   {
     path: '/delivery-applications',
     name: 'DeliveryApplications',
     component: DeliveryApplications,
-    meta: config.meta.DeliveryApplications
+    meta: { admin: true },
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: () => import('../views/ForgotPassword.vue'),
-    meta: config.meta.ForgotPassword
   },
   {
     path: '/register',
     name: 'register',
     component: VolunteerRegistration,
-    meta: config.meta.Register
+  },
+  {
+    path: '/volunteer-applicants',
+    name: 'VolunteerApplicants',
+    component: NotFound, //VolunteerApplicants,
+    meta: { admin: true}
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
-    meta: config.meta.NotFound
-  },
+  }
 ]
 
 const router = new createRouter({
@@ -58,6 +59,9 @@ router.beforeEach( (to, from) => {
     if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password') {
       return { name: 'Login' }
     }
+  }
+  if (to.meta.admin === true && !user.isAdmin) {
+    return from
   }
 })
 
