@@ -46,35 +46,19 @@
   </nav>
 </template>
 
-<script>
+<script setup>
 import { getAuth, signOut } from 'firebase/auth'
 import { config } from '@/config'
 import { useAuthUserStore } from '@/stores/authUser'
+import { useRouter } from 'vue-router'
 
+const user = useAuthUserStore()
+const router = useRouter()
 
-export default {
-  name: 'AppNavigation',
-  data() {
-    return {
-      user: null,
-      config: config
-    }
-  },
-  mounted() {
-    this.user = useAuthUserStore()
-  },
-  methods: {
-   signOutClick() {
-     const auth = getAuth()
-     signOut(auth)
-     .then( () => {
-       this.$router.replace({ name: "Login" })
-     }).catch((err) => {
-       console.log("Error logging out: " + err)
-   })
-  }
- }
+const signOutClick = () => {
+  const auth = getAuth()
+  signOut(auth).then( ()=> {
+    router.replace({name: 'Login'})
+  })
 }
 </script>
-
-<style></style>
