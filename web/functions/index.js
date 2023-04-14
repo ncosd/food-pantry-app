@@ -115,7 +115,7 @@ Notes: ${profile.notes}`
 // When a VolunteerProfile is created, set status to in-review.
 exports.addVolunteerProfileOnCreate = functions.firestore
   .document('volunteerprofile/{userId}')
-  .onCreate((snap, context) => {
+  .onCreate(async (snap, context) => {
     // create a VolunteerProfileState
     const profile = snap.data();
     var profileState = {
@@ -126,4 +126,16 @@ exports.addVolunteerProfileOnCreate = functions.firestore
     };
 
     db.collection("volunteerpofilestate").doc(context.params.userId).set(profileState);
+
+    // add the volunteer claim
+    const customClaims = {
+      volunteer: true
+    };
+    try {
+      var _ = await admin.auth().setCustomUserClaims(context.params.userId, customClaims)
+      return
+    } catch (error) {
+      console.log(error)
+    }
+
   });

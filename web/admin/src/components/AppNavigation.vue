@@ -21,6 +21,11 @@
               <a class="nav-link" href="/volunteer-schedule">Volunteer Schedule</a>
             </li>
           </template>
+          <template v-if="user && (user.isAdmin || user.isVolunteer)">
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          </template>
         </ul>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -41,11 +46,9 @@
   </nav>
 </template>
 
-
 <script>
 import { getAuth, signOut } from 'firebase/auth'
 import { config } from '@/config'
-import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 
 
@@ -62,13 +65,12 @@ export default {
   },
   methods: {
    signOutClick() {
-     const router = useRouter()
      const auth = getAuth()
      signOut(auth)
      .then( () => {
-       router.replace({ name: "Login" })
+       this.$router.replace({ name: "Login" })
      }).catch((err) => {
-     console.log("Error logging out: " + err)
+       console.log("Error logging out: " + err)
    })
   }
  }
