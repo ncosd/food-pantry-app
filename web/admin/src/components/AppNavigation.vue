@@ -15,10 +15,10 @@
               <a class="nav-link" href="/delivery-schedule">Delivery Schedule</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/volunteer-applicants">Volunteer Applicants</a>
+              <router-link to="/volunteers" class="nav-link">Volunteers</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/volunteer-schedule">Volunteer Schedule</a>
+              <router-link class="nav-link" to="/schedule">Schedule</router-link>
             </li>
           </template>
           <template v-if="user && (user.isAdmin || user.isVolunteer)">

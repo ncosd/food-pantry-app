@@ -4,6 +4,7 @@ import Login from '@/views/Login.vue'
 import DeliveryApplications from '@/views/DeliveryApplications.vue'
 import NotFound from '@/components/NotFound.vue'
 import VolunteerRegistration from '@/views/VolunteerRegistration.vue'
+import VolunteersPage from '@/views/VolunteersPage.vue'
 import { config } from '@/config'
 import { useAuthUserStore } from '@/stores/authUser'
 
@@ -35,10 +36,21 @@ const routes = [
     component: VolunteerRegistration,
   },
   {
-    path: '/volunteer-applicants',
-    name: 'VolunteerApplicants',
-    component: NotFound, //VolunteerApplicants,
+    path: '/volunteers',
+    name: 'Volunteers',
+    component: VolunteersPage,
     meta: { admin: true}
+  },
+  {
+    path: '/schedule',
+    name: 'Schedule',
+    component: () => import ('@/views/SchedulePage.vue'),
+    meta: { admin: true}
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import ('@/views/ProfilePage.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
