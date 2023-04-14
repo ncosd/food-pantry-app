@@ -49,12 +49,13 @@ fetch('/__/firebase/init.json').then(async response => {
 
   getAuth().onAuthStateChanged(async user => {
     let isAdmin = false
+    let isVolunteer = false
     if (user) {
       const token = await getIdTokenResult(user)
       isAdmin = token.claims.admin === true
+      isVolunteer = token.claims.volunteer === true
     }
-    useAuthUserStore().save(user, isAdmin)
-
+    useAuthUserStore().save(user, isAdmin, isVolunteer)
   });
 
   const app = createApp(App)
