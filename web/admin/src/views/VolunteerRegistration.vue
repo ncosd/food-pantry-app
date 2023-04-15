@@ -1,11 +1,16 @@
 <template>
   <div class="container">
-    <volunteer-registration-form @submitted='onSubmitted'></volunteer-registration-form>
+    <template v-if="state == 'new'">
+      <volunteer-registration-form @submitted='onSubmitted'></volunteer-registration-form>
+    </template>
+    <template v-else>
+      <p>You have been registered as a volunteer.  It can take a few days to process your application, please check back at a later time.</p>
+    </template>
  </div>
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile, getTokenResult} from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import VolunteerRegistrationForm from '@/components/VolunteerRegistrationForm.vue'
 
@@ -19,11 +24,7 @@ export default {
       valid: false,
       password: '',
       email: '',
-      rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
-        emailRule: v => !v || /.+@.+/.test(v) || 'Invalid Email Address'
-      },
+      state: 'new',
     }
   },
   components: {
@@ -44,14 +45,16 @@ export default {
         updateProfile(auth.currentUser, {
           displayName: name[1]
         })
-        .then(() => {
+        .then( async () => {
           console.log("after updateProfile uid=" + auth.currentUser.uid)
-          //this.$router.replace({name:'Home'})
           const db = getFirestore()
           regdata.profile.email = regdata.email
+          regdata.profile.updated = new Date()
           const vprofile = doc(db, 'volunteerprofile', auth.currentUser.uid)
           setDoc(vprofile, regdata.profile)
+          this.state = 'registered'
 
+          //this.$router.replace({name:'Home'})
         })
         .catch(err=>{
           console.log('err for updateProfile', err)

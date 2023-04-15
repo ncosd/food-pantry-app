@@ -1,9 +1,28 @@
 <script setup>
+import { ref, onBeforeMount } from 'vue'
+import VolunteerList from '@/components/VolunteerList.vue'
+import { collection, getFirestore, query, where, getDocs } from 'firebase/firestore';
+
+var volunteers = ref([])
+
+onBeforeMount( async () => {
+  const db = getFirestore()
+  const q = query(collection(db, 'volunteerprofilestate'), where('status', '==', 'in-review'))
+  const pstates = await getDocs(q)
+
+  pstates.forEach((prof)=> {
+    console.log(prof.id)
+    volunteers.value.push(prof.data())
+  })
+  console.log('volunteers='+JSON.stringify(volunteers))
+})
+
+
 
 </script>
 
 <template>
 <div>
-    <p>Placeholder for the volunteers page</p>
+  <volunteer-list :volunteers=volunteers></volunteer-list>
 </div>
 </template>
