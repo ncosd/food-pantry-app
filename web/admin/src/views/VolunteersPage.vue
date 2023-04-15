@@ -11,14 +11,9 @@ onBeforeMount( async () => {
   const pstates = await getDocs(q)
 
   pstates.forEach((prof)=> {
-    console.log(prof.id)
     volunteers.value.push(prof.data())
   })
-  console.log('volunteers='+JSON.stringify(volunteers))
 })
-
-
-
 </script>
 
 <template>
