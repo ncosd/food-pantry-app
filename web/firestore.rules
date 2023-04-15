@@ -30,6 +30,12 @@ service cloud.firestore {
       allow create: if request.auth != null && request.auth.uid == userid;
     }
 
+    match /volunteerprofilestate/{userid} {
+      allow read: if request.auth != null && (request.auth.uid == resource.data.userid || request.auth.token.admin == true);
+      allow update: if request.auth != null && request.auth.token.admin == true;
+      // allow create: if request.auth != null && request.auth.uid == userid;
+    }
+
     match /privacypolicy/{version} {
       allow read
     }

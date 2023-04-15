@@ -65,7 +65,7 @@ Use these commands for developing locally:
     npm run serve:firebase:emulator   # leave this running in one terminal
     npm run build:watch               # leave this running in another terminal
 
-Running these two commands will run the emulators in one terminal, and the vue-cli-service in the other.  The vue service will not do hot-reloading, it will rebuild to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work.
+Running these two commands will run the emulators in one terminal, and Vite build in the other.  The firebase service will not do hot-reloading in the browser when Vite builds to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work to load the latest built code.
 
 ### Java installed?
 The firebase emulator needs node.js 8.0 or higher and Java JDK version 11 or higher.

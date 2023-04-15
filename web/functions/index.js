@@ -120,12 +120,15 @@ exports.addVolunteerProfileOnCreate = functions.firestore
     const profile = snap.data();
     var profileState = {
       userid: context.params.userId,
+      firstname: profile.firstname,
+      lastname: profile.lastname,
+      email: profile.email,
       status: "in-review",
       created: fs.Timestamp.now(),
       updated: fs.Timestamp.now()
     };
 
-    db.collection("volunteerpofilestate").doc(context.params.userId).set(profileState);
+    db.collection("volunteerprofilestate").doc(context.params.userId).set(profileState);
 
     // add the volunteer claim
     const customClaims = {

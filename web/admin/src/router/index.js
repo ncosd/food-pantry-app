@@ -4,6 +4,7 @@ import Login from '@/views/Login.vue'
 import DeliveryApplications from '@/views/DeliveryApplications.vue'
 import NotFound from '@/components/NotFound.vue'
 import VolunteerRegistration from '@/views/VolunteerRegistration.vue'
+import VolunteersPage from '@/views/VolunteersPage.vue'
 import { config } from '@/config'
 import { useAuthUserStore } from '@/stores/authUser'
 
@@ -12,38 +13,50 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: config.meta.Home
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: config.meta.Login
   },
   {
     path: '/delivery-applications',
     name: 'DeliveryApplications',
     component: DeliveryApplications,
-    meta: config.meta.DeliveryApplications
+    meta: { admin: true },
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: () => import('../views/ForgotPassword.vue'),
-    meta: config.meta.ForgotPassword
   },
   {
     path: '/register',
     name: 'register',
     component: VolunteerRegistration,
-    meta: config.meta.Register
+  },
+  {
+    path: '/volunteers',
+    name: 'Volunteers',
+    component: VolunteersPage,
+    meta: { admin: true}
+  },
+  {
+    path: '/schedule',
+    name: 'Schedule',
+    component: () => import ('@/views/SchedulePage.vue'),
+    meta: { admin: true}
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import ('@/views/ProfilePage.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
-    meta: config.meta.NotFound
-  },
+  }
 ]
 
 const router = new createRouter({
@@ -58,6 +71,9 @@ router.beforeEach( (to, from) => {
     if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password') {
       return { name: 'Login' }
     }
+  }
+  if (to.meta.admin === true && !user.isAdmin) {
+    return from
   }
 })
 
