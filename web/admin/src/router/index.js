@@ -48,8 +48,9 @@ const routes = [
     meta: { admin: true}
   },
   {
-    path: '/profile',
+    path: '/profile/:uid?',
     name: 'Profile',
+    props: true,
     component: () => import ('@/views/ProfilePage.vue'),
   },
   {
