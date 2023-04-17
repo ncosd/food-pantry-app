@@ -16,8 +16,7 @@
               <div v-if="emailError" class="text-bg-danger">Email is required.  Please check email is correct.</div>
               <label class="form-label">Email</label>
               <div class="col-sm-10">
-                <input type="text" v-model="email" autocomplete="username" class="form-control"
-                  placeholder="name@example.com" required>
+                <input type="text" v-model="email" autocomplete="username" class="form-control" placeholder="name@example.com" required>
               </div>
             </div>
 
@@ -54,35 +53,39 @@
               </div>
             </div>
 
-
-            <div class="row mb-3">
-              <label class="form-label">Best days/times for you</label>
-              <textarea class="form-control" v-model="profile.preferredtimes"></textarea>
+            <div class="row mb-3 border-top border-bottom">
+              <div>Best days for you:</div>
+              <div class="form-check ms-3"><input id="avail_monday" class="form-check-input" type="checkbox" v-model="profile.avail_monday"><label class="form-check-label" for="avail_monday">Monday</label></div>
+              <div class="form-check ms-3"><input id="avail_tuesday" class="form-check-input" type="checkbox" v-model="profile.avail_tuesday"><label class="form-check-label" for="avail_tuesday">Tuesday</label></div>
+              <div class="form-check ms-3"><input id="avail_thursday" class="form-check-input" type="checkbox" v-model="profile.avail_thursday"><label class="form-check-label" for="avail_thursday">Thursday</label></div>
+              <div class="form-check ms-3"><input id="avail_saturday" class="form-check-input" type="checkbox" v-model="profile.avail_saturday"><label class="form-check-label" for="avail_saturday">Saturday</label></div>
             </div>
 
             <div class="row">
-              <div class="mb-3">
+              <div class="form-check mb-3">
                 <div v-if="acceptLiftError" class="text-bg-danger">This is required to volunteer.</div>
-                <label class="form-label">Are you able to safely lift 35 lbs on a regular basis? All of our volunteer
-                  positions require physical work including lifting and cleaning.</label><br>
-                <input class="form-check-input" type="checkbox" v-model="profile.acceptLiftClean">
+                <input id="acceptliftclean" class="form-check-input" type="checkbox" v-model="profile.acceptLiftClean">
+                <label for="acceptliftclean" class="form-label">Are you able to safely lift 35 lbs on a regular basis? All of our volunteer
+                  positions require physical work including lifting and cleaning.</label>
+
               </div>
             </div>
 
             <div class="row">
-              <div class="mb-3">
+              <div class="form-check mb-3">
                 <div v-if="acceptParentError" class="text-bg-danger">This is required to volunteer.</div>
-                <label class="form-label">I understand that volunteers under 16 years of age need to be accompanied by a
-                  parent.</label><br>
-                <input class="form-check-input" type="checkbox" v-model="profile.acceptParent">
+                <input id="acceptParent" class="form-check-input" type="checkbox" v-model="profile.acceptParent">
+                <label for="acceptParent" class="form-label">I understand that volunteers under 16 years of age need to be accompanied by a
+                  parent.</label>
+
               </div>
             </div>
 
             <div class="row">
-              <div class="mb-3">
+              <div class="form-check mb-3">
                 <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
-                <label class="form-label">Do you accept the front line worker statement?</label><br>
-                <input class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine">
+                <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine">
+                <label for="acceptfrontline" class="form-label">Do you accept the front line worker statement?</label>
               </div>
             </div>
 

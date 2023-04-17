@@ -15,6 +15,8 @@ if (props.uid === '') {
 
 <template>
 <div class="container">
-   <p>uid {{ uid }}</p>
+  <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
+  <p>User id: {{ uid }}</p>
+
 </div>
 </template>

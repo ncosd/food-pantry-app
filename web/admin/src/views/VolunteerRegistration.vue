@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword, updateProfile, getTokenResult} from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import VolunteerRegistrationForm from '@/components/VolunteerRegistrationForm.vue'
 
