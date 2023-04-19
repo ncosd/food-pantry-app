@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineProps, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
-import { collection, getFirestore, query, where, doc, getDoc } from 'firebase/firestore';
+import { collection, getFirestore, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
 
 const props = defineProps({
   uid: String,
@@ -13,14 +13,18 @@ if (props.uid === '') {
 }
 
 var profile = ref()
+var profileRef
+
+const save = ( async ()=>{
+  await updateDoc(profileRef, profile.value)
+})
 
 onBeforeMount( async () => {
   const db = getFirestore()
-  const profileRef = doc(db, "volunteerprofile", props.uid)
+  profileRef = doc(db, "volunteerprofile", props.uid)
   const profileSnap = await getDoc(profileRef)
   if (profileSnap.exists()) {
     profile.value = profileSnap.data()
-    console.log('after getdoc(ProfileRef)', profile.value.email)
   }
 })
 </script>
@@ -30,9 +34,13 @@ onBeforeMount( async () => {
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
   <div class="row my-3">
-    <div class="col">
+    <div class="col-12 col-md-6">
       <label class="form-label" for="email">Email</label>
       <input type="text" id="email" class="form-control" v-model="profile.email" disabled>
+    </div>
+    <div class="col-12 col-md-6">
+      <label class="form-label" for="displayname">Display Name</label>
+      <input type="text" id="displayname" class="form-control" v-model="profile.displayname">
     </div>
   </div>
   <div class="row my-3">
@@ -105,7 +113,7 @@ onBeforeMount( async () => {
   </div>
   <div class="row">
     <div class="col">
-      <button class="btn btn-primary">Save</button>
+      <button class="btn btn-primary" @click.prevent="save">Save</button>
     </div>
   </div>
 
