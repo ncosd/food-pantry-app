@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword, updateProfile, getTokenResult} from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import VolunteerRegistrationForm from '@/components/VolunteerRegistrationForm.vue'
 
@@ -50,6 +50,7 @@ export default {
           const db = getFirestore()
           regdata.profile.email = regdata.email
           regdata.profile.updated = new Date()
+          regdata.profile.displayname = name[1]
           const vprofile = doc(db, 'volunteerprofile', auth.currentUser.uid)
           setDoc(vprofile, regdata.profile)
           this.state = 'registered'

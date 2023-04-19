@@ -27,7 +27,7 @@ const formatDate = (t) => {
     <tr v-for="v in volunteers">
       <td>{{v.firstname}}</td>
       <td>{{v.lastname}}</td>
-      <td>{{v.email}}</td>
+      <td><router-link :to="{ name: 'Profile', params:{ uid: v.userid}}">{{v.email}}</router-link></td>
       <td>
         <button class="btn btn-sm btn-primary me-1">Approve</button>
         <button class="btn btn-sm btn-secondary">Ignore</button>
