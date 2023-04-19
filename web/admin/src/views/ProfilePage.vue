@@ -12,11 +12,14 @@ if (props.uid === '') {
  props.uid = user.data.uid
 }
 
-var profile = ref()
-var profileRef
+const profile = ref()
+const status = ref()
+var profileRef = null
+var stateRef = null
 
 const save = ( async ()=>{
   await updateDoc(profileRef, profile.value)
+  await updateDoc(stateRef, { status: status.value})
 })
 
 onBeforeMount( async () => {
@@ -25,7 +28,13 @@ onBeforeMount( async () => {
   const profileSnap = await getDoc(profileRef)
   if (profileSnap.exists()) {
     profile.value = profileSnap.data()
+    stateRef = doc(db, "volunteerprofilestate", props.uid)
+    const stateSnap = await getDoc(stateRef)
+    if (stateSnap.exists()) {
+      status.value = stateSnap.data().status
+    }
   }
+
 })
 </script>
 
@@ -33,6 +42,21 @@ onBeforeMount( async () => {
 <div class="container">
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
+  <div class="row my-3">
+   <div class="col">
+     <label class="form-label" for="status">Volunteer Status</label>
+     <template v-if="user.isAdmin">
+     <select class="form-select" v-model="status">
+     <option value="active">active</option>
+     <option value="in-review">in-review</option>
+     <option value="inactive">inactive</option>
+     </select>
+     </template>
+     <template v-else>
+     {{ status }}
+     </template>
+   </div>
+  </div>
   <div class="row my-3">
     <div class="col-12 col-md-6">
       <label class="form-label" for="email">Email</label>
