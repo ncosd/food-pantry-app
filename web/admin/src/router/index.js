@@ -60,6 +60,11 @@ const routes = [
     component: () => import ('@/views/ProfilePage.vue'),
   },
   {
+    path: '/contact',
+    name: 'Contact',
+    component: () => import('../views/ContactPage.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
