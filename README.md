@@ -1,17 +1,17 @@
 # Food Pantry App
-Web application for Food Pantries.
+Web application for Food Pantries.  Volunteers can register with the site, and choose locations and days/times from a schedule.
 
-The Food Pantry Application is designed to help run day to day operations.  The highest priority items are these below, and you can see the full roadmap at the project link.  If there is something you need added, please create a new issue.
+The Food Pantry Application is designed to help run day to day operations.  The highest priority items are below, and you can see the full roadmap at the projects link.  The current sprints are being run off the Volunteer Portal board.  If there is something you need added, please create a new issue.
 
-* [X] Customers and Volunteers can register with the application
-* [X] Customers can apply to be on the delivery list
-* [ ] Admins can maintain the list of deliveries that will be made on delivery days
-* [ ] Volunteers can apply for specific days/hours they would like to volunteer
+* [X] Guests and Volunteers can register with the application
+* [X] Volunteers can apply for specific days/hours they would like to volunteer
+* [X] Guests can apply to be on the delivery list
 * [ ] Admins can maintain the list of volunteers that will attend on specific dates
+* [ ] Admins can maintain the list of deliveries that will be made on delivery days
 * [ ] Admins can maintain an inventory of what is available and amounts of items.
 
 ## Project Roadmap
-The project uses Github projects for its roadmap, you can find it here: https://github.com/orgs/ncosd/projects/2
+The project uses Github projects for its roadmap, you can find the roadmap here: https://github.com/orgs/ncosd/projects/2
 
 ## Developing
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
