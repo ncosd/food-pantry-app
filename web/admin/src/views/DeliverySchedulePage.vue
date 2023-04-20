@@ -4,6 +4,6 @@
 
 <template>
 <div class="container">
-  <p>Placeholder for the schedule page</p>
+  <p>Placeholder for the Delivery Schedule Page</p>
 </div>
 </template>

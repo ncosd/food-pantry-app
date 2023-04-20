@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
-import DeliveryApplications from '@/views/DeliveryApplications.vue'
+import DeliveryApplicationsPage from '@/views/DeliveryApplicationsPage.vue'
 import NotFound from '@/components/NotFound.vue'
 import VolunteerRegistration from '@/views/VolunteerRegistration.vue'
 import VolunteersPage from '@/views/VolunteersPage.vue'
@@ -21,8 +21,8 @@ const routes = [
   },
   {
     path: '/delivery-applications',
-    name: 'DeliveryApplications',
-    component: DeliveryApplications,
+    name: 'DeliveryApplicationsPage',
+    component: DeliveryApplicationsPage,
     meta: { admin: true },
   },
   {
@@ -39,6 +39,12 @@ const routes = [
     path: '/volunteers',
     name: 'Volunteers',
     component: VolunteersPage,
+    meta: { admin: true}
+  },
+  {
+    path: '/delivery-schedule',
+    name: 'DeliverySchedule',
+    component: () => import ('@/views/DeliverySchedulePage.vue'),
     meta: { admin: true}
   },
   {
