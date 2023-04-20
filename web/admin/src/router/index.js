@@ -80,7 +80,7 @@ const router = new createRouter({
 router.beforeEach( (to, from) => {
   const user = useAuthUserStore()
   if (!user || !(user.isLoggedIn === true) || (user.isAdmin !== true) && (user.isVolunteer !== true)) {
-    if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password') {
+    if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password' && to.path !== '/contact') {
       return { name: 'Login' }
     }
   }
