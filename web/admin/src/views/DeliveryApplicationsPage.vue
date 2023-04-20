@@ -1,16 +1,16 @@
 <template>
   <div background-color="blue">
-    <Deliveries :deliveries="deliveries"></Deliveries>
+    <DeliveryApplications :deliveries="deliveries"></DeliveryApplications>
   </div>
 </template>
 
 <script>
-import Deliveries from '@/components/Deliveries.vue'
+import DeliveryApplications from '@/components/DeliveryApplications.vue'
 
 export default {
-  name: 'DeliveryApplications',
+  name: 'DeliveryApplicationsPage',
   components: {
-    Deliveries
+    DeliveryApplications,
   },
 
   data() {

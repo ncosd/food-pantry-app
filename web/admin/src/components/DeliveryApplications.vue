@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <h1>Delivery Applications</h1>
-    <table class="text-center">
+  <div class="container">
+    <div class="table-responsive-md">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th @click="sort('firstname')">Firstname</th>
-          <th @click="sort('lastname')">Lastname</th>
-          <th @click="sort('status')">Status</th>
-          <th @click="sort('updated')">Updated</th>
-          <th @click="sort('city')">Address</th>
-          <th @click="sort('num_10')">Num 0-10</th>
-          <th @click="sort('num_1017')">Num 11-17</th>
-          <th @click="sort('num_1859')">Num 18-59</th>
-          <th @click="sort('num_60')">Num 60+</th>
-          <th @click="sort('notes')">Notes</th>
+          <th><button class="btn" @click="sort('firstname')">Firstname</button></th>
+          <th><button class="btn" @click="sort('lastname')">Lastname</button></th>
+          <th><button class="btn"  @click="sort('status')">Status</button></th>
+          <th><button class="btn" @click="sort('updated')">Updated</button></th>
+          <th><button class="btn" @click="sort('city')">Address</button></th>
+          <th><button class="btn" @click="sort('num_10')">Num 0-10</button></th>
+          <th><button class="btn" @click="sort('num_1017')">Num 11-17</button></th>
+          <th><button class="btn" @click="sort('num_1859')">Num 18-59</button></th>
+          <th><button class="btn" @click="sort('num_60')">Num 60+</button></th>
+          <th><button class="btn" @click="sort('notes')">Notes</button></th>
         </tr>
       </thead>
       <tbody>
@@ -31,6 +31,7 @@
       </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
