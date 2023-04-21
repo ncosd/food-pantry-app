@@ -60,6 +60,12 @@ const routes = [
     component: () => import ('@/views/ProfilePage.vue'),
   },
   {
+    path: '/location/:id?',
+    name: 'Location',
+    props: true,
+    component: () => import('@/views/LocationPage.vue'),
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/ContactPage.vue'),
