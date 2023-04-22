@@ -20,6 +20,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/schedule">Schedule</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{name:'LocationsList'}">Locations</router-link>
+            </li>
           </template>
           <template v-if="user && (user.isAdmin || user.isVolunteer)">
             <li class="nav-item">
