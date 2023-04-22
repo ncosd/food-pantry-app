@@ -56,34 +56,6 @@ const toggleCreate = ( ()=>{
 
 <template>
 <div class="container">
-  <div class="table-responsive-md">
-  <table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Street Address</th>
-      <th scope="col">City</th>
-      <th scope="col">State</th>
-      <th scope="col">zip</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="loc in locations">
-      <td>{{loc.name}}</td>
-      <td>{{loc.street}}</td>
-      <td>{{loc.city}}</td>
-      <td>{{loc.state}}</td>
-      <td>{{loc.zip}}</td>
-    </tr>
-  </tbody>
-  </table>
-  </div>
-
-  <div>
-    <div>
-      <button class="btn btn-primary btn-sm" @click="toggleCreate()">New</button>
-    <template v-if="showCreate === true">
-       <div>
          <form @submit.prevent="createLocation">
            <div class="row">
              <div v-if="nameError" class="text-bg-danger">Name validation error</div>
@@ -116,13 +88,15 @@ const toggleCreate = ( ()=>{
            </div>
 
            <div class="mt-3">
-           <button type="submit" class="btn btn-primary btn-sm">Save</button>
+             <div class="row">
+               <div class="col">
+                 <button type="submit" class="btn btn-primary btn-sm">Save</button>
+               </div>
+               <div class="col text-end">
+                 <button class="btn btn-danger btn-sm">Delete</button>
+               </div>
+             </div>
            </div>
          </form>
-       </div>
-    </template>
-    </div>
-  </div>
-
 </div>
 </template>
