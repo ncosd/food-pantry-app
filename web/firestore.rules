@@ -26,7 +26,7 @@ service cloud.firestore {
     }
 
     match /volunteerprofile/{userid} {
-      allow read, update: if request.auth != null && (request.auth.uid == resource.data.userid || request.auth.token.admin == true);
+      allow read, update: if request.auth != null && (request.auth.uid == userid || request.auth.token.admin == true);
       allow create: if request.auth != null && request.auth.uid == userid;
     }
 

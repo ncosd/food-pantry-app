@@ -33,8 +33,24 @@ onBeforeMount( async () => {
     if (stateSnap.exists()) {
       status.value = stateSnap.data().status
     }
+  } else {
+    profile.value = {
+      email: '',
+      displayname: '',
+      firstname: '',
+      lastname: '',
+      phone: '',
+      avail_monday: false,
+      avail_tuesday: false,
+      avail_thursday: false,
+      avail_saturday: false,
+      acceptLiftClean: false,
+      acceptParent: false,
+      acceptFrontLine: false,
+      extraNote: ''
+    }
+    status.value = 'in-review'
   }
-
 })
 </script>
 
