@@ -32,8 +32,7 @@ const deleteLocation = ( async ()=> {
 
 const createLocation = ( async ()=>{
   resetShowMessages()
-  if (props.id !== null) {
-    console.log('update Location', location.value.name, location.value.street, location.value.city, location.value.state, location.value.zip)
+  if (props.id !== null && props.id !== '' && props.id !== undefined) {
     const db = getFirestore()
     const locDocRef = await doc(db, 'location', props.id)
     await updateDoc(locDocRef, location.value)
@@ -41,7 +40,6 @@ const createLocation = ( async ()=>{
     console.log('updated location', locDocRef.id)
 
   } else {
-    console.log('createLocation', location.value.name, location.value.street, location.value.city, location.value.state, location.value.zip)
     const db = getFirestore()
     const locDocRef = await addDoc(collection(db, 'location'), location.value)
     console.log('saved location', locDocRef.id)
@@ -49,13 +47,17 @@ const createLocation = ( async ()=>{
 })
 
 const clearCreate = ()=>{
-  console.log('clear')
-  location.value.name = ""
-  location.value.street = ""
-  location.value.city = ""
-  location.value.state = ""
-  location.value.zip = ""
+  location.value = {
+    name: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: '',
+  }
 }
+
+clearCreate()
+
 
 onBeforeMount( async () => {
   if (props.id) {

@@ -54,6 +54,12 @@ const routes = [
     meta: { admin: true}
   },
   {
+    path: '/schedule-window',
+    name: 'ScheduleWindow',
+    component: () => import ('@/views/ScheduleWindowPage.vue'),
+    meta: { admin: true}
+  },
+  {
     path: '/profile/:uid?',
     name: 'Profile',
     props: true,

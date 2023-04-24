@@ -17,6 +17,13 @@ onBeforeMount( async () => {
   locations.value = locarray
 
 })
+
+const mapsquery = ( (loc)=>{
+const mapurl = 'https://www.google.com/maps/search/?api=1&query='
+const q = loc.street + ',' + loc.city + ',' + loc.state + ',' + loc.zip
+  return mapurl + encodeURIComponent(q)
+})
+
 </script>
 
 <template>
@@ -31,6 +38,8 @@ onBeforeMount( async () => {
             <th scope="col">City</th>
             <th scope="col">State</th>
             <th scope="col">zip</th>
+            <th scope="col">Map</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +49,7 @@ onBeforeMount( async () => {
             <td>{{loc.city}}</td>
             <td>{{loc.state}}</td>
             <td>{{loc.zip}}</td>
+            <td><a :href="mapsquery(loc)" target="_"><i class="bi bi-geo-alt-fill"></i></a></td>
             <td>
               <router-link class="btn btn-sm btn-primary" :to="{name:'Location', params:{id:loc.id} }">Edit</router-link>
             </td>
