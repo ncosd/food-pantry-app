@@ -49,7 +49,7 @@ const q = loc.street + ',' + loc.city + ',' + loc.state + ',' + loc.zip
             <td>{{loc.city}}</td>
             <td>{{loc.state}}</td>
             <td>{{loc.zip}}</td>
-            <td><a :href="mapsquery(loc)"><i class="bi bi-geo-alt-fill"></i></a></td>
+            <td><a :href="mapsquery(loc)" target="_"><i class="bi bi-geo-alt-fill"></i></a></td>
             <td>
               <router-link class="btn btn-sm btn-primary" :to="{name:'Location', params:{id:loc.id} }">Edit</router-link>
             </td>
