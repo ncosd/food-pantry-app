@@ -1,9 +1,13 @@
 <script setup>
+import AdminCalendarScheduler from '@/components/AdminCalendarScheduler.vue'
+
+
+const now = new Date()
 
 </script>
 
 <template>
 <div class="container">
-  <p>Placeholder for the schedule page</p>
+ <admin-calendar-scheduler :date="now"></admin-calendar-scheduler>
 </div>
 </template>
