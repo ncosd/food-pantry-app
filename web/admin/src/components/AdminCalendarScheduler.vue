@@ -19,7 +19,7 @@
 
 
 <script>
-  import WeekHeader from '@/components/WeekHeader.vue'
+import WeekHeader from '@/components/WeekHeader.vue'
 
 export default {
   name: 'AdminCalendar',
