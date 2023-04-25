@@ -54,8 +54,9 @@ const routes = [
     meta: { admin: true}
   },
   {
-    path: '/schedule-window',
+    path: '/schedule-window/:date?',
     name: 'ScheduleWindow',
+    props: true,
     component: () => import ('@/views/ScheduleWindowPage.vue'),
     meta: { admin: true}
   },
@@ -76,6 +77,19 @@ const routes = [
     path: '/locations',
     name: 'LocationsList',
     component: () => import('@/views/LocationsListPage.vue'),
+    meta: { admin: true},
+  },
+  {
+    path: '/tasktype/:id?',
+    name: 'TaskType',
+    props: true,
+    component: () => import('@/views/TaskTypePage.vue'),
+    meta: { admin: true},
+  },
+  {
+    path: '/tasktypes',
+    name: 'TaskTypesList',
+    component: () => import('@/views/TaskTypesListPage.vue'),
     meta: { admin: true},
   },
   {
