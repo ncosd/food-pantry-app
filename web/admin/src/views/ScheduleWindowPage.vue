@@ -4,12 +4,14 @@ import { collection, getFirestore, query, where, doc, getDoc, addDoc, setDoc, up
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import dayjs from 'dayjs'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   date: String,
   id: String,
 })
 
+const router = useRouter()
 const data = {}
 const windowEntry = ref()
 
@@ -46,6 +48,7 @@ const save = (async ()=>{
   const windowRef = await addDoc(collection(db, 'window'), windowEntry.value)
 
   console.log('saved windowEntry id=' + windowRef.id)
+  router.replace({name: 'Schedule'})
 })
 
 const saveNew = (()=>{
