@@ -41,8 +41,9 @@ const save = (async ()=>{
   const db = getFirestore()
   windowEntry.value.starttime = range.value[0]
   windowEntry.value.endtime = range.value[1]
-  const winDoc = doc(collection(db, 'window'))
-  const windowRef = await addDoc(winDoc, windowEntry.value)
+
+  // TODO: query the db to make sure there isn't already a window for this.
+  const windowRef = await addDoc(collection(db, 'window'), windowEntry.value)
 
   console.log('saved windowEntry id=' + windowRef.id)
 })
