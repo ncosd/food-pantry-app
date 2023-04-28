@@ -1,11 +1,11 @@
 # Volunteer Window Design
 
-firebase `/windows/{wid}`
+firebase `/window/{wid}`
 
-wid is `YYYY-MM-DD-LOCKEY-TASKKEY`
+wid is ~~`YYYY-MM-DD-LOCKEY-TASKKEY`~~ it is not necessary to set they key, just use the generated key.
 
 
-const windowsRef = collection(db, 'windows')
+const windowsRef = collection(db, 'window')
 - starttime timestamp
 - endtime timestamp
 - numNeeded number
@@ -40,8 +40,8 @@ citiesRef.whereArrayContains("regions", "west_coast");
 
 ## Firestore Rules
 ### Windows
-- Only admins can create,write,delete `windows`, authenticated can read
+- Only admins can create,write,delete `window`, authenticated can read
 
-### Windows / key / Volunteers
+### Window / key / Volunteers
 - admins|volunteers can create,read,update,delete in the covering array
 - a function updates the covered field.
