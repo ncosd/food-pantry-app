@@ -13,102 +13,97 @@
       </div>
     </div>
   </template>
-
 </div>
 </template>
 
-
-<script>
+<script setup>
+  import { computed, ref, defineProps } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
 
-export default {
-  name: 'AdminCalendar',
-  props: {
-    date: {
-      type: Object,
-    },
-  },
-  components: {
-    WeekHeader,
-  },
-  computed: {
-    weeks() {
-      const year = this.date.getFullYear()
-      const month = this.date.getMonth()
-      const d1 = new Date(year, month, 1).getDay()
-      const dlast = new Date(year, month+1, 0).getDate()
-      const dend = new Date(year, month,dlast).getDay()
-      const lastmonthlastdate = new Date(year, month, 0).getDate()
-      let days = []
-      // add all the days
-      for (let i=d1;i>0;i--) {
-        let lastyear = year
-        let lastmonth = month-1
-        if (lastmonth<0) {
-          lastmonth = 12
-          lastyear = year - 1
-        }
-        let dayNumber = lastmonthlastdate - i + 1
-        let day = this.createDay(dayNumber, new Date(lastyear, lastmonth, dayNumber))
-        days.push(day)
-      }
-      for (let i = 1; i<= dlast; i++) {
-        let day = this.createDay(i, new Date(year, month, i))
-        days.push(day)
-      }
-      // Loop to add the first dates of the next month
-      for (let i = dend; i < 7; i++) {
-        let nextyear = year
-        let nextmonth = month + 1
-        if (nextmonth > 11) {
-          nextyear = nextyear + 1
-          nextmonth = 0
-        }
-        let dayNumber = i - dend + 1
-        let day = this.createDay(dayNumber, new Date(nextyear, nextmonth, dayNumber))
-        days.push(day)
-      }
+const props = defineProps({
+  date: Object,
+})
 
-      // turn into weeks
-      const weeks = []
-      var wd = []
-
-      for (let i = 1; i<days.length;i++){
-        wd.push(days[i-1])
-        if (i%7 == 0) {
-          weeks.push(wd)
-          wd = []
-        }
+const weeks = computed({
+  get() {
+    const year = props.date.getFullYear()
+    const month = props.date.getMonth()
+    const d1 = new Date(year, month, 1).getDay()
+    const dlast = new Date(year, month+1, 0).getDate()
+    const dend = new Date(year, month,dlast).getDay()
+    const lastmonthlastdate = new Date(year, month, 0).getDate()
+    let days = []
+    // add all the days
+    for (let i=d1;i>0;i--) {
+      let lastyear = year
+      let lastmonth = month-1
+      if (lastmonth<0) {
+        lastmonth = 12
+        lastyear = year - 1
       }
-
-      return weeks
+      let dayNumber = lastmonthlastdate - i + 1
+      let day = createDay(dayNumber, new Date(lastyear, lastmonth, dayNumber))
+      days.push(day)
     }
-  },
-  methods: {
-    formatMonth(date) {
-      const months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-      return months[date.getMonth()];
-    },
-    beginrow(index) {
-      if (index == 0 || ((index + 1) % 7 == 1)) {
-        return true
+    for (let i = 1; i<= dlast; i++) {
+      let day = createDay(i, new Date(year, month, i))
+      days.push(day)
+    }
+    // Loop to add the first dates of the next month
+    for (let i = dend; i < 7; i++) {
+      let nextyear = year
+      let nextmonth = month + 1
+      if (nextmonth > 11) {
+        nextyear = nextyear + 1
+        nextmonth = 0
       }
-      return false
-    },
-    endrow(index) {
-      if ((index + 1) % 7 == 0) {
-        return true;
+      let dayNumber = i - dend + 1
+      let day = createDay(dayNumber, new Date(nextyear, nextmonth, dayNumber))
+      days.push(day)
+    }
+
+    // turn into weeks
+    const weeks = []
+    var wd = []
+
+    for (let i = 1; i<days.length;i++){
+      wd.push(days[i-1])
+      if (i%7 == 0) {
+        weeks.push(wd)
+        wd = []
       }
-      return false
-    },
-    createDay(number, date) {
-      const result = { number: number, date:date}
-      return result
-    },
-    isoDate(date) {
-      let result = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
-      return result
-    },
+    }
+
+    return weeks
   }
+})
+
+function formatMonth(date) {
+  const months = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+  return months[date.getMonth()];
+}
+
+function beginrow(index) {
+  if (index == 0 || ((index + 1) % 7 == 1)) {
+    return true
+  }
+  return false
+}
+
+function endrow(index) {
+  if ((index + 1) % 7 == 0) {
+    return true;
+  }
+  return false
+}
+
+function createDay(number, date) {
+  const result = { number: number, date:date}
+  return result
+}
+
+function isoDate(date) {
+  let result = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
+  return result
 }
 </script>
