@@ -1,31 +1,29 @@
 <template>
-  <div class="mt-3">
-    <div class="row border text-center">
-      <h2>{{ formatMonth(date) }} {{date.getFullYear()}}</h2>
-    </div>
-    <week-header />
+<div class="mt-3">
+  <div class="row border text-center">
+    <h2>{{ formatMonth(date) }} {{date.getFullYear()}}</h2>
+  </div>
+  <week-header />
 
-    <template v-for="week in weeks">
-      <div class="row text-center cal-week">
-        <div class="col border" v-for="day in week">
-          <div class="text-center">{{day.number}}</div>
-          <div class="text-center">
-            <router-link
-              class="btn btn-secondary btn-sm"
-              :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
+  <template v-for="week in weeks">
+    <div class="row text-center cal-week">
+      <div class="col border" v-for="day in week">
+        <div class="text-center">{{day.number}}</div>
+        <div class="text-center">
+          <router-link
+            class="btn btn-secondary btn-sm"
+            :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
+        </div>
+        <div v-for="w in windows.getDay(day)">
+          <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+            {{w.location}} {{w.tasktype}}
+            {{w.starttime.toDate().getHours()}}:{{w.starttime.toDate().getMinutes()}} - {{w.endtime.toDate().getHours()}}:{{w.endtime.toDate().getMinutes()}}
           </div>
-          <div v-for="w in windows.getDay(day)">
-            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
-              {{w.location}} {{w.tasktype}}
-              {{w.starttime.toDate().getHours()}}:{{w.starttime.toDate().getMinutes()}} - {{w.endtime.toDate().getHours()}}:{{w.endtime.toDate().getMinutes()}}
-            </div>
-          </div>
-
-
         </div>
       </div>
-    </template>
-  </div>
+    </div>
+  </template>
+</div>
 </template>
 
 <script setup>
