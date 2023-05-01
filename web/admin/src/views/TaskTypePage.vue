@@ -27,7 +27,7 @@ const deleteTaskType = ( async ()=> {
   const db = getFirestore()
   await deleteDoc(doc(db, "tasktype", props.id))
   showDeleteMessage.value = true
-  router.replace({name: 'TaskTypeList'})
+  router.replace({name: 'TaskTypesList'})
 })
 
 const createTaskType = ( async ()=>{
@@ -44,6 +44,8 @@ const createTaskType = ( async ()=>{
     const ttDocRef = await addDoc(collection(db, 'tasktype'), tasktype.value)
     console.log('saved tasktype', ttDocRef.id)
   }
+
+  router.replace({name: 'TaskTypesList'})
 })
 
 const clearCreate = ()=>{
@@ -95,7 +97,7 @@ onBeforeMount( async () => {
                  <button type="submit" class="btn btn-primary btn-sm">Save</button>
                </div>
                <div class="col text-end">
-                 <button @click.prevent="deleteLocation" class="btn btn-danger btn-sm">Delete</button>
+                 <button @click.prevent="deleteTaskType" class="btn btn-danger btn-sm">Delete</button>
                </div>
              </div>
            </div>
