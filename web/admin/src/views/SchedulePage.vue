@@ -4,9 +4,6 @@ import AdminCalendarScheduler from '@/components/AdminCalendarScheduler.vue'
 import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
 
 const now = new Date()
-
-
-
 const windows = reactive({
   entries: new Map(),
   getDay: (day)=>{
