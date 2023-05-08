@@ -61,5 +61,8 @@ fetch('/__/firebase/init.json').then(async response => {
   const app = createApp(App)
   app.use(createPinia())
   app.use(router)
+  //app.config.devtools = true
   app.mount('#app')
+
+  //window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
 })

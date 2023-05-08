@@ -9,10 +9,12 @@
     <div class="row text-center cal-week">
       <div class="col border" v-for="day in week">{{day.number}}
         <div v-for="w in windows.getDay(day)">
-          <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+          <router-link :to="{name:'VolWindow', params: {id:w.id}}">
+            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
             {{w.location}} {{w.tasktype}}
             {{w.starttime.toDate().getHours()}}:{{w.starttime.toDate().getMinutes()}} - {{w.endtime.toDate().getHours()}}:{{w.endtime.toDate().getMinutes()}}
-          </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
