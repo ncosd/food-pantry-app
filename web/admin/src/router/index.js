@@ -61,6 +61,12 @@ const routes = [
     meta: { admin: true}
   },
   {
+    path: '/volunteerwindow/:id',
+    name: 'VolWindow',
+    props: true,
+    component: () => import ('@/views/VolunteerWindow.vue'),
+  },
+  {
     path: '/profile/:uid?',
     name: 'Profile',
     props: true,

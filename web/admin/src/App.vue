@@ -1,3 +1,9 @@
+<script setup>
+import AppNavigation from '@/components/AppNavigation.vue'
+import { RouterView } from 'vue-router'
+import PageFooter from '@/components/PageFooter.vue'
+</script>
+
 <template>
   <div>
     <AppNavigation></AppNavigation>
@@ -6,19 +12,6 @@
   </div>
 </template>
 
-<script>
-import AppNavigation from '@/components/AppNavigation.vue'
-import { RouterView } from 'vue-router'
-import PageFooter from '@/components/PageFooter.vue'
 
-export default {
-  name: 'App',
-  components: {
-    AppNavigation,
-    RouterView,
-    PageFooter
-  }
-}
-</script>
 
 <style></style>
