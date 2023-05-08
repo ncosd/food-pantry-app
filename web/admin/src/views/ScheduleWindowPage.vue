@@ -1,6 +1,6 @@
 <script setup>
-import { ref, defineProps, onMounted } from 'vue'
-import { collection, getFirestore, query, where, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { ref, defineProps, onBeforeMount, onMounted } from 'vue'
+import { collection, getFirestore, query, where, doc, getDocs, getDoc, addDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import dayjs from 'dayjs'
@@ -14,6 +14,28 @@ const props = defineProps({
 const router = useRouter()
 const data = {}
 const windowEntry = ref()
+const locations = ref()
+const tasks = ref()
+
+onBeforeMount( async () => {
+  const db = getFirestore()
+  const q = query(collection(db, "location"))
+  const locRef = await getDocs(q)
+  const locarray = []
+  locRef.forEach((loc)=> {
+    locarray.push({id:loc.id,...loc.data()})
+  })
+  locations.value = locarray
+
+  const taskq = query(collection(db, "tasktype"))
+  const taskRef = await getDocs(taskq)
+  const taskarray = []
+  taskRef.forEach( (t)=>{
+    taskarray.push({id:t.id,...t.data()})
+  })
+  tasks.value = taskarray
+
+})
 
 var scheduleDate = new Date()
 var endDate = new Date()
@@ -29,8 +51,6 @@ if (props.id !== '') {
 
 }
 
-data.location = 'NCFB'
-data.tasktype = 'SummerMeal'
 data.numNeeded = 1
 data.starttime = scheduleDate
 data.endtime = endDate
@@ -54,6 +74,9 @@ const save = (async ()=>{
 const saveNew = (()=>{
   console.log('saveNew')
 })
+
+
+
 </script>
 
 <template>
@@ -69,8 +92,7 @@ const saveNew = (()=>{
         <div class="col">
           <label class="form-label" for="location">Location</label>
           <select id="location" class="form-select" v-model="windowEntry.location">
-            <option value="NCFB">NCFB</option>
-            <option value="TheShack">The Shack - Ardmore Community Center</option>
+            <option v-for="loc in locations" :value="loc.name">{{ loc.name }}</option>
           </select>
         </div>
       </div>
@@ -79,8 +101,7 @@ const saveNew = (()=>{
         <div class="col">
           <label class="form-label" for="tasktype">Task Type</label>
           <select id="tasktype" class="form-select" v-model="windowEntry.tasktype">
-            <option value="SummerMeal">Summer Meal Distribution</option>
-            <option value="Holiday">Holiday - Closed</option>
+            <option v-for="tt in tasks" :value="tt.name">{{ tt.name }}</option>
           </select>
         </div>
       </div>
