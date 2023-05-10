@@ -12,7 +12,7 @@
           <router-link :to="{name:'VolWindow', params: {id:w.id}}">
             <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
             {{w.location}} {{w.tasktype}}
-            {{w.starttime.toDate().getHours()}}:{{w.starttime.toDate().getMinutes()}} - {{w.endtime.toDate().getHours()}}:{{w.endtime.toDate().getMinutes()}}
+            {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
             </div>
           </router-link>
         </div>
@@ -27,6 +27,7 @@
 <script setup>
 import { computed, ref, defineProps } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   date: Object,
