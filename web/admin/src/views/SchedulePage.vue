@@ -25,6 +25,7 @@ onBeforeMount( async () =>{
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((w)=> {
     const wd = w.data()
+    wd.id = w.id
     const sd = wd.starttime.toDate()
     const key = (sd.getMonth()+1) + '-' + sd.getDate()
     var entries = windows.entries.get(key)

@@ -12,7 +12,7 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const data = {}
+var data = {}
 const windowEntry = ref()
 const locations = ref()
 const tasks = ref()
@@ -35,25 +35,49 @@ onBeforeMount( async () => {
   })
   tasks.value = taskarray
 
+  if (props.id !== undefined && props.id !== '') {
+    const db = getFirestore()
+    const winRef = doc(db, 'window', props.id)
+    const winSnap = await getDoc(winRef)
+    if (winSnap.exists()) {
+      data = winSnap.data()
+
+      // scheduledate set from starttime/endtime
+      windowEntry.value = data
+      scheduleDate = data.starttime.toDate()
+      endDate = data.endtime.toDate()
+      range.value = [scheduleDate, endDate]
+    } else {
+      console.log('Error reading window from database, please try again later.')
+    }
+  }
+
 })
+
+function toDate(timestamp) {
+  const val = new Date(timestamp*1000)
+  return val
+}
 
 var scheduleDate = new Date()
 var endDate = new Date()
-if (props.date !== '') {
+if ((props.date !== undefined) && (props.date !== '')) {
   scheduleDate = new Date(props.date)
   scheduleDate.setHours(11)
   scheduleDate.setMinutes(0)
   endDate = new Date(scheduleDate)
+  endDate.setTime(scheduleDate.getTime()+(3*60*60*1000))
+
+  data.numNeeded = 2
+  data.starttime = scheduleDate
+  data.endtime = endDate
+
+  console.log('here date='+props.date)
+} else if (props.id !== undefined && props.id !== '') {
+  console.log(' else if id='+props.id)
+
 }
-endDate.setTime(scheduleDate.getTime()+(3*60*60*1000))
 
-if (props.id !== '') {
-
-}
-
-data.numNeeded = 1
-data.starttime = scheduleDate
-data.endtime = endDate
 windowEntry.value = data
 
 const range = ref()
@@ -64,10 +88,13 @@ const save = (async ()=>{
   windowEntry.value.starttime = range.value[0]
   windowEntry.value.endtime = range.value[1]
 
-  // TODO: query the db to make sure there isn't already a window for this.
-  const windowRef = await addDoc(collection(db, 'window'), windowEntry.value)
-
-  console.log('saved windowEntry id=' + windowRef.id)
+  if (props.id !== undefined && props.id !== '') {
+    const windowRef = doc(db, 'window', props.id)
+    await updateDoc(windowRef, windowEntry.value)
+  } else {
+    const windowRef = await addDoc(collection(db, 'window'), windowEntry.value)
+    console.log('saved windowEntry id=' + windowRef.id)
+  }
   router.replace({name: 'Schedule'})
 })
 

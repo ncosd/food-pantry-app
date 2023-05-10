@@ -15,10 +15,12 @@
             :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
         </div>
         <div v-for="w in windows.getDay(day)">
-          <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
-            {{w.location}} {{w.tasktype}}
-            {{w.starttime.toDate().getHours()}}:{{w.starttime.toDate().getMinutes()}} - {{w.endtime.toDate().getHours()}}:{{w.endtime.toDate().getMinutes()}}
-          </div>
+          <router-link :to="{name:'ScheduleWindowById', params: {id:w.id}}">
+            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+              {{w.location}} {{w.tasktype}}
+              {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -29,6 +31,7 @@
 <script setup>
 import { computed, ref, defineProps } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   date: Object,
