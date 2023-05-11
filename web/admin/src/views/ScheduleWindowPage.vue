@@ -102,7 +102,15 @@ const saveNew = (()=>{
   console.log('saveNew')
 })
 
-
+const deleteWindow = (async () => {
+  if (props.id === undefined || props.id === '') {
+    console.log('Delete failed, no id')
+    return
+  }
+  const db = getFirestore()
+  await deleteDoc(doc(db, "window", props.id))
+  router.replace({name:'Schedule'})
+})
 
 </script>
 
@@ -160,6 +168,7 @@ const saveNew = (()=>{
           <button class="mx-3 btn btn-primary btn-sm" @click.prevent="saveNew">Save & New</button>
         </div>
         <div class="col">
+          <button class="btn btn-danger btn-sm" @click.prevent="deleteWindow">Delete</button>
         </div>
       </div>
 
