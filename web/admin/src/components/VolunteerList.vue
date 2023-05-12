@@ -1,5 +1,7 @@
 <script setup>
-import { getFirestore, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, updateDoc, defineEmits } from 'firebase/firestore'
+
+const emit = defineEmits(['refreshList'])
 
 const props = defineProps({
   volunteers: Array,
@@ -20,6 +22,7 @@ const updateApprove = ( async (id) => {
   const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
   await updateDoc(vProfileStateRef, {'status': 'active'})
   console.log('approved' + id)
+  emit('refreshList')
 })
 
 const updateIgnore = ( async (id) => {
@@ -27,6 +30,7 @@ const updateIgnore = ( async (id) => {
   const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
   await updateDoc(vProfileStateRef, {'status': 'inactive'})
   console.log('inactive ' + id)
+  emit('refreshList')
 })
 
 </script>
