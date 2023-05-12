@@ -2,6 +2,7 @@
 import { ref, defineProps, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   uid: String,
@@ -12,6 +13,7 @@ if (props.uid === '') {
  props.uid = user.data.uid
 }
 
+const router = useRouter()
 const profile = ref()
 const status = ref()
 var profileRef = null
@@ -20,6 +22,11 @@ var stateRef = null
 const save = ( async ()=>{
   await updateDoc(profileRef, profile.value)
   await updateDoc(stateRef, { status: status.value})
+  if (user.isAdmin) {
+    router.replace({name:'Volunteers'})
+  } else {
+    router.replace({name:'Home'})
+  }
 })
 
 onBeforeMount( async () => {

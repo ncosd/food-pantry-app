@@ -1,4 +1,8 @@
 <script setup>
+import { getFirestore, collection, doc, getDoc, updateDoc, defineEmits } from 'firebase/firestore'
+
+const emit = defineEmits(['refreshList'])
+
 const props = defineProps({
   volunteers: Array,
 })
@@ -11,6 +15,22 @@ const formatDate = (t) => {
 
 const niy = ( () => {
   alert('Not implemented yet.')
+})
+
+const updateApprove = ( async (id) => {
+  const db = getFirestore()
+  const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
+  await updateDoc(vProfileStateRef, {'status': 'active'})
+  console.log('approved' + id)
+  emit('refreshList')
+})
+
+const updateIgnore = ( async (id) => {
+  const db = getFirestore()
+  const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
+  await updateDoc(vProfileStateRef, {'status': 'inactive'})
+  console.log('inactive ' + id)
+  emit('refreshList')
 })
 
 </script>
@@ -36,8 +56,8 @@ const niy = ( () => {
       <td><router-link :to="{ name: 'Profile', params:{ uid: v.userid}}">{{v.email}}</router-link></td>
       <td>{{v.status}}</td>
       <td>
-        <button class="btn btn-sm btn-primary me-1" @click="niy">Approve</button>
-        <button class="btn btn-sm btn-secondary" @click="niy">Ignore</button>
+        <button class="btn btn-sm btn-primary me-1" @click="updateApprove(v.userid)">Approve</button>
+        <button class="btn btn-sm btn-secondary" @click="updateIgnore(v.userid)">Ignore</button>
       </td>
       <td>{{formatDate(v.updated)}}</td>
     </tr>
