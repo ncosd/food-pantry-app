@@ -24,8 +24,10 @@ onBeforeMount( async () => {
 <template>
 <div class="container">
   <div class="row ms-1">
+    <b>Filter</b>
     <div class="col">
-    <b>Filter</b>  Status: <select v-model="statusFilter" @change="refreshList">
+      <label class="col-form-label" for="statusFilter">Status</label>
+    <select class="form-select" id="statusFilter" v-model="statusFilter" @change="refreshList">
     <option value='in-review'>in-review</option>
     <option value='active'>active</option>
     <option value='inactive'>inactive</option>

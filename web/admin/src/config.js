@@ -1,5 +1,6 @@
 export let config = {
   adminAppNavName: import.meta.env.VITE_ADMIN_APP_NAV_NAME || 'ADMIN_APP_NAV_NAME',
+  adminAppNavImg: import.meta.env.VITE_ADMIN_APP_NAV_IMG || null,
   appNavName: import.meta.env.VITE_APP_NAV_NAME || 'APP_NAV_NAME',
   OrganizationName: import.meta.env.VITE_ORGANIZATION_NAME || 'ORGANIZATION_NAME',
   ProjectLongName: import.meta.env.VITE_PROJECT_LONG_NAME || 'PROJECT_LONG_NAME',
