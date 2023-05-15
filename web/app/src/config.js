@@ -6,7 +6,7 @@ export let config = {
   DeliveryZipcodes: import.meta.env.VITE_DELIVERY_ZIPCODES || [19003,19010,19041,19072,19096,19004,19035,19066,19085,19428],
   DeliveryOutsideAreaUrl: import.meta.env.VITE_DELIVERY_OUTSIDE_AREA_URL || "",
   DeliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || "",
-
+  DeliveryFormURL: import.meta.env.VITE_DELIVERY_FORM_URL || "/delivery-form",
 
   meta: {
     Home: {
