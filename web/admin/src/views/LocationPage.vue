@@ -50,6 +50,7 @@ const createLocation = ( async ()=>{
 const clearCreate = ()=>{
   location.value = {
     name: '',
+    displayname: '',
     street: '',
     city: '',
     state: '',
@@ -80,8 +81,13 @@ onBeforeMount( async () => {
            <div v-if="showDeleteMessage" class="text-bg-danger">{{deleteMessage}}</div>
 
            <div class="row">
-             <label class="form-label" for="createLocationName">Location Name</label>
+             <label class="form-label" for="createLocationName">Location Name - short, no spaces</label>
              <input id="createLocationName" type="text" class="form-control" v-model="location.name" required>
+           </div>
+
+           <div class="row">
+             <label class="form-label" for="createLocationDisplayName">Display Name</label>
+             <input id="createLocationDisplayName" type="text" class="form-control" v-model="location.displayname" required>
            </div>
 
            <div class="row">
