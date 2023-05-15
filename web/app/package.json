@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build -m dev",
+    "build:dev": "vite build -m dev",
+    "build": "vite build",
     "build:watch": "vite build --watch",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest",

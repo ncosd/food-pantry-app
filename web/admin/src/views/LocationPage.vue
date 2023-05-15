@@ -43,6 +43,7 @@ const createLocation = ( async ()=>{
     const db = getFirestore()
     const locDocRef = await addDoc(collection(db, 'location'), location.value)
     console.log('saved location', locDocRef.id)
+    router.replace({name: 'LocationsList'})
   }
 })
 
