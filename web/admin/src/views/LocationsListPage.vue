@@ -34,6 +34,7 @@ const q = loc.street + ',' + loc.city + ',' + loc.state + ',' + loc.zip
         <thead>
           <tr>
             <th scope="col">Name</th>
+            <th scope="col">Display Name</th>
             <th scope="col">Street Address</th>
             <th scope="col">City</th>
             <th scope="col">State</th>
@@ -45,6 +46,7 @@ const q = loc.street + ',' + loc.city + ',' + loc.state + ',' + loc.zip
         <tbody>
           <tr v-for="loc in locations">
             <td>{{loc.name}}</td>
+            <td>{{loc.displayname}}</td>
             <td>{{loc.street}}</td>
             <td>{{loc.city}}</td>
             <td>{{loc.state}}</td>
