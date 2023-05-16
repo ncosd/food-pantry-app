@@ -50,19 +50,18 @@ fetch('/__/firebase/init.json').then(async response => {
   getAuth().onAuthStateChanged(async user => {
     let isAdmin = false
     let isVolunteer = false
+    let isPending = false
     if (user) {
       const token = await getIdTokenResult(user)
       isAdmin = token.claims.admin === true
       isVolunteer = token.claims.volunteer === true
+      isPending = token.claims.pendingvolunteer === true
     }
-    useAuthUserStore().save(user, isAdmin, isVolunteer)
+    useAuthUserStore().save(user, isAdmin, isVolunteer, isPending)
   });
 
   const app = createApp(App)
   app.use(createPinia())
   app.use(router)
-  //app.config.devtools = true
   app.mount('#app')
-
-  //window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
 })

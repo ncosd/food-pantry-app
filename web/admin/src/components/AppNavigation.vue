@@ -9,12 +9,6 @@
         <ul class="navbar-nav mb-2 mb-lg-0">
           <template v-if="user && user.isAdmin === true">
             <li class="nav-item">
-              <a class="nav-link" href="/delivery-applications">Delivery Applications</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/delivery-schedule">Delivery Schedule</a>
-            </li>
-            <li class="nav-item">
               <router-link to="/volunteers" class="nav-link">Volunteers</router-link>
             </li>
             <li class="nav-item">

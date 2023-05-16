@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
-import DeliveryApplicationsPage from '@/views/DeliveryApplicationsPage.vue'
 import NotFound from '@/components/NotFound.vue'
 import VolunteerRegistration from '@/views/VolunteerRegistration.vue'
 import VolunteersPage from '@/views/VolunteersPage.vue'
@@ -20,10 +19,9 @@ const routes = [
     component: Login,
   },
   {
-    path: '/delivery-applications',
-    name: 'DeliveryApplicationsPage',
-    component: DeliveryApplicationsPage,
-    meta: { admin: true },
+    path: '/pending',
+    name: 'Pending',
+    component: () => import ('../views/Pending.vue'),
   },
   {
     path: '/forgot-password',
@@ -39,12 +37,6 @@ const routes = [
     path: '/volunteers',
     name: 'Volunteers',
     component: VolunteersPage,
-    meta: { admin: true}
-  },
-  {
-    path: '/delivery-schedule',
-    name: 'DeliverySchedule',
-    component: () => import ('@/views/DeliverySchedulePage.vue'),
     meta: { admin: true}
   },
   {
@@ -126,7 +118,12 @@ const router = new createRouter({
 router.beforeEach( (to, from) => {
   const user = useAuthUserStore()
   if (!user || !(user.isLoggedIn === true) || (user.isAdmin !== true) && (user.isVolunteer !== true)) {
-    if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password' && to.path !== '/contact') {
+    if (user && user.isPending === true && to.name !== 'Pending' && to.name !== 'Contact') {
+      console.log('redirect to pending to.name='+to.name+' user.isLoggedIn='+user.isLoggedIn + ' isPending=' + user.isPending)
+      return { name: 'Pending'}
+    } else if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password' &&
+               to.path !== '/contact' && to.path !== '/pending'
+              ) {
       return { name: 'Login' }
     }
   }

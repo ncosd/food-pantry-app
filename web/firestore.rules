@@ -37,26 +37,26 @@ service cloud.firestore {
     }
 
     match /location/{id} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && request.auth.token.volunteer == true;
       allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
     }
 
     match /tasktype/{id} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && request.auth.token.volunteer == true;
       allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
     }
 
     match /window/{id} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && request.auth.token.volunteer == true;
       allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
     }
 
     match /privacypolicy/{version} {
-      allow read
+      allow read;
     }
 
     match /terms/{version} {
-      allow read
+      allow read;
     }
 
   }
