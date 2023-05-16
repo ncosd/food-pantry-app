@@ -52,7 +52,7 @@ Set the env to be the dev one
 
     firebase use dev
 
-Create a `.env.dev` file
+Create a `.env.dev` file for both functions and admin folders
 
     SENGRID_KEY='something'
     SENDGRID_FROM='no-reply@example.com'
