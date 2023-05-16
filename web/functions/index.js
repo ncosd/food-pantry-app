@@ -112,7 +112,7 @@ Notes: ${profile.notes}`
 });
 
 
-// When a VolunteerProfile is created, set status to in-review.
+// When a VolunteerProfile is created, set status to in-review and pendingvolunteer to true.
 exports.addVolunteerProfileOnCreate = functions.firestore
   .document('volunteerprofile/{userId}')
   .onCreate(async (snap, context) => {
@@ -130,9 +130,9 @@ exports.addVolunteerProfileOnCreate = functions.firestore
 
     db.collection("volunteerprofilestate").doc(context.params.userId).set(profileState);
 
-    // add the volunteer claim
+    // add the pendingvolunteer claim
     const customClaims = {
-      volunteer: true
+      pendingvolunteer: true
     };
     try {
       var _ = await admin.auth().setCustomUserClaims(context.params.userId, customClaims)
