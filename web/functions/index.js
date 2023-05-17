@@ -36,7 +36,9 @@ exports.setAdminRole = functions.https.onCall(async (data, context) => {
   if (!context.auth.token.admin) return;
 
   try {
-    await admin.auth().setCustomUserClaims(data.uid, { admin: true })
+    const { customClaims: existingClaims } = await admin.auth().getUser(data.uid)
+    existingClaims.admin = true
+    await admin.auth().setCustomUserClaims(data.uid, existingClaims)
 
     return {
       status: 'success'
@@ -58,7 +60,11 @@ exports.setVolunteer = functions.https.onCall(async (data, context) => {
   }
 
   try {
-    await admin.auth().setCustomUserClaims(data.id, { volunteer: true, pendingvolunteer: null })
+    const { customClaims: existingClaims } = await admin.auth().getUser(data.id)
+    existingClaims.volunteer = true
+    existingClaims.pendingvolunteer = null
+
+    await admin.auth().setCustomUserClaims(data.id, existingClaims)
     return {
       status: 'success'
     }
@@ -78,7 +84,10 @@ exports.inactivateVolunteer = functions.https.onCall(async (data, context) => {
   }
 
   try {
-    await admin.auth().setCustomUserClaims(data.id, { volunteer: null, pendingvolunteer: true })
+    const { customClaims: existingClaims } = await admin.auth().getUser(data.id)
+    existingClaims.volunteer = null
+    existingClaims.pendingvolunteer = true
+    await admin.auth().setCustomUserClaims(data.id, existingClaims)
     return {
       status: 'success'
     }
