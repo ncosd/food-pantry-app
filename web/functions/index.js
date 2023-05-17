@@ -35,18 +35,60 @@ exports.setAdminRole = functions.https.onCall(async (data, context) => {
   // Check the calling user has the admin custom claim
   if (!context.auth.token.admin) return;
 
-  admin.auth().setCustomUserClaims(data.uid, { admin: true }).then(function() {
+  try {
+    await admin.auth().setCustomUserClaims(data.uid, { admin: true })
 
-      db.collection("roles").doc(data.uid).set({ role: { admin: true} }).catch( (error) => {
-        console.log("Error setting admin role for user.", error);
-      });
-
-      response.end(JSON.stringify({
-        status: 'success'
-      }));
-    });
+    return {
+      status: 'success'
+    };
+  } catch (err) {
+    console.log('Error setting admin for ' + data.uid + ' err=' + err)
+    return functions.https.HttpsError('Error', 'error')
+  }
 
 });
+
+// Admins can approve a volunteer
+exports.setVolunteer = functions.https.onCall(async (data, context) => {
+
+  // Check the calling user has the admin custom claim
+  if (context.auth.token.admin !== true) {
+    console.log('setVolunteer caller not admin')
+    throw new functions.https.HttpsError('NotAdmin', 'function caller must be admin')
+  }
+
+  try {
+    await admin.auth().setCustomUserClaims(data.id, { volunteer: true, pendingvolunteer: null })
+    return {
+      status: 'success'
+    }
+
+  } catch (err) {
+    console.log('error ' + err)
+    return functions.https.HttpsError('Error', 'Error')
+  }
+});
+
+// Admins can inactivate a volunteer
+exports.inactivateVolunteer = functions.https.onCall(async (data, context) => {
+  // Check the calling user has the admin custom claim
+  if (context.auth.token.admin !== true) {
+    console.log('setVolunteer caller not admin')
+    throw new functions.https.HttpsError('NotAdmin', 'function caller must be admin')
+  }
+
+  try {
+    await admin.auth().setCustomUserClaims(data.id, { volunteer: null, pendingvolunteer: true })
+    return {
+      status: 'success'
+    }
+
+  } catch (err) {
+    console.log('error ' + err)
+    return functions.https.HttpsError('Error', 'Error')
+  }
+});
+
 
 // When a deliveryProfile is first created, set status to in-review.
 exports.addDeliveryProfileOnCreate = functions.firestore
@@ -135,7 +177,7 @@ exports.addVolunteerProfileOnCreate = functions.firestore
       pendingvolunteer: true
     };
     try {
-      var _ = await admin.auth().setCustomUserClaims(context.params.userId, customClaims)
+      await admin.auth().setCustomUserClaims(context.params.userId, customClaims)
       return
     } catch (error) {
       console.log(error)
