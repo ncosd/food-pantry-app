@@ -20,19 +20,19 @@ admin.initializeApp({
 
 var user = null;
 try {
-  admin.auth().getUserByEmail(email).then( (retUser) => {
+  admin.auth().getUserByEmail(email).then( async (retUser) => {
     console.log('User ' + email + ' is uid=' + retUser.uid);
     user = retUser;
-    admin.auth().setCustomUserClaims(retUser.uid, { admin: true }).then( () => {
-      console.log('Success setting admin claim.  Creating role document for ' + retUser.uid);
-      const db = admin.firestore();
-      db.collection("roles").doc(retUser.uid).set({ email: email, role: { admin: true }})
-        .then(()=> {
-          console.log('Success creating role document for ' + retUser.uid);
-        })
-        .catch( (error)=> {console.log('error from roles', error);});
-    });
 
+    const { customClaims: existingClaims } = await admin.auth().getUser(retUser.uid)
+    existingClaims.admin = true
+    existingClaims.volunteer = true
+
+    await admin.auth().setCustomUserClaims(retUser.uid, existingClaims)
+    console.log('Success setting admin claim.  Creating role document for ' + retUser.uid);
+    const db = admin.firestore();
+    await db.collection("roles").doc(retUser.uid).set({ email: email, role: { admin: true }})
+    console.log('Success creating role document for ' + retUser.uid);
 
   });
 } catch(error) {
