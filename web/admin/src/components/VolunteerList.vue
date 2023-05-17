@@ -1,5 +1,6 @@
 <script setup>
 import { getFirestore, collection, doc, getDoc, updateDoc, defineEmits } from 'firebase/firestore'
+import { getFunctions, httpsCallable } from 'firebase/functions'
 
 const emit = defineEmits(['refreshList'])
 
@@ -17,20 +18,39 @@ const niy = ( () => {
   alert('Not implemented yet.')
 })
 
+const functions = getFunctions()
+const setVolunteer = httpsCallable(functions, 'setVolunteer')
+
 const updateApprove = ( async (id) => {
-  const db = getFirestore()
-  const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
-  await updateDoc(vProfileStateRef, {'status': 'active'})
-  console.log('approved' + id)
-  emit('refreshList')
+  try {
+    const resp = await setVolunteer({"id": id})
+    console.log(JSON.stringify(resp))
+
+    const db = getFirestore()
+    const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
+    await updateDoc(vProfileStateRef, {'status': 'active'})
+    console.log('approved' + id)
+    emit('refreshList')
+    } catch (err) {
+      console.log('error ' + err)
+    }
 })
 
-const updateIgnore = ( async (id) => {
-  const db = getFirestore()
-  const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
-  await updateDoc(vProfileStateRef, {'status': 'inactive'})
-  console.log('inactive ' + id)
-  emit('refreshList')
+const inactivateVolunteer = httpsCallable(functions, 'inactivateVolunteer')
+
+const updateInactive = ( async (id) => {
+  try {
+    const resp = await inactivateVolunteer({"id": id})
+    console.log('inactivateVolunteer=' + JSON.stringify(resp))
+
+    const db = getFirestore()
+    const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
+    await updateDoc(vProfileStateRef, {'status': 'inactive'})
+    console.log('inactive ' + id)
+    emit('refreshList')
+  } catch (err) {
+    console.log('error ' + err)
+  }
 })
 
 </script>
@@ -57,7 +77,7 @@ const updateIgnore = ( async (id) => {
       <td>{{v.status}}</td>
       <td>
         <button class="btn btn-sm btn-primary me-1" @click="updateApprove(v.userid)">Approve</button>
-        <button class="btn btn-sm btn-secondary" @click="updateIgnore(v.userid)">Ignore</button>
+        <button class="btn btn-sm btn-secondary" @click="updateInactive(v.userid)">Deactivate</button>
       </td>
       <td>{{formatDate(v.updated)}}</td>
     </tr>
