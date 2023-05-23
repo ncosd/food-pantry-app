@@ -1,14 +1,14 @@
 <script setup>
 import { ref, defineProps, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
-import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
 
 const user = useAuthUserStore()
 const locations = ref()
 
 onBeforeMount( async () => {
   const db = getFirestore()
-  const q = query(collection(db, "location"))
+  const q = query(collection(db, "location"), orderBy('name'))
   const locRef = await getDocs(q)
   const locarray = []
   locRef.forEach((loc)=> {
