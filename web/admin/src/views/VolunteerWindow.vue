@@ -27,12 +27,6 @@ onBeforeMount( async () => {
     }
   }
 })
-
-function toDate(timestamp) {
-  const val = new Date(timestamp*1000)
-  return val
-}
-
 </script>
 
 <template>
@@ -42,7 +36,7 @@ function toDate(timestamp) {
     <div class="text-bg-danger">{{errMsg}}</div>
   </template>
   <template v-if="volWindow && volWindow.starttime">
-    <div>Date: {{ dayjs(toDate(volWindow.starttime)).format('dddd MM/DD/YYYY h:mm A') }} - {{ dayjs(toDate(volWindow.endtime)).format('h:mm A') }}</div>
+    <div>Date: {{ dayjs(volWindow.starttime.toDate()).format('dddd MM/DD/YYYY h:mm A') }} - {{ dayjs(volWindow.endtime.toDate()).format('h:mm A') }}</div>
     <div>Volunteers Needed: {{ volWindow.numNeeded }}</div>
     <div>Location: {{ volWindow.location }} <i class="bi bi-geo-alt-fill"></i> </div>
     <div>Activity: {{ volWindow.tasktype }}</div>
