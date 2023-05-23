@@ -52,7 +52,7 @@ function toDate(timestamp) {
       <button class="btn btn-sm btn-danger mx-3">Cancel</button>
     </div>
     <div>
-      <VolunteersWindowDisclaimer />
+      <VolunteersWindowDisclaimer /> 
     </div>
   </template>
 
