@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import dayjs from 'dayjs'
+import VolunteersWindowDisclaimer from './VolunteersWindowDisclaimer.vue'
 
 const props = defineProps({
   id: String,
@@ -49,6 +50,9 @@ function toDate(timestamp) {
     <div class="my-3">
       <button class="btn btn-sm btn-primary">Sign up</button>
       <button class="btn btn-sm btn-danger mx-3">Cancel</button>
+    </div>
+    <div>
+      <VolunteersWindowDisclaimer />
     </div>
   </template>
 
