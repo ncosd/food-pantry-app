@@ -51,6 +51,11 @@ service cloud.firestore {
       allow create, update, delete: if request.auth != null && request.auth.token.admin == true;
     }
 
+    match /window/{id}/attending/{uid} {
+      allow read: if request.auth != null && request.auth.token.volunteer == true;
+      allow create, update, delete: if request.auth != null && request.auth.uid == uid;
+    }
+
     match /privacypolicy/{version} {
       allow read;
     }
