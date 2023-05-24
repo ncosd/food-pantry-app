@@ -7,16 +7,19 @@
 
   <template v-for="week in weeks">
     <div class="row text-center cal-week">
-      <div class="col border" v-for="day in week">{{day.number}}
+      <template v-for="(day,index) in week">
+      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >{{day.number}}
         <div v-for="w in windows.getDay(day)">
           <router-link :to="{name:'VolWindow', params: {id:w.id}}">
             <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
-            {{w.location}} {{w.tasktype}}
-            {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
+            <span class="d-none d-md-block">{{w.location}} </span>
+            <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
+            <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
             </div>
           </router-link>
         </div>
       </div>
+      </template>
     </div>
   </template>
 
@@ -28,6 +31,11 @@
 import { computed, ref, defineProps } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
 import dayjs from 'dayjs'
+
+const colClass = 'col'
+const borderClass = 'border'
+const dnoneClass = 'd-none'
+const dmdBlockClass = 'd-md-block'
 
 const props = defineProps({
   date: Object,
