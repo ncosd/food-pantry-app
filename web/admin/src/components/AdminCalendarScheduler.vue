@@ -7,7 +7,8 @@
 
   <template v-for="week in weeks">
     <div class="row text-center cal-week">
-      <div class="col border" v-for="day in week">
+      <template v-for="(day,index) in week">
+      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
         <div class="text-center">{{day.number}}</div>
         <div class="text-center">
           <router-link
@@ -23,6 +24,7 @@
           </router-link>
         </div>
       </div>
+      </template>
     </div>
   </template>
 </div>
@@ -32,6 +34,11 @@
 import { computed, ref, defineProps } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
 import dayjs from 'dayjs'
+
+const colClass = 'col'
+const borderClass = 'border'
+const dnoneClass = 'd-none'
+const dmdBlockClass = 'd-md-block'
 
 const props = defineProps({
   date: Object,
