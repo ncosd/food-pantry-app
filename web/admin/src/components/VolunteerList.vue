@@ -1,5 +1,5 @@
 <script setup>
-import { getFirestore, collection, doc, getDoc, updateDoc, defineEmits } from 'firebase/firestore'
+import { getFirestore, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { getFunctions, httpsCallable } from 'firebase/functions'
 
 const emit = defineEmits(['refreshList'])

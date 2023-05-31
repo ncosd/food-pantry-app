@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { computed, ref, defineProps } from 'vue'
+import { computed, ref } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
 import dayjs from 'dayjs'
 
