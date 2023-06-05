@@ -10,8 +10,8 @@
       <template v-for="(day,index) in week">
       <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >{{day.number}}
         <div v-for="w in windows.getDay(day)">
-          <router-link :to="{name:'VolWindow', params: {id:w.id}}">
-            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+          <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
+            <div :class="['badge','rounded-pill','text-bg-available','text-wrap','d-block','m-1']">
             <span class="d-none d-md-block">{{w.location}} </span>
             <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
             <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
