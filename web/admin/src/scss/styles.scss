@@ -74,5 +74,29 @@ url("~bootstrap-icons/font/fonts/bootstrap-icons.woff?1fa40e8900654d2863d011707b
     text-align: center !important;
 }
 
+.text-bg-covered {
+    color: color-contrast($gray-500) if($enable-important-utilities, !important, null);
+    background-color: $gray-500;
+}
+
+.text-bg-available {
+    color: color-contrast($orange-500) if($enable-important-utilities, !important, null);
+    background-color: $orange-500;
+}
+
+.text-bg-attending {
+    color: color-contrast($green-500) if($enable-important-utilities, !important, null);
+    background-color: $green-500;
+}
+
+.text-bg-cancelled {
+    color: color-contrast($red-500) if($enable-important-utilities, !important, null);
+    background-color: $red-500;
+}
+
+
+
+
+
 @import "~bootstrap/scss/bootstrap.scss";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";

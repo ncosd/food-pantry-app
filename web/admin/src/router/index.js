@@ -19,6 +19,16 @@ const routes = [
     component: Login,
   },
   {
+    path: '/terms',
+    name: 'Terms',
+    component: () => import('../views/TermsPage.vue'),
+  },
+  {
+    path: '/privacy-policy',
+    name: 'Privacy',
+    component: () => import('../views/PrivacyPage.vue'),
+  },
+  {
     path: '/pending',
     name: 'Pending',
     component: () => import ('../views/Pending.vue'),
@@ -118,11 +128,12 @@ const router = new createRouter({
 router.beforeEach( (to, from) => {
   const user = useAuthUserStore()
   if (!user || !(user.isLoggedIn === true) || (user.isAdmin !== true) && (user.isVolunteer !== true)) {
-    if (user && user.isPending === true && to.name !== 'Pending' && to.name !== 'Contact') {
+    if (user && user.isPending === true && to.name !== 'Pending' && to.name !== 'Contact' && to.name !== 'Terms' && to.name !== 'Privacy') {
       console.log('redirect to pending to.name='+to.name+' user.isLoggedIn='+user.isLoggedIn + ' isPending=' + user.isPending)
       return { name: 'Pending'}
     } else if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password' &&
-               to.path !== '/contact' && to.path !== '/pending'
+               to.path !== '/contact' && to.path !== '/pending' &&
+               to.path !== '/terms' && to.path !== '/privacy-policy'
               ) {
       return { name: 'Login' }
     }

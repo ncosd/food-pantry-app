@@ -89,6 +89,14 @@
               </div>
             </div>
 
+            <div class="row">
+              <div class="form-check mb-3">
+              <div v-if="acceptTermsError" class="text-bg-danger">You must accept the Terms and Privacy Policy to register and use the site.</div>
+                <input id="acceptTerms" class="form-check-input" type="checkbox" v-model="profile.acceptTerms">
+                <label for="acceptTerms" class="form-label">I have read and accept the Terms of use and Privacy Policy.</label>
+              </div>
+            </div>
+
             <div class="row mb-3">
               <label class="form-label">Is there anything else we should know related to your interest in volunteering at
                 the food bank?</label>
@@ -121,6 +129,7 @@ export default {
         acceptLiftClean: false,
         acceptParent: false,
         acceptFrontLine: false,
+        acceptTerms: false,
         preferredtimes: '',
         extraNote: '',
       },
@@ -128,6 +137,7 @@ export default {
       showSuccess: false,
       successMessage: '',
       valid: false,
+      acceptTermsError: false,
       acceptLiftError: false,
       acceptParentError: false,
       acceptFrontLineError: false,
@@ -140,6 +150,7 @@ export default {
   },
   methods: {
     resetErrors() {
+      this.acceptTermsError = false
       this.acceptLiftError = false
       this.acceptParentError = false
       this.acceptFrontLineError = false
@@ -187,6 +198,11 @@ export default {
       }
       if (!this.profile.lastname) {
         this.lastnameError = true
+      }
+
+      if (!this.profile.acceptTerms) {
+        this.acceptTermsError = true
+        this.error += "You must accept Terms and Privacy Policy."
       }
 
       if (!this.profile.acceptLiftClean) {

@@ -31,9 +31,6 @@ onBeforeMount( async () => {
         signedUpMessage.value = 'signed up'
       }
 
-
-
-
     } else {
       errMsg.value = 'Error reading window from database, please try again later.'
     }
