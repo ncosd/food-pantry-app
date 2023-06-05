@@ -116,7 +116,6 @@
     }
 
     form {
-        margin: 0 auto;
         padding: 1em 0;
         display: block;
         width: 600px;
@@ -133,7 +132,17 @@
     }
 
     printName {
+        font-size: 15px;
+        font-family: Arial;
+    }
 
+    label, text {
+        display: block;
+        width: 100%;
+    }
+
+    label {
+        margin: .1em 0 2em 0
     }
 
 
