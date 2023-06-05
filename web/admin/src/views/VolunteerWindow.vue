@@ -2,7 +2,7 @@
 import { ref, defineProps, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
-import { collection, getFirestore, query, where, doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import dayjs from 'dayjs'
 
 const props = defineProps({
@@ -10,6 +10,7 @@ const props = defineProps({
 })
 const user = useAuthUserStore()
 var volWindow = ref()
+var attending = ref()
 var errMsg = ref()
 const successMsg = ref()
 const isSignedUp = ref(false)
@@ -24,6 +25,15 @@ onBeforeMount( async () => {
     errMsg.value = ''
     if (winSnap.exists()) {
       volWindow.value = winSnap.data()
+      const atCollection = await getDocs(collection(winRef, 'attending'))
+      if (atCollection.docs.length > 0 && atCollection.docs[0].id === user.data.uid) {
+        isSignedUp.value = true
+        signedUpMessage.value = 'signed up'
+      }
+
+
+
+
     } else {
       errMsg.value = 'Error reading window from database, please try again later.'
     }
