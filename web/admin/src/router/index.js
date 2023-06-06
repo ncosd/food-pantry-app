@@ -108,6 +108,11 @@ const routes = [
     meta: { admin: true},
   },
   {
+    path: '/confidential-agreement',
+    name: 'ConfidentialAgreement',
+    component: () => import('@/views/ConfidentialityPage.vue'),
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/ContactPage.vue'),
