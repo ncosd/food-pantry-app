@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import dayjs from 'dayjs'
-import VolunteersWindowDisclaimer from './VolunteersWindowDisclaimer.vue'
+import VolunteersWindowDisclaimer from '@/components/VolunteersWindowDisclaimer.vue'
 
 const props = defineProps({
   id: String,
