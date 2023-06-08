@@ -46,8 +46,7 @@ const signUp = (async () => {
 
   const db = getFirestore()
   const attendRef = doc(db, 'window', props.id, 'attending', user.data.uid)
-  const setMerge = await setDoc(attendRef, { name: user.data.displayName, mod: new Date()}, {update: true})
-
+  const setMerge = await setDoc(attendRef, { name: user.data.displayName, mod: new Date(), winid: props.id}, {update: true})
 
   isSignedUp.value = true
   signedUpMessage.value = 'signed up'
