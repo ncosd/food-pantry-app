@@ -8,7 +8,8 @@
   <template v-for="week in weeks">
     <div class="row text-center cal-week">
       <template v-for="(day,index) in week">
-      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >{{day.number}}
+      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
+        <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{day.number}}</span>
         <div v-for="w in windows.getDay(day)">
           <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
             <div :class="['badge','rounded-pill','text-bg-available','text-wrap','d-block','m-1']">
@@ -25,7 +26,6 @@
 
 </div>
 </template>
-
 
 <script setup>
 import { computed, ref } from 'vue'
@@ -60,11 +60,11 @@ const weeks = computed({
         lastyear = year - 1
       }
       let dayNumber = lastmonthlastdate - i + 1
-      let day = createDay(dayNumber, new Date(lastyear, lastmonth, dayNumber))
+      let day = createDay(dayNumber, false, new Date(lastyear, lastmonth, dayNumber))
       days.push(day)
     }
     for (let i = 1; i<= dlast; i++) {
-      let day = createDay(i, new Date(year, month, i))
+      let day = createDay(i, true, new Date(year, month, i))
       days.push(day)
     }
     // Loop to add the first dates of the next month
@@ -76,7 +76,7 @@ const weeks = computed({
         nextmonth = 0
       }
       let dayNumber = i - dend + 1
-      let day = createDay(dayNumber, new Date(nextyear, nextmonth, dayNumber))
+      let day = createDay(dayNumber, false, new Date(nextyear, nextmonth, dayNumber))
       days.push(day)
     }
 
@@ -115,8 +115,8 @@ function endrow(index) {
   return false
 }
 
-function createDay(number, date) {
-  const result = { number: number, date:date}
+function createDay(number, curMonth, date) {
+  const result = { number: number, curMonth: curMonth, date:date}
   return result
 }
 
