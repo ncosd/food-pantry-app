@@ -85,7 +85,7 @@
               <div class="form-check mb-3">
                 <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
                 <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine">
-                <label for="acceptfrontline" class="form-label">Do you accept the front line worker statement?</label>
+                <label for="acceptfrontline" class="form-label">{{config.AdminFrontline}}</label>
               </div>
             </div>
 
@@ -114,6 +114,7 @@
 </template>
 
 <script>
+import { config } from '@/config.js'
 export default {
   name: 'VolunteerRegistrationForm',
   props: [
@@ -146,6 +147,7 @@ export default {
       passwordError: false,
       firstnameError: false,
       lastnameError: false,
+      config: config,
     }
   },
   methods: {

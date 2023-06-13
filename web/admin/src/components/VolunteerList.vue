@@ -19,7 +19,7 @@ const niy = ( () => {
 })
 
 const functions = getFunctions()
-const setVolunteer = httpsCallable(functions, 'setVolunteer')
+const setVolunteer = httpsCallable(functions, 'setVolunteerv2')
 
 const updateApprove = ( async (id) => {
   try {
@@ -36,7 +36,7 @@ const updateApprove = ( async (id) => {
     }
 })
 
-const inactivateVolunteer = httpsCallable(functions, 'inactivateVolunteer')
+const inactivateVolunteer = httpsCallable(functions, 'inactivateVolunteerv2')
 
 const updateInactive = ( async (id) => {
   try {

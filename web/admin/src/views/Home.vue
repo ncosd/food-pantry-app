@@ -1,8 +1,10 @@
 <script setup>
 import AdminCalendar from '@/components/AdminCalendar.vue'
 import { reactive, computed, onBeforeMount } from 'vue'
-import { collection, query, where, getDocs, getFirestore } from "firebase/firestore";
+import { collection, collectionGroup, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { useAuthUserStore } from '@/stores/authUser'
 
+const user = useAuthUserStore()
 const now = new Date()
 const windows = reactive({
   entries: new Map(),
@@ -36,8 +38,16 @@ onBeforeMount( async () =>{
     }
     entries.push(wd)
 
-    const ed = wd.endtime.toDate()
+    //const ed = wd.endtime.toDate()
     // console.log(w.id, ' => ' , sd.getMonth()+1, sd.getDate(), sd.getHours(), sd.getMinutes(), ed.getHours(), ed.getMinutes())
+  })
+
+  console.log('user.data.uid=', user.data.uid)
+  const attending = query(collectionGroup(db, 'attending', user.data.id)) //, where('id','==',user.data.uid))
+  const attendingSnap = await getDocs(attending)
+  console.log('Before attending collectionGroup snap=', attendingSnap.size)
+  attendingSnap.forEach((d)=> {
+    console.log(d.id, ' => ', d.data(), ' parent=', JSON.stringify(d))
   })
 })
 </script>
@@ -47,7 +57,6 @@ onBeforeMount( async () =>{
     <h1>Volunteer Calendar</h1>
     <admin-calendar :date="now" :windows="windows"></admin-calendar>
   </div>
-
 </template>
 
 <style></style>
