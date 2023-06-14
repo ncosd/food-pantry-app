@@ -8,6 +8,7 @@ const user = useAuthUserStore()
 const now = new Date()
 const windows = reactive({
   entries: new Map(),
+  attending: new Map(),
   getDay: (day)=>{
      if (!day) { return null }
      const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
@@ -42,12 +43,12 @@ onBeforeMount( async () =>{
     // console.log(w.id, ' => ' , sd.getMonth()+1, sd.getDate(), sd.getHours(), sd.getMinutes(), ed.getHours(), ed.getMinutes())
   })
 
-  console.log('user.data.uid=', user.data.uid)
   const attending = query(collectionGroup(db, 'attending', user.data.id)) //, where('id','==',user.data.uid))
   const attendingSnap = await getDocs(attending)
-  console.log('Before attending collectionGroup snap=', attendingSnap.size)
+  //console.log('Before attending collectionGroup snap=', attendingSnap.size)
   attendingSnap.forEach((d)=> {
-    console.log(d.id, ' => ', d.data(), ' parent=', JSON.stringify(d))
+    //console.log('adding attending winid=', d.data().winid, ' data=', d.data())
+    windows.attending.set(d.data().winid, d.data())
   })
 })
 </script>
