@@ -12,7 +12,7 @@
         <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{day.number}}</span>
         <div v-for="w in windows.getDay(day)">
           <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
-            <div :class="['badge','rounded-pill','text-bg-available','text-wrap','d-block','m-1']">
+            <div :class="['badge','rounded-pill',statusClass(w),'text-wrap','d-block','m-1']">
             <span class="d-none d-md-block">{{w.location}} </span>
             <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
             <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
@@ -41,6 +41,15 @@ const props = defineProps({
   date: Object,
   windows: Object,
 })
+
+const statusClass = (win) => {
+  const attending = props.windows.attending.get(win.id)
+  if (attending && attending.winid === win.id) {
+    return 'text-bg-success'
+  }
+  return 'text-bg-available'
+}
+
 
 const weeks = computed({
   get() {
