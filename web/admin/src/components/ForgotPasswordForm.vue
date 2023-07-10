@@ -5,9 +5,9 @@
     <div class="card-header">Forgot Password</div>
     <h6 class="card-subtitle m-3 text-muted">Enter your email address and a link to reset your password will be emailed to you.</h6>
     <div class="card-text">
-      <template v-if="showSuccess"><div class="text-bg-success">{{successMessage}}</div></template>
-      <template v-if="showError"><div class="text-bg-danger" >{{errorMessage}}</div></template>
       <div class="card-body">
+        <template v-if="showSuccess"><div class="text-bg-success">{{successMessage}}</div></template>
+        <template v-if="showError"><div class="text-bg-danger" >{{errorMessage}}</div></template>
         <form @submit.prevent="submit">
           <div class="row my-3">
             <label class="form-label">Email</label>
