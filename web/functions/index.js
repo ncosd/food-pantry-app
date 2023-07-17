@@ -13,29 +13,7 @@ const fromEmail = process.env.SENDGRID_FROM;
 const toEmail = process.env.DELIVERY_TO;
 const bccEmail = process.env.DELIVERY_BCC;
 
-// Admins can change users roles.
-exports.setAdminRole = functions.https.onCall(async (data, context) => {
-
-  // Check the calling user has the admin custom claim
-  if (!context.auth.token.admin) return;
-
-  try {
-    const { customClaims: existingClaims } = await admin.auth().getUser(data.uid)
-    existingClaims.admin = true
-    await admin.auth().setCustomUserClaims(data.uid, existingClaims)
-
-    return {
-      status: 'success'
-    };
-
-  } catch (err) {
-    console.log('Error setting admin for ' + data.uid + ' err=' + err)
-    return functions.https.HttpsError('Error', 'error')
-  }
-
-});
-
-// migrate to v2
+// Admins can change user roles
 exports.setAdminRolev2 = onCall(async (req) => {
 
   // Check the calling user has the admin custom claim
@@ -56,33 +34,6 @@ exports.setAdminRolev2 = onCall(async (req) => {
 
 });
 
-
-
-// Admins can approve a volunteer
-exports.setVolunteer = functions.https.onCall(async (data, context) => {
-
-  // Check the calling user has the admin custom claim
-  if (context.auth.token.admin !== true) {
-    console.log('setVolunteer caller not admin')
-    throw new functions.https.HttpsError('NotAdmin', 'function caller must be admin')
-  }
-
-  try {
-    const { customClaims: existingClaims } = await admin.auth().getUser(data.id)
-    existingClaims.volunteer = true
-    existingClaims.pendingvolunteer = null
-
-    await admin.auth().setCustomUserClaims(data.id, existingClaims)
-    return {
-      status: 'success'
-    }
-
-  } catch (err) {
-    console.log('error ' + err)
-    return functions.https.HttpsError('Error', 'Error')
-  }
-});
-
 // Admins can approve a volunteer v2
 exports.setVolunteerv2 = onCall(async (req) => {
 
@@ -98,29 +49,6 @@ exports.setVolunteerv2 = onCall(async (req) => {
     existingClaims.pendingvolunteer = null
 
     await admin.auth().setCustomUserClaims(req.data.id, existingClaims)
-    return {
-      status: 'success'
-    }
-
-  } catch (err) {
-    console.log('error ' + err)
-    return functions.https.HttpsError('Error', 'Error')
-  }
-});
-
-// Admins can inactivate a volunteer
-exports.inactivateVolunteer = functions.https.onCall(async (data, context) => {
-  // Check the calling user has the admin custom claim
-  if (context.auth.token.admin !== true) {
-    console.log('setVolunteer caller not admin')
-    throw new functions.https.HttpsError('NotAdmin', 'function caller must be admin')
-  }
-
-  try {
-    const { customClaims: existingClaims } = await admin.auth().getUser(data.id)
-    existingClaims.volunteer = null
-    existingClaims.pendingvolunteer = true
-    await admin.auth().setCustomUserClaims(data.id, existingClaims)
     return {
       status: 'success'
     }
