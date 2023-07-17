@@ -69,6 +69,7 @@ if ((props.date !== undefined) && (props.date !== '')) {
   endDate.setTime(scheduleDate.getTime()+(3*60*60*1000))
 
   data.numNeeded = 2
+  data.numAttending = 0
   data.starttime = scheduleDate
   data.endtime = endDate
 
