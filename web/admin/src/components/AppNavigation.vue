@@ -26,6 +26,11 @@
               <a class="nav-link" href="/profile">Profile</a>
             </li>
           </template>
+          <template v-if="user && (user.isAdmin || user.isVolunteer)">
+            <li class="nav-item">
+              <a class="nav-link" href="/unavailable">Unavailable</a>
+            </li>
+          </template>
         </ul>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

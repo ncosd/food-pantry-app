@@ -82,6 +82,12 @@ const routes = [
     component: () => import ('@/views/ProfilePage.vue'),
   },
   {
+    path: '/unavailable',
+    name: 'Unavailable',
+    props: true,
+    component: () => import ('@/views/UnavailablePage.vue'),
+  },
+  {
     path: '/location/:id?',
     name: 'Location',
     props: true,
