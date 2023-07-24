@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { getAuth, sendPasswordResetEmail } from "firebase/auth"
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
 import ForgotPasswordForm from '@/components/ForgotPasswordForm.vue'
 
 export default {
