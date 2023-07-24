@@ -5,7 +5,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import dayjs from 'dayjs'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useRouter } from 'vue-router'
-import { collection, getFirestore, query, where, doc, getDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
 
 
 function toDate(timestamp) {
@@ -15,26 +15,59 @@ function toDate(timestamp) {
 
 const user = useAuthUserStore()
 const showDeleteMessage = ref(false)
+const showSavedMessage = ref(false)
+const showStartErrorMessage = ref(false)
 
-var startDate = new Date()
-startDate.setHours(0)
-startDate.setMinutes(0)
-var endDate = new Date()
-endDate.setDate(endDate.getDate()+1)
-endDate.setHours(0)
-endDate.setMinutes(0)
-const range = ref([startDate, endDate])
+var startDate = ref(new Date())
+startDate.value.setHours(0)
+startDate.value.setMinutes(0)
+var endDate = ref(new Date())
+endDate.value.setHours(0)
+endDate.value.setMinutes(0)
+endDate.value.setDate(endDate.value.getDate()+1)
+const unavailList = ref()
 
-const unavailList = [
-{ startDate: "2023-07-01",
-  endDate: "2023-07-14",
-  id: "1111",
-  }]
+const resetMessages = () => {
+  showDeleteMessage.value = false
+  showSavedMessage.value = false
+  showStartErrorMessage.value = false
+}
+
+onBeforeMount( async () => {
+  await loadUnavails()
+})
+
+const loadUnavails = (async () => {
+  const db = getFirestore()
+  const q = query(collection(db, 'unavail', user.data.uid, 'ua'), orderBy('startDate'))
+  const unavailsRef = await getDocs(q)
+  unavailList.value = unavailsRef
+})
 
 const deleteUnavail = (async (unid) => {
   const db = getFirestore()
   await deleteDoc(doc(db, 'unavail', user.data.uid, 'ua', unid))
   showDeleteMessage.value = true
+  await loadUnavails()
+})
+
+const saveUnavail = (async () => {
+  const db = getFirestore()
+  resetMessages()
+  if (dayjs(startDate.value).isAfter(dayjs(endDate.value))) {
+    showStartErrorMessage.value = true
+    return
+  }
+
+  await addDoc(collection(db, 'unavail', user.data.uid, 'ua'),
+    {
+        'startDate': startDate.value,
+        'endDate': endDate.value
+    }
+  )
+  showSavedMessage.value = true
+  await loadUnavails()
+
 })
 </script>
 
@@ -42,20 +75,30 @@ const deleteUnavail = (async (unid) => {
   <div class="container">
   <h1>Schedule your unavailability</h1>
 
-    <form >
+    <form>
       <div class="row my-3">
         <div class="col">
-          <label class="form-label" for="a">Time Window</label>
-          <vue-date-picker v-model="range" range></vue-date-picker>
+          <template v-if="showStartErrorMessage"><div class="text-bg-danger">Start Date must be before End Date</div></template>
+          <template v-if="showSavedMessage"><div class="text-bg-success">Saved!</div></template>
+          <label class="form-label" for="startDate">Start Date</label>
+          <vue-date-picker v-model="startDate" id="startDate" :enable-time-picker="false"></vue-date-picker>
         </div>
       </div>
 
       <div class="row my-3">
         <div class="col">
-          <button class="btn btn-primary btn-sm" @click.prevent="save">Save</button>
+          <label class="form-label" for="endDate">End Date</label>
+          <vue-date-picker v-model="endDate" id="endDate" :enable-time-picker="false"></vue-date-picker>
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col">
+          <button class="btn btn-primary btn-sm" @click.prevent="saveUnavail">Save</button>
         </div>
       </div>
     </form>
+
 
   <h2>Upcoming unavailable dates</h2>
 
@@ -75,14 +118,15 @@ const deleteUnavail = (async (unid) => {
     </tr>
   </thead>
   <tbody>
-    <tr v-for="u in unavailList">
-      <td>{{u.startDate}}</td>
-      <td>{{u.endDate}}</td>
+    <template v-if="unavailList && unavailList.docs.length > 0">
+    <tr v-for="u in unavailList.docs">
+      <td>{{dayjs(u.data().startDate.toDate()).format('MM/DD/YYYY')}}</td>
+      <td>{{dayjs(u.data().endDate.toDate()).format('MM/DD/YYYY')}}</td>
       <td>
         <button class="btn btn-sm btn-secondary" @click="deleteUnavail(u.id)"><i class="bi bi-trash-fill"></i> Delete</button>
-        <button class="ms-3 btn btn-sm btn-secondary" @click="editUnavail(u.id)"><i class="bi bi-pencil-fill"></i> Edit</button>
       </td>
     </tr>
+    </template>
   </tbody>
   </table>
   </div>
