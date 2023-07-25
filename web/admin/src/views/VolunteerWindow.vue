@@ -30,8 +30,13 @@ onBeforeMount( async () => {
     errMsg.value = ''
     if (winSnap.exists()) {
       volWindow.value = winSnap.data()
-      const atCollection = await getDocs(collection(winRef, 'attending'))
-      if (atCollection.docs.length > 0 && atCollection.docs[0].id === user.data.uid) {
+      const attendingDocRef = doc(db, 'window', winRef.id, 'attending', user.data.uid)
+      const attendingSnap = await getDoc(attendingDocRef)
+
+      //const atCollection = await getDocs(query(collection(winRef, 'attending'), where(id, '==', user.data.uid)))
+      //console.log('atCollection.docs.length', atCollection.docs.length)
+      //      if (atCollection.docs.length > 0 && atCollection.docs[0].id === user.data.uid) {
+      if (attendingSnap.exists()) {
         isSignedUp.value = true
         signedUpMessage.value = 'signed up'
         cancelDisabled.value = false

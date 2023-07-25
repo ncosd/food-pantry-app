@@ -43,12 +43,16 @@ onBeforeMount( async () =>{
     // console.log(w.id, ' => ' , sd.getMonth()+1, sd.getDate(), sd.getHours(), sd.getMinutes(), ed.getHours(), ed.getMinutes())
   })
 
-  const attending = query(collectionGroup(db, 'attending', user.data.id)) //, where('id','==',user.data.uid))
+  const attending = query(collectionGroup(db, 'attending'))
   const attendingSnap = await getDocs(attending)
-  //console.log('Before attending collectionGroup snap=', attendingSnap.size)
+  console.log('user.data.uid=', user.data.uid, 'Before attending collectionGroup snap=', attendingSnap.size)
   attendingSnap.forEach((d)=> {
-    //console.log('adding attending winid=', d.data().winid, ' data=', d.data())
-    windows.attending.set(d.data().winid, d.data())
+    if (d.id === user.data.uid) {
+      console.log('adding attending winid=', d.data().winid, ' data=', d.data(), d.id)
+      windows.attending.set(d.data().winid, d.data())
+    } else {
+      console.log('skipping winid', d.data().winid, ' uid', d.id)
+    }
   })
 })
 </script>
