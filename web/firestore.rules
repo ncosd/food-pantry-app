@@ -70,7 +70,7 @@ service cloud.firestore {
     }
 
     match /{path=**}/attending/{uid} {
-      allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.uid == uid);
+      allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.token.volunteer == true);
     }
 
   }
