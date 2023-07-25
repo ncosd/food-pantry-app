@@ -54,11 +54,6 @@ onBeforeMount( async () => {
 
 })
 
-function toDate(timestamp) {
-  const val = new Date(timestamp*1000)
-  return val
-}
-
 var scheduleDate = new Date()
 var endDate = new Date()
 if ((props.date !== undefined) && (props.date !== '')) {
@@ -158,6 +153,13 @@ const deleteWindow = (async () => {
 
       <div class="row my-3">
         <div class="col">
+          <label class="form-label" for="numAttending">Number Attending</label>
+          <input type="text" class="form-control" :value="windowEntry.numAttending" disabled>
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col">
           <label class="form-label" for="a">Time Window</label>
           <vue-date-picker v-model="range" range></vue-date-picker>
         </div>
@@ -166,7 +168,7 @@ const deleteWindow = (async () => {
       <div class="row my-3">
         <div class="col">
           <button class="btn btn-primary btn-sm" @click.prevent="save">Save</button>
-          <button class="mx-3 btn btn-primary btn-sm" @click.prevent="saveNew">Save & New</button>
+          <button class="d-none mx-3 btn btn-primary btn-sm" @click.prevent="saveNew">Save & New</button>
         </div>
         <div class="col">
           <button class="btn btn-danger btn-sm" @click.prevent="deleteWindow">Delete</button>
