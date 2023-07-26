@@ -1,13 +1,17 @@
 const functions = require("firebase-functions");
 const { onCall } = require('firebase-functions/v2/https');
-const { onDocumentCreated } = require('firebase-functions/v2/firestore');
+const { onDocumentCreated, onDocumentDeleted, onDocumentWritten } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
-const fs = require('firebase-admin/firestore');
-
+const { FieldValue } = require('firebase-admin/firestore');
+//const { initializeApp } = require('firebase-admin/app');
+//const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+//initializeApp();
+//const db = getFirestore()
 
 admin.initializeApp();
-
 const db = admin.firestore();
+
+
 const sendgridKey = process.env.SENDGRID_KEY;
 const fromEmail = process.env.SENDGRID_FROM;
 const toEmail = process.env.DELIVERY_TO;
@@ -277,3 +281,28 @@ exports.addVolunteerProfileOnCreatev2 = onDocumentCreated('volunteerprofile/{use
 //       console.log(error)
 //     }
 //   });
+
+
+// When an attending is created, update the window.numAttending
+exports.attendingCreated = onDocumentCreated('window/{winId}/attending/{userId}', async (event) => {
+
+  const winRef = db.collection('window').doc(event.params.winId)
+  const winSnap = await winRef.get()
+  console.log('attendingWritten before numAttending', winSnap.data().numAttending)
+  //winSnap.numAttending = attendingSnap.docs.length
+  const res = await winRef.update({ numAttending: FieldValue.increment(1) })
+  console.log('attendingWritten after numAttending incr', JSON.stringify(res))
+
+});
+
+// When an attending is deleted, update the window.numAttending
+exports.attendingDeleted = onDocumentDeleted('window/{winId}/attending/{userId}', async (event) => {
+
+  const winRef = db.collection('window').doc(event.params.winId)
+  const winSnap = await winRef.get()
+  console.log('attendingWritten before numAttending', winSnap.data().numAttending)
+  //winSnap.numAttending = attendingSnap.docs.length
+  const res = await winRef.update({ numAttending: FieldValue.increment(-1) })
+  console.log('attendingWritten after numAttending incr', JSON.stringify(res))
+
+});
