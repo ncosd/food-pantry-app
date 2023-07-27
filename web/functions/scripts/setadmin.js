@@ -24,7 +24,10 @@ try {
     console.log('User ' + email + ' is uid=' + retUser.uid);
     user = retUser;
 
-    const { customClaims: existingClaims } = await admin.auth().getUser(retUser.uid)
+    var { customClaims: existingClaims } = await admin.auth().getUser(retUser.uid)
+    if (!existingClaims) {
+      existingClaims = {}
+    }
     existingClaims.admin = true
     existingClaims.volunteer = true
 
