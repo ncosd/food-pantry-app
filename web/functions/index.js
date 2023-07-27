@@ -3,6 +3,7 @@ const { onCall } = require('firebase-functions/v2/https');
 const { onDocumentCreated, onDocumentDeleted, onDocumentWritten } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
 const { FieldValue } = require('firebase-admin/firestore');
+const fs = require('firebase-admin/firestore');
 //const { initializeApp } = require('firebase-admin/app');
 //const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 //initializeApp();
