@@ -1,6 +1,7 @@
 <script setup>
 import { ref, defineProps, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
+import { getAuth, updateProfile } from 'firebase/auth'
 import { collection, getFirestore, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useRouter } from 'vue-router'
 
@@ -22,6 +23,15 @@ var stateRef = null
 const save = ( async ()=>{
   await updateDoc(profileRef, profile.value)
   await updateDoc(stateRef, { status: status.value})
+
+  if (user.data.displayName != profile.value.displayname) {
+    const auth = getAuth()
+
+    updateProfile(auth.currentUser, {
+      displayName: profile.value.displayname
+    })
+  }
+
   if (user.isAdmin) {
     router.replace({name:'Volunteers'})
   } else {
