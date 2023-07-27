@@ -1,4 +1,5 @@
 <script setup>
+import { config } from '@/config.js'
 import { ref, defineProps, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { getAuth, updateProfile } from 'firebase/auth'
@@ -133,7 +134,7 @@ onBeforeMount( async () => {
     <div class="col">
       <div class="form-check mb-3">
         <div v-if="acceptLiftError" class="text-bg-danger">This is required to volunteer.</div>
-        <input id="acceptliftclean" class="form-check-input" type="checkbox" v-model="profile.acceptLiftClean">
+        <input id="acceptliftclean" class="form-check-input" type="checkbox" v-model="profile.acceptLiftClean" disabled>
         <label for="acceptliftclean" class="form-label">Are you able to safely lift 35 lbs on a regular basis? All of our volunteer
           positions require physical work including lifting and cleaning.</label>
       </div>
@@ -144,7 +145,7 @@ onBeforeMount( async () => {
     <div class="col">
       <div class="form-check mb-3">
          <div v-if="acceptParentError" class="text-bg-danger">This is required to volunteer.</div>
-         <input id="acceptParent" class="form-check-input" type="checkbox" v-model="profile.acceptParent">
+         <input id="acceptParent" class="form-check-input" type="checkbox" v-model="profile.acceptParent" disabled>
          <label for="acceptParent" class="form-label">I understand that volunteers under 16 years of age need to be accompanied by a
               parent.</label>
       </div>
@@ -153,12 +154,22 @@ onBeforeMount( async () => {
 
   <div class="row">
     <div class="col">
-              <div class="form-check mb-3">
-                <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
-                <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine">
-                <label for="acceptfrontline" class="form-label">Do you accept the front line worker statement?</label>
-              </div>
-            </div>
+      <div class="form-check mb-3">
+        <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
+        <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine" disabled>
+        <label for="acceptfrontline" class="form-label">{{config.AdminFrontline}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-check mb-3">
+        <div v-if="acceptTermsError" class="text-bg-danger">You must accept the Terms and Privacy Policy to register and use the site.</div>
+        <input id="acceptTerms" class="form-check-input" type="checkbox" v-model="profile.acceptTerms" disabled>
+        <label for="acceptTerms" class="form-label">I have read and accept the Terms of use and Privacy Policy.</label>
+      </div>
+    </div>
   </div>
 
   <div class="row mb-3">
