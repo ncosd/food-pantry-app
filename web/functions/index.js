@@ -26,6 +26,10 @@ exports.setAdminRolev2 = onCall(async (req) => {
 
   try {
     const { customClaims: existingClaims } = await admin.auth().getUser(req.auth.uid)
+    if (!existingClaims) {
+      existingClaims = {}
+    }
+
     existingClaims.admin = true
     await admin.auth().setCustomUserClaims(req.auth.uid, existingClaims)
 
@@ -34,7 +38,7 @@ exports.setAdminRolev2 = onCall(async (req) => {
     };
   } catch (err) {
     console.log('Error setting admin for ' + req.auth.uid + ' err=' + err)
-    return functions.https.HttpsError('Error', 'error')
+    return new functions.https.HttpsError('Error', 'error')
   }
 
 });
@@ -50,6 +54,9 @@ exports.setVolunteerv2 = onCall(async (req) => {
 
   try {
     const { customClaims: existingClaims } = await admin.auth().getUser(req.data.id)
+    if (!existingClaims) {
+      existingClaims = {}
+    }
     existingClaims.volunteer = true
     existingClaims.pendingvolunteer = null
 
@@ -60,7 +67,7 @@ exports.setVolunteerv2 = onCall(async (req) => {
 
   } catch (err) {
     console.log('error ' + err)
-    return functions.https.HttpsError('Error', 'Error')
+    return new functions.https.HttpsError('Error', 'Error')
   }
 });
 
@@ -74,6 +81,10 @@ exports.inactivateVolunteerv2 = onCall(async (req) => {
 
   try {
     const { customClaims: existingClaims } = await admin.auth().getUser(req.data.id)
+    if (!existingClaims) {
+      existingClaims = {}
+    }
+
     existingClaims.volunteer = null
     existingClaims.pendingvolunteer = true
     await admin.auth().setCustomUserClaims(req.data.id, existingClaims)
@@ -83,7 +94,7 @@ exports.inactivateVolunteerv2 = onCall(async (req) => {
 
   } catch (err) {
     console.log('error ' + err)
-    return functions.https.HttpsError('Error', 'Error')
+    return new functions.https.HttpsError('Error', 'Error')
   }
 });
 
