@@ -12,6 +12,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { requiresLogin: true },
   },
   {
     path: '/login',
@@ -47,76 +48,80 @@ const routes = [
     path: '/volunteers',
     name: 'Volunteers',
     component: VolunteersPage,
-    meta: { admin: true}
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/schedule',
     name: 'Schedule',
     component: () => import ('@/views/SchedulePage.vue'),
-    meta: { admin: true}
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/schedule-window/:date?',
     name: 'ScheduleWindow',
     props: true,
     component: () => import ('@/views/ScheduleWindowPage.vue'),
-    meta: { admin: true}
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/schedule-window/id/:id',
     name: 'ScheduleWindowById',
     props: true,
     component: () => import ('@/views/ScheduleWindowPage.vue'),
-    meta: { admin: true}
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/volunteerwindow/:id',
     name: 'VolWindow',
     props: true,
     component: () => import ('@/views/VolunteerWindow.vue'),
+    meta: { requiresLogin: true },
   },
   {
     path: '/profile/:uid?',
     name: 'Profile',
     props: true,
     component: () => import ('@/views/ProfilePage.vue'),
+    meta: { requiresLogin: true },
   },
   {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,
     component: () => import ('@/views/UnavailablePage.vue'),
+    meta: { requiresLogin: true },
   },
   {
     path: '/location/:id?',
     name: 'Location',
     props: true,
     component: () => import('@/views/LocationPage.vue'),
-    meta: { admin: true},
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/locations',
     name: 'LocationsList',
     component: () => import('@/views/LocationsListPage.vue'),
-    meta: { admin: true},
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/tasktype/:id?',
     name: 'TaskType',
     props: true,
     component: () => import('@/views/TaskTypePage.vue'),
-    meta: { admin: true},
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/tasktypes',
     name: 'TaskTypesList',
     component: () => import('@/views/TaskTypesListPage.vue'),
-    meta: { admin: true},
+    meta: { requiresLogin: true, admin: true},
   },
   {
     path: '/confidential-agreement',
     name: 'ConfidentialAgreement',
     component: () => import('@/views/ConfidentialityPage.vue'),
+    meta: { requiresLogin: true },
   },
   {
     path: '/contact',
@@ -138,17 +143,14 @@ const router = new createRouter({
 // This callback runs before every route change, including on page load.
 router.beforeEach( (to, from) => {
   const user = useAuthUserStore()
-  if (!user || !(user.isLoggedIn === true) || (user.isAdmin !== true) && (user.isVolunteer !== true)) {
-    if (user && user.isPending === true && to.name !== 'Pending' && to.name !== 'Contact' && to.name !== 'Terms' && to.name !== 'Privacy') {
-      console.log('redirect to pending to.name='+to.name+' user.isLoggedIn='+user.isLoggedIn + ' isPending=' + user.isPending)
-      return { name: 'Pending'}
-    } else if (to.path !== '/login' && to.path !== '/register' && to.path !== '/forgot-password' &&
-               to.path !== '/contact' && to.path !== '/pending' &&
-               to.path !== '/terms' && to.path !== '/privacy-policy'
-              ) {
+  if (to.meta.requiresLogin === true) {
+    if (user.isLoggedIn !== true) {
       return { name: 'Login' }
+    } else if (!user.isVolunteer || user.isPending === true) {
+      return { name: 'Pending' }
     }
   }
+
   if (to.meta.admin === true && !user.isAdmin) {
     return from
   }
