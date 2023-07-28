@@ -58,7 +58,7 @@ var scheduleDate = new Date()
 var endDate = new Date()
 if ((props.date !== undefined) && (props.date !== '')) {
   scheduleDate = new Date(props.date)
-  scheduleDate.setHours(11)
+  scheduleDate.setHours(9)
   scheduleDate.setMinutes(0)
   endDate = new Date(scheduleDate)
   endDate.setTime(scheduleDate.getTime()+(3*60*60*1000))
@@ -145,7 +145,12 @@ const deleteWindow = (async () => {
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-            <option value="5">5+</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10+">10+</option>
             <option value="0">0</option>
           </select>
         </div>
