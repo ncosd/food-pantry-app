@@ -58,7 +58,7 @@ var scheduleDate = new Date()
 var endDate = new Date()
 if ((props.date !== undefined) && (props.date !== '')) {
   scheduleDate = new Date(props.date)
-  scheduleDate.setHours(11)
+  scheduleDate.setHours(9)
   scheduleDate.setMinutes(0)
   endDate = new Date(scheduleDate)
   endDate.setTime(scheduleDate.getTime()+(3*60*60*1000))
