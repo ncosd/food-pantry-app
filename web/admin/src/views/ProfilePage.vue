@@ -11,10 +11,6 @@ const props = defineProps({
 })
 const user = useAuthUserStore()
 
-if (props.uid === '') {
- props.uid = user.data.uid
-}
-
 const router = useRouter()
 const profile = ref()
 const status = ref()
@@ -41,6 +37,11 @@ const save = ( async ()=>{
 })
 
 onBeforeMount( async () => {
+  if (props.uid === '' || props.uid === undefined) {
+    props.uid = user.data.uid
+  }
+
+  console.log('ProfilePage onBeforeMount props.uid', props.uid)
   const db = getFirestore()
   profileRef = doc(db, "volunteerprofile", props.uid)
   const profileSnap = await getDoc(profileRef)
@@ -74,6 +75,17 @@ onBeforeMount( async () => {
 
 <template>
 <div class="container">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <router-link class="nav-link active" aria-current="page" :to="{name:'Profile', params: {uid:props.uid}}">Registration</router-link>
+    </li>
+    <li class="nav-item">
+      <router-link class="nav-link" :to="{name:'Profile-Forms', params: {uid: props.uid}}">Forms</router-link>
+    </li>
+  </ul>
+
+
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
   <div class="row my-3">

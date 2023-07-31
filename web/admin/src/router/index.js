@@ -85,6 +85,13 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/profile-forms/:uid?',
+    name: 'Profile-Forms',
+    props: true,
+    component: () => import ('@/views/ProfileFormsPage.vue'),
+    meta: { requiresLogin: true },
+  },
+  {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,
