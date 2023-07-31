@@ -92,6 +92,13 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/profile-certs/:uid?',
+    name: 'Profile-Certs',
+    props: true,
+    component: () => import ('@/views/ProfileCertificationsPage.vue'),
+    meta: { requiresLogin: true },
+  },
+  {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,

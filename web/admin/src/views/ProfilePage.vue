@@ -5,6 +5,7 @@ import { useAuthUserStore } from '@/stores/authUser'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { collection, getFirestore, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useRouter } from 'vue-router'
+import ProfileTabs from '@/components/ProfileTabs.vue'
 
 const props = defineProps({
   uid: String,
@@ -76,15 +77,7 @@ onBeforeMount( async () => {
 <template>
 <div class="container">
 
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <router-link class="nav-link active" aria-current="page" :to="{name:'Profile', params: {uid:props.uid}}">Registration</router-link>
-    </li>
-    <li class="nav-item">
-      <router-link class="nav-link" :to="{name:'Profile-Forms', params: {uid: props.uid}}">Forms</router-link>
-    </li>
-  </ul>
-
+  <ProfileTabs activeTab="Registration" :uid="props.uid"></ProfileTabs>
 
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
