@@ -25,6 +25,7 @@ console.log('ProfileFormsPage uid=', props.uid)
 
   <ProfileTabs activeTab="Forms" :uid="props.uid"></ProfileTabs>
 
+  <h2 class="my-3">Electronic Forms</h2>
   <div class="mt-3 row fw-bold">
     <div class="col">Form Name</div>
     <div class="col">Status</div>
@@ -42,9 +43,51 @@ console.log('ProfileFormsPage uid=', props.uid)
     <div class="col">
 
     </div>
+  </div>
 
 
+  <h2 class="my-3">Paper Forms</h2>
 
+  <div class="mt-3 row fw-bold">
+    <div class="col">Form Name</div>
+    <div class="col">Status</div>
+    <div class="col">Date Approved</div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      Background Check - Child Abuse History Certification
+    </div>
+    <div class="col">
+      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled [Date Obtained]
+    </div>
+    <div class="col">
+      Approved by Admin [username here] on date MM/DD/YYYY and copy on file
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      Background Check - PA Criminal History Background Check
+    </div>
+    <div class="col">
+      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled [Date Obtained]
+    </div>
+    <div class="col">
+      Approved by Admin [username here] on date MM/DD/YYYY and copy on file.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      Background Check - Federal Bureau of Investigation (FBI) Criminal Background Check
+    </div>
+    <div class="col">
+      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled [Date Obtained]
+    </div>
+    <div class="col">
+      Approved by Admin [username here] on date MM/DD/YYYY and copy on file.
+    </div>
   </div>
 
 
