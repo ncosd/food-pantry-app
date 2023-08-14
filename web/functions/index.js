@@ -38,7 +38,7 @@ exports.setAdminRolev2 = onCall(async (req) => {
     };
   } catch (err) {
     console.log('Error setting admin for ' + req.auth.uid + ' err=' + err)
-    return new functions.https.HttpsError('Error', 'error')
+    return new functions.https.HttpsError('unknown', 'error')
   }
 
 });
@@ -49,7 +49,7 @@ exports.setVolunteerv2 = onCall(async (req) => {
   // Check the calling user has the admin custom claim
   if (req.auth.token.admin !== true) {
     console.log('setVolunteer caller not admin')
-    throw new functions.https.HttpsError('NotAdmin', 'function caller must be admin')
+    throw new functions.https.HttpsError('permission-denied', 'function caller must be admin')
   }
 
   try {
@@ -67,7 +67,7 @@ exports.setVolunteerv2 = onCall(async (req) => {
 
   } catch (err) {
     console.log('error ' + err)
-    return new functions.https.HttpsError('Error', 'Error')
+    return new functions.https.HttpsError('unknown', 'Error')
   }
 });
 
@@ -76,11 +76,11 @@ exports.inactivateVolunteerv2 = onCall(async (req) => {
   // Check the calling user has the admin custom claim
   if (req.auth.token.admin !== true) {
     console.log('setVolunteer caller not admin')
-    throw new functions.https.HttpsError('NotAdmin', 'function caller must be admin')
+    throw new functions.https.HttpsError('permission-denied', 'function caller must be admin')
   }
 
   try {
-    const { customClaims: existingClaims } = await admin.auth().getUser(req.data.id)
+    var { customClaims: existingClaims } = await admin.auth().getUser(req.data.id)
     if (!existingClaims) {
       existingClaims = {}
     }
@@ -94,7 +94,7 @@ exports.inactivateVolunteerv2 = onCall(async (req) => {
 
   } catch (err) {
     console.log('error ' + err)
-    return new functions.https.HttpsError('Error', 'Error')
+    return new functions.https.HttpsError('unknown', 'Error')
   }
 });
 
