@@ -2,10 +2,12 @@
 This is the Volunteer Portal side of the application.
 
 # Admin Registration
-Admins fill out the Volunteer Registration form the same as a volunteer would.   A command line script can be run to add the `admin` custom claim to the user's account.
+Admins fill out the Volunteer Registration form the same as a volunteer would to create an account on the system.   A command line script is run to add the `admin` custom claim to the user's account.
+
+The script is located in `functions/scripts/setadmin.js`  The https://github.com/ncosd/food-pantry-app/blob/forms/web/functions/scripts/README.md file has instructions on how to set up to run the script.
 
 # Volunteer Registration
-Volunteers can register with the application by filling out the volunteer registration form.  After registering, a volunteer is put into the `pending` state.  An admin can review the pending volunteers and either approve them, or deactivate their account on the Volunteer List page.
+Volunteers register with the application by filling out the volunteer registration form.  After registering, a volunteer is put into the `pending` state.  An admin can review the pending volunteers and either approve them, or deactivate their account on the Volunteer List page.
 
 # Agreements
 When a volunteer signs up, there will be a set of agreements they need to sign.  They can sign these digitally in the system.

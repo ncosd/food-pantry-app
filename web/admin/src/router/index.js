@@ -132,6 +132,13 @@ const routes = [
     meta: { requiresLogin: true, admin: true},
   },
   {
+    path: '/agreement/:name',
+    name: 'AgreementForm',
+    component: () => import('@/views/AgreementPage.vue'),
+    props: true,
+    meta: { requiresLogin: true },
+  },
+  {
     path: '/confidential-agreement',
     name: 'ConfidentialAgreement',
     component: () => import('@/views/ConfidentialityPage.vue'),

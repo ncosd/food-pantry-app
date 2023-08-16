@@ -35,7 +35,7 @@ console.log('ProfileFormsPage uid=', props.uid)
 
   <div class="row">
     <div class="col">
-      Confidentiality Agreement
+      <router-link :to="{name:'AgreementForm', params: { name: 'confidentiality'}}">Confidentiality Agreement</router-link>
     </div>
     <div class="col">
       <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unsigned
@@ -59,10 +59,10 @@ console.log('ProfileFormsPage uid=', props.uid)
       Background Check - Child Abuse History Certification
     </div>
     <div class="col">
-      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled [Date Obtained]
+      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
     </div>
     <div class="col">
-      Approved by Admin [username here] on date MM/DD/YYYY and copy on file
+      -
     </div>
   </div>
 
@@ -71,10 +71,10 @@ console.log('ProfileFormsPage uid=', props.uid)
       Background Check - PA Criminal History Background Check
     </div>
     <div class="col">
-      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled [Date Obtained]
+      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
     </div>
     <div class="col">
-      Approved by Admin [username here] on date MM/DD/YYYY and copy on file.
+      -
     </div>
   </div>
 
@@ -83,10 +83,10 @@ console.log('ProfileFormsPage uid=', props.uid)
       Background Check - Federal Bureau of Investigation (FBI) Criminal Background Check
     </div>
     <div class="col">
-      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled [Date Obtained]
+      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
     </div>
     <div class="col">
-      Approved by Admin [username here] on date MM/DD/YYYY and copy on file.
+      -
     </div>
   </div>
 
