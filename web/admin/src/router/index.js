@@ -85,6 +85,20 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/profile-forms/:uid?',
+    name: 'Profile-Forms',
+    props: true,
+    component: () => import ('@/views/ProfileFormsPage.vue'),
+    meta: { requiresLogin: true },
+  },
+  {
+    path: '/profile-certs/:uid?',
+    name: 'Profile-Certs',
+    props: true,
+    component: () => import ('@/views/ProfileCertificationsPage.vue'),
+    meta: { requiresLogin: true },
+  },
+  {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,
@@ -116,6 +130,13 @@ const routes = [
     name: 'TaskTypesList',
     component: () => import('@/views/TaskTypesListPage.vue'),
     meta: { requiresLogin: true, admin: true},
+  },
+  {
+    path: '/agreement/:name',
+    name: 'AgreementForm',
+    component: () => import('@/views/AgreementPage.vue'),
+    props: true,
+    meta: { requiresLogin: true },
   },
   {
     path: '/confidential-agreement',

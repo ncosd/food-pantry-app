@@ -41,12 +41,7 @@
           </li>
 
 
-
-
         </ol>
-
-
-
 
 
         <h1 id="windowsignup">Signing up for a day and time window</h1>

@@ -5,15 +5,12 @@ import { useAuthUserStore } from '@/stores/authUser'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { collection, getFirestore, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useRouter } from 'vue-router'
+import ProfileTabs from '@/components/ProfileTabs.vue'
 
 const props = defineProps({
   uid: String,
 })
 const user = useAuthUserStore()
-
-if (props.uid === '') {
- props.uid = user.data.uid
-}
 
 const router = useRouter()
 const profile = ref()
@@ -41,6 +38,11 @@ const save = ( async ()=>{
 })
 
 onBeforeMount( async () => {
+  if (props.uid === '' || props.uid === undefined) {
+    props.uid = user.data.uid
+  }
+
+  console.log('ProfilePage onBeforeMount props.uid', props.uid)
   const db = getFirestore()
   profileRef = doc(db, "volunteerprofile", props.uid)
   const profileSnap = await getDoc(profileRef)
@@ -74,6 +76,9 @@ onBeforeMount( async () => {
 
 <template>
 <div class="container">
+
+  <ProfileTabs activeTab="Registration" :uid="props.uid"></ProfileTabs>
+
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
   <div class="row my-3">

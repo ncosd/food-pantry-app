@@ -69,6 +69,10 @@ service cloud.firestore {
       allow read;
     }
 
+    match /agreements/{name} {
+      allow read: if request.auth != null && (request.auth.token.volunteer == true || request.auth.token.pendingvolunteer == true);
+    }
+
     match /{path=**}/attending/{uid} {
       allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.token.volunteer == true);
     }
