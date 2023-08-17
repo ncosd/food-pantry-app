@@ -3,6 +3,7 @@ import AdminCalendar from '@/components/AdminCalendar.vue'
 import { reactive, computed, onBeforeMount } from 'vue'
 import { collection, collectionGroup, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { useAuthUserStore } from '@/stores/authUser'
+import dayjs from 'dayjs'
 
 const user = useAuthUserStore()
 const now = new Date()
@@ -55,12 +56,17 @@ onBeforeMount( async () =>{
     }
   })
 })
+
+const changeDate = async (newDate) => {
+  console.log('Parent Home newDate=', newDate)
+}
+
 </script>
 
 <template>
   <div class="container">
     <h1>Volunteer Calendar</h1>
-    <admin-calendar :date="now" :windows="windows"></admin-calendar>
+    <admin-calendar :date="now" :windows="windows" @change-date="changeDate"></admin-calendar>
   </div>
 </template>
 
