@@ -7,6 +7,7 @@ export let config = {
   DeliveryOutsideAreaUrl: import.meta.env.VITE_DELIVERY_OUTSIDE_AREA_URL || "",
   DeliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || "",
   DeliveryFormURL: import.meta.env.VITE_DELIVERY_FORM_URL || "/delivery-form",
+  VolunteerPortalURL: import.meta.env.VITE_VOLUNTEER_PORTAL_URL || "VOLUNTEER_PORTAL_URL",
 
   meta: {
     Home: {
