@@ -11,6 +11,9 @@
           <a class="nav-link" :href="config.DeliveryFormURL">Delivery</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" :href="config.VolunteerPortalURL">Volunteer Portal</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/about">About</a>
         </li>
 
