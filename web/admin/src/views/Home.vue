@@ -1,12 +1,12 @@
 <script setup>
 import AdminCalendar from '@/components/AdminCalendar.vue'
-import { reactive, computed, onBeforeMount } from 'vue'
+import { ref, reactive, computed, onBeforeMount } from 'vue'
 import { collection, collectionGroup, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
 
 const user = useAuthUserStore()
-const now = new Date()
+const viewDate = ref(dayjs(new Date()))
 const windows = reactive({
   entries: new Map(),
   attending: new Map(),
@@ -19,9 +19,9 @@ const windows = reactive({
   },
 })
 
-onBeforeMount( async () =>{
-  const begindate = new Date(now.getFullYear(), now.getMonth(), -5)
-  const enddate = new Date(now.getFullYear(), now.getMonth()+1,7)
+const computeWindows = async () => {
+  const begindate = new Date(viewDate.value.get('year'), viewDate.value.get('month'), -5)
+  const enddate = new Date(viewDate.value.year(), viewDate.value.month() + 1,7)
 
   // console.log('begindate '+ begindate + ' enddate=' + enddate)
   // get the windows for this month
@@ -55,10 +55,17 @@ onBeforeMount( async () =>{
       console.log('skipping winid', d.data().winid, ' uid', d.id)
     }
   })
+}
+
+
+onBeforeMount( async () =>{
+  await computeWindows()
 })
 
 const changeDate = async (newDate) => {
   console.log('Parent Home newDate=', newDate)
+  viewDate.value = newDate
+  await computeWindows()
 }
 
 </script>
@@ -66,7 +73,7 @@ const changeDate = async (newDate) => {
 <template>
   <div class="container">
     <h1>Volunteer Calendar</h1>
-    <admin-calendar :date="now" :windows="windows" @change-date="changeDate"></admin-calendar>
+    <admin-calendar :date="viewDate" :windows="windows" @change-date="changeDate"></admin-calendar>
   </div>
 </template>
 
