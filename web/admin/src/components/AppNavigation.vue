@@ -9,9 +9,6 @@
         <ul class="navbar-nav mb-2 mb-lg-0">
           <template v-if="user && user.isAdmin === true">
             <li class="nav-item">
-              <router-link to="/" class="nav-link">Calendar</router-link>
-            </li>
-            <li class="nav-item">
               <router-link to="/volunteers" class="nav-link">Volunteers</router-link>
             </li>
             <li class="nav-item">
@@ -26,12 +23,13 @@
           </template>
           <template v-if="user && (user.isAdmin || user.isVolunteer)">
             <li class="nav-item">
+              <router-link to="/" class="nav-link">Calendar</router-link>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/profile">Profile</a>
             </li>
-          </template>
-          <template v-if="user && (user.isAdmin || user.isVolunteer)">
             <li class="nav-item">
-              <a class="nav-link" href="/unavailable">Unavailable</a>
+              <a class="nav-link" href="/unavailable">Unavailability</a>
             </li>
           </template>
         </ul>
