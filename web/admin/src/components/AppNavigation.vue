@@ -35,18 +35,20 @@
         </ul>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <div class="">
-            <div class="d-flex">
-              <template v-if="user && user.isLoggedIn === true">
-                <span class="nav-item py-2"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</span>
-                <a class="btn btn-primary mx-2" @click.prevent="signOutClick">Sign Out</a>
-              </template>
-              <template v-else>
-                <a class="btn btn-primary mx-2" href="/login" role="button">Login</a>
-              </template>
-           </div>
-         </div>
-       </ul>
+          <template v-if="user && user.isLoggedIn === true">
+            <li class="navbar-text pe-2">
+              <i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary" @click.prevent="signOutClick">Sign Out</a>
+            </li>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <a class="btn btn-primary mx-2" href="/login" role="button">Login</a>
+            </li>
+          </template>
+        </ul>
      </div>
    </div>
   </nav>
