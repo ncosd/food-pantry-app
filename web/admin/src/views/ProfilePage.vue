@@ -83,7 +83,7 @@ onBeforeMount( async () => {
   <template v-if="profile && profile.email">
   <div class="row my-3">
    <div class="col">
-     <label class="form-label" for="status">Volunteer Status: </label>
+     <label class="form-label me-3" for="status">Volunteer Status</label>
      <template v-if="user.isAdmin">
      <select class="form-select" v-model="status">
      <option value="active">active</option>
@@ -92,7 +92,9 @@ onBeforeMount( async () => {
      </select>
      </template>
      <template v-else>
+     <div class="p-3 bg-light text-dark">
      {{ status }}
+     </div>
      </template>
    </div>
   </div>
