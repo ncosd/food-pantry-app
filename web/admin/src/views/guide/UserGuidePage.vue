@@ -60,7 +60,29 @@
 
         <h1 id="vacation">Unavailability and Vacation Days</h1>
         <ol>
-          <li></li>
+          <li>To let everyone know you are going to be unavailable, because of a vacation, doctor's appointment, or similar reason, you can create a set of unavailable days.   Start by clicking "Unavailability" in the top Navbar.
+          <img src="/img/guide/unavailability-navbar.png" class="my-4 img-fluid border border-2">
+          </li>
+
+          <li>
+          1. Choose the start date.<br>
+          2. Choose the end date.<br>
+          3. Click Save<br>
+
+          <img src="/img/guide/unavailability-form.png" class="my-4 img-fluid border border-2">
+          </li>
+
+          <li>
+          After clicking save, the entry will be shown in the list below.  If you need to change the dates, click the "Delete" button to remove the entry, and then create a new entry with the corrected dates.
+          <img src="/img/guide/unavailability-list.png" class="my-4 img-fluid border border-2">
+          </li>
+
+
+          <li>
+          If you click the Calendar link in the navigation bar, you should see any Unavailability dates you have saved show up in red on the calendar with the word "out".
+          <img src="/img/guide/unavailability-calendar.png" class="my-4 img-fluid border border-2">
+          </li>
+
 
         </ol>
 
