@@ -153,7 +153,6 @@ function isoDate(date) {
               <span>Out</span>
             </div>
         </div>
-
       </div>
       </template>
     </div>
