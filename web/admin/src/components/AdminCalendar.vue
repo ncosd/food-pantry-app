@@ -1,32 +1,3 @@
-<template>
-<div class="mt-3">
-  <div class="row border text-center">
-    <h2>{{ formatMonth(date) }} {{date.getFullYear()}}</h2>
-  </div>
-  <week-header />
-
-  <template v-for="week in weeks">
-    <div class="row text-center cal-week">
-      <template v-for="(day,index) in week">
-      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
-        <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{day.number}}</span>
-        <div v-for="w in windows.getDay(day)">
-          <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
-            <div :class="['badge','rounded-pill',statusClass(w),'text-wrap','d-block','m-1']">
-            <span class="d-none d-md-block">{{w.location}} </span>
-            <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
-            <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
-            </div>
-          </router-link>
-        </div>
-      </div>
-      </template>
-    </div>
-  </template>
-
-</div>
-</template>
-
 <script setup>
 import { computed, ref } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
@@ -42,6 +13,20 @@ const props = defineProps({
   windows: Object,
 })
 
+const emit = defineEmits(['changeDate'])
+
+const viewDate = ref(props.date)
+
+const nextMonth = () => {
+  viewDate.value = dayjs(viewDate.value).add(1,'month')
+  emit('changeDate', viewDate.value)
+}
+
+const prevMonth = () => {
+  viewDate.value = dayjs(viewDate.value).subtract(1,'month')
+  emit('changeDate', viewDate.value)
+}
+
 const statusClass = (win) => {
   const attending = props.windows.attending.get(win.id)
   if (attending && attending.winid === win.id) {
@@ -52,11 +37,10 @@ const statusClass = (win) => {
   return 'text-bg-available'
 }
 
-
 const weeks = computed({
   get() {
-    const year = props.date.getFullYear()
-    const month = props.date.getMonth()
+    const year = dayjs(viewDate.value).year()
+    const month = dayjs(viewDate.value).month()
     const d1 = new Date(year, month, 1).getDay()
     const dlast = new Date(year, month+1, 0).getDate()
     const dend = new Date(year, month,dlast).getDay()
@@ -136,3 +120,42 @@ function isoDate(date) {
   return result
 }
 </script>
+
+
+<template>
+<div class="mt-3">
+  <div class="row border text-center">
+  <h2>
+    <button class="btn btn-primary btn-small" @click="prevMonth"><i class="bi bi-chevron-left"></i></button>
+  {{ dayjs(viewDate).format('MMMM') }} {{ dayjs(viewDate).format("YYYY") }}
+    <button class="btn btn-primary btn-small" @click="nextMonth"><i class="bi bi-chevron-right"></i></button>
+  </h2>
+  </div>
+  <week-header />
+
+  <template v-for="week in weeks">
+    <div class="row text-center cal-week">
+      <template v-for="(day,index) in week">
+      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
+        <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{day.number}}</span>
+        <div v-for="w in windows.getDay(day)">
+          <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
+            <div :class="['badge','rounded-pill',statusClass(w),'text-wrap','d-block','m-1']">
+            <span class="d-none d-md-block">{{w.location}} </span>
+            <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
+            <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
+            </div>
+          </router-link>
+        </div>
+        <!-- Unavailability -->
+        <div v-for="u in windows.getUnavail(day)">
+            <div :class="['badge','rounded-pill','text-bg-danger','text-wrap','d-block','m-1']">
+              <span>Out</span>
+            </div>
+        </div>
+      </div>
+      </template>
+    </div>
+  </template>
+</div>
+</template>
