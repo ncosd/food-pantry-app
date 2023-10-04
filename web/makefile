@@ -1,16 +1,21 @@
 .PHONY: build build-echo build-app build-admin serve
+ENV?=dev
+
 
 
 build: build-echo build-app build-admin
 
+build-prod: ENV=prod
+build-prod: build
+
 build-echo:
-	@echo building dev
+	@echo building $(ENV)
 
 build-app:
-	cd app && npm run build:dev
+	cd app && npm run build:$(ENV)
 
 build-admin:
-	cd admin && npm run build:dev
+	cd admin && npm run build:$(ENV)
 
 serve:
 	cd admin && npm run serve:firebase:emulator

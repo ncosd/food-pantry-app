@@ -1,7 +1,7 @@
 <script setup>
 import AdminCalendar from '@/components/AdminCalendar.vue'
 import { ref, reactive, computed, onBeforeMount } from 'vue'
-import { collection, collectionGroup, getDocs, getFirestore, query, where } from "firebase/firestore";
+import { collection, collectionGroup, getDocs, getFirestore, query, where, orderBy } from "firebase/firestore";
 import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
 
@@ -10,6 +10,7 @@ const viewDate = ref(dayjs(new Date()))
 const windows = reactive({
   entries: new Map(),
   attending: new Map(),
+  unavails: new Map(),
   getDay: (day)=>{
      if (!day) { return null }
      const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
@@ -17,17 +18,53 @@ const windows = reactive({
      //console.log('key='+ key + ' entries=' + entries)
      return entries
   },
+  getUnavail: (day)=> {
+    if (!day) { return null }
+    const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
+    const unavail = windows.unavails.get(key)
+    if (unavail) {
+      return [].push(unavail)
+    }
+  },
 })
+
+const loadUnavails = async() => {
+  const begindate = new Date(viewDate.value.get('year'), viewDate.value.get('month'), -5)
+  const enddate = new Date(viewDate.value.year(), viewDate.value.month() + 1,7)
+  const db = getFirestore()
+  const q = query(collection(db,'unavail',user.data.uid,'ua'), where('startDate', '>=', begindate), where('startDate','<=',enddate), orderBy('startDate'))
+  const unavailsRef = await getDocs(q)
+  return unavailsRef
+}
+
+const refreshUnavails = async() => {
+  const unavailSnapshot = await loadUnavails()
+  windows.unavails.clear()
+  unavailSnapshot.forEach( (u)=> {
+    const data = u.data()
+    data.id = u.id
+    const sd = data.startDate.toDate()
+    const key = (sd.getMonth()+1) + '-' + sd.getDate()
+    windows.unavails.set(key, data)
+    // check if enddate is later
+    const ed = data.endDate.toDate()
+   console.log('refreshUnavails sd, ed', sd, ed)
+    if (ed !== sd) {
+      console.log('refreshUnavails diff sd!=ed', sd, ed)
+    }
+  })
+}
 
 const computeWindows = async () => {
   const begindate = new Date(viewDate.value.get('year'), viewDate.value.get('month'), -5)
   const enddate = new Date(viewDate.value.year(), viewDate.value.month() + 1,7)
 
-  // console.log('begindate '+ begindate + ' enddate=' + enddate)
+  console.log('computeWindows begindate '+ begindate + ' enddate=' + enddate)
   // get the windows for this month
   const db = getFirestore()
   const q = query(collection(db, "window"), where("starttime", ">",begindate), where ('starttime','<',enddate) );
   const querySnapshot = await getDocs(q);
+  windows.entries.clear()
   querySnapshot.forEach((w)=> {
     const wd = w.data()
     wd.id = w.id
@@ -60,12 +97,14 @@ const computeWindows = async () => {
 
 onBeforeMount( async () =>{
   await computeWindows()
+  await refreshUnavails()
 })
 
 const changeDate = async (newDate) => {
   console.log('Parent Home newDate=', newDate)
   viewDate.value = newDate
   await computeWindows()
+  await refreshUnavails()
 }
 
 </script>

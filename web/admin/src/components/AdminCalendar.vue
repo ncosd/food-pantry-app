@@ -147,6 +147,13 @@ function isoDate(date) {
             </div>
           </router-link>
         </div>
+        <!-- Unavailability -->
+        <div v-for="u in windows.getUnavail(day)">
+            <div :class="['badge','rounded-pill','text-bg-danger','text-wrap','d-block','m-1']">
+              <span>Out</span>
+            </div>
+        </div>
+
       </div>
       </template>
     </div>
