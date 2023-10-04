@@ -155,6 +155,11 @@ const routes = [
     component: () => import('@/views/guide/UserGuidePage.vue'),
   },
   {
+    path: '/release-notes/',
+    name: 'ReleaseNotes',
+    component: () => import('@/views/ReleaseNotesPage.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: NotFound,
