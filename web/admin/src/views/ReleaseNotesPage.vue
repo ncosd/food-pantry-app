@@ -9,6 +9,7 @@
   <ul>
     <li>Admin - Adding calendar next/prev month to schedule page.</li>
     <li>Admin - sorting volunteer list by first name.</li>
+    <li>Admin - Change page title to "Volunteer | NCFB".</li>
     <li>Adds unavailability user guide.</li>
   </ul>
   <h2 id="1.2.0">October 4, 2023 - 1.2.0</h2>
