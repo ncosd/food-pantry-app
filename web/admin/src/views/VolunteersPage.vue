@@ -1,14 +1,14 @@
 <script setup>
 import { reactive, computed, ref, onBeforeMount } from 'vue'
 import VolunteerList from '@/components/VolunteerList.vue'
-import { collection, getFirestore, query, where, getDocs } from 'firebase/firestore';
+import { collection, getFirestore, query, where, getDocs, orderBy } from 'firebase/firestore';
 
 var volunteers = ref()
 const statusFilter = ref('in-review')
 
 const refreshList = ( async () => {
   const db = getFirestore()
-  const q = query(collection(db, 'volunteerprofilestate'), where('status', '==', statusFilter.value))
+  const q = query(collection(db, 'volunteerprofilestate'), where('status', '==', statusFilter.value), orderBy('firstname'))
   const pstates = await getDocs(q)
   volunteers.value = []
   pstates.forEach((prof)=> {
