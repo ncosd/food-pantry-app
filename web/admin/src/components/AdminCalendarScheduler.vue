@@ -1,35 +1,3 @@
-<template>
-<div class="mt-3">
-  <div class="row border text-center">
-    <h2>{{ formatMonth(date) }} {{date.getFullYear()}}</h2>
-  </div>
-  <week-header />
-
-  <template v-for="week in weeks">
-    <div class="row text-center cal-week">
-      <template v-for="(day,index) in week">
-      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
-        <div class="text-center">{{day.number}}</div>
-        <div class="text-center">
-          <router-link
-            class="btn btn-secondary btn-sm"
-            :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
-        </div>
-        <div v-for="w in windows.getDay(day)">
-          <router-link :to="{name:'ScheduleWindowById', params: {id:w.id}}">
-            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
-              {{w.location}} {{w.tasktype}}
-              {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
-            </div>
-          </router-link>
-        </div>
-      </div>
-      </template>
-    </div>
-  </template>
-</div>
-</template>
-
 <script setup>
 import { computed, ref } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
@@ -128,3 +96,35 @@ function isoDate(date) {
   return result
 }
 </script>
+
+<template>
+<div class="mt-3">
+  <div class="row border text-center">
+    <h2>{{ formatMonth(date) }} {{date.getFullYear()}}</h2>
+  </div>
+  <week-header />
+
+  <template v-for="week in weeks">
+    <div class="row text-center cal-week">
+      <template v-for="(day,index) in week">
+      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
+        <div class="text-center">{{day.number}}</div>
+        <div class="text-center">
+          <router-link
+            class="btn btn-secondary btn-sm"
+            :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
+        </div>
+        <div v-for="w in windows.getDay(day)">
+          <router-link :to="{name:'ScheduleWindowById', params: {id:w.id}}">
+            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+              {{w.location}} {{w.tasktype}}
+              {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
+            </div>
+          </router-link>
+        </div>
+      </div>
+      </template>
+    </div>
+  </template>
+</div>
+</template>
