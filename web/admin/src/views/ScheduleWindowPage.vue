@@ -1,6 +1,6 @@
 <script setup>
-import { ref, defineProps, onBeforeMount, onMounted } from 'vue'
-import { collection, getFirestore, query, where, doc, getDocs, getDoc, addDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { ref, defineProps, onBeforeMount, onMounted, reactive } from 'vue'
+import { collection, getFirestore, query, where, orderBy, doc, getDocs, getDoc, addDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import dayjs from 'dayjs'
@@ -16,10 +16,16 @@ var data = {}
 const windowEntry = ref()
 const locations = ref()
 const tasks = ref()
+const scheduleDate = ref(dayjs().hour(9).minute(0))
+const endDate = ref(dayjs().hour(9+3).minute(0))
+const range = ref()
+
+windowEntry.value = data
+range.value = [scheduleDate.value, endDate.value]
 
 onBeforeMount( async () => {
   const db = getFirestore()
-  const q = query(collection(db, "location"))
+  const q = query(collection(db, "location"), orderBy('name'))
   const locRef = await getDocs(q)
   const locarray = []
   locRef.forEach((loc)=> {
@@ -27,13 +33,20 @@ onBeforeMount( async () => {
   })
   locations.value = locarray
 
-  const taskq = query(collection(db, "tasktype"))
+  data.location = locations.value[0].name
+
+
+  const taskq = query(collection(db, "tasktype"),orderBy('name'))
   const taskRef = await getDocs(taskq)
   const taskarray = []
   taskRef.forEach( (t)=>{
     taskarray.push({id:t.id,...t.data()})
   })
   tasks.value = taskarray
+
+  // defaul to PackDelivery for now
+  data.tasktype = 'PackDelivery'
+
 
   if (props.id !== undefined && props.id !== '') {
     const db = getFirestore()
@@ -44,45 +57,34 @@ onBeforeMount( async () => {
 
       // scheduledate set from starttime/endtime
       windowEntry.value = data
-      scheduleDate = data.starttime.toDate()
-      endDate = data.endtime.toDate()
-      range.value = [scheduleDate, endDate]
+      scheduleDate.value = dayjs(data.starttime.toDate())
+      endDate.value = dayjs(data.endtime.toDate())
+      range.value = [scheduleDate.value, endDate.value]
     } else {
       console.log('Error reading window from database, please try again later.')
     }
   }
+  else if ((props.date !== undefined) && (props.date !== '')) {
+    scheduleDate.value = dayjs(props.date).hour(9).minute(0)
+    endDate.value = scheduleDate.value.clone().hour(9+3)
+
+    data.numNeeded = 2
+    data.numAttending = 0
+    data.starttime = scheduleDate.value
+    data.endtime = endDate.value
+    range.value = [scheduleDate.value, endDate.value]
+
+    console.log('onBeforeMount by date=',scheduleDate.value.format(), '-', endDate.value.format())
+  } else {
+    console.log('onBeforeMount by default, neither id nor date')
+  }
 
 })
 
-var scheduleDate = new Date()
-var endDate = new Date()
-if ((props.date !== undefined) && (props.date !== '')) {
-  scheduleDate = new Date(props.date)
-  scheduleDate.setHours(9)
-  scheduleDate.setMinutes(0)
-  endDate = new Date(scheduleDate)
-  endDate.setTime(scheduleDate.getTime()+(3*60*60*1000))
-
-  data.numNeeded = 2
-  data.numAttending = 0
-  data.starttime = scheduleDate
-  data.endtime = endDate
-
-  console.log('here date='+props.date)
-} else if (props.id !== undefined && props.id !== '') {
-  console.log(' else if id='+props.id)
-
-}
-
-windowEntry.value = data
-
-const range = ref()
-range.value = [scheduleDate, endDate]
-
 const save = (async ()=>{
   const db = getFirestore()
-  windowEntry.value.starttime = range.value[0]
-  windowEntry.value.endtime = range.value[1]
+  windowEntry.value.starttime = range.value[0].toDate()
+  windowEntry.value.endtime = range.value[1].toDate()
 
   if (props.id !== undefined && props.id !== '') {
     const windowRef = doc(db, 'window', props.id)
