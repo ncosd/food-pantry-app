@@ -44,7 +44,7 @@ onBeforeMount( async () => {
   })
   tasks.value = taskarray
 
-  // defaul to PackDelivery for now
+  // default to PackDelivery for now
   data.tasktype = 'PackDelivery'
 
 
