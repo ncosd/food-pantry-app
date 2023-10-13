@@ -5,7 +5,7 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.4.0">October 19, 2023 - 1.4.0</h2>
+  <h2 id="1.4.0">October 13, 2023 - 1.4.0</h2>
   <ul>
     <li>Admin - Adds calendar next/prev month to schedule page.</li>
     <li>Admin - Adds volunteer unavailability dates to the schedule page.</li>
