@@ -7,7 +7,8 @@
   <h1>Release Notes</h1>
   <h2 id="1.4.0">October 19, 2023 - 1.4.0</h2>
   <ul>
-    <li>Admin - Adding calendar next/prev month to schedule page.</li>
+    <li>Admin - Adds calendar next/prev month to schedule page.</li>
+    <li>Admin - Adds volunteer unavailability dates to the schedule page.</li>
   </ul>
   <h2 id="1.3.0">October 11, 2023 - 1.3.0</h2>
   <ul>
