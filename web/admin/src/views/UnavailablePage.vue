@@ -61,8 +61,9 @@ const saveUnavail = (async () => {
 
   await addDoc(collection(db, 'unavail', user.data.uid, 'ua'),
     {
-        'startDate': startDate.value,
-        'endDate': endDate.value
+      'startDate': startDate.value,
+      'endDate': endDate.value,
+      'name': user.data.displayName,
     }
   )
   showSavedMessage.value = true

@@ -60,6 +60,10 @@ service cloud.firestore {
       allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.uid == uid);
       allow create, update, delete: if request.auth != null && (request.auth.uid == uid || request.auth.token.admin == true);
     }
+    match /{path=**}/ua/{id} {
+      allow read: if request.auth != null && request.auth.token.admin == true;
+    }
+
 
     match /privacypolicy/{version} {
       allow read;

@@ -1,35 +1,3 @@
-<template>
-<div class="mt-3">
-  <div class="row border text-center">
-    <h2>{{ formatMonth(date) }} {{date.getFullYear()}}</h2>
-  </div>
-  <week-header />
-
-  <template v-for="week in weeks">
-    <div class="row text-center cal-week">
-      <template v-for="(day,index) in week">
-      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
-        <div class="text-center">{{day.number}}</div>
-        <div class="text-center">
-          <router-link
-            class="btn btn-secondary btn-sm"
-            :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
-        </div>
-        <div v-for="w in windows.getDay(day)">
-          <router-link :to="{name:'ScheduleWindowById', params: {id:w.id}}">
-            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
-              {{w.location}} {{w.tasktype}}
-              {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
-            </div>
-          </router-link>
-        </div>
-      </div>
-      </template>
-    </div>
-  </template>
-</div>
-</template>
-
 <script setup>
 import { computed, ref } from 'vue'
 import WeekHeader from '@/components/WeekHeader.vue'
@@ -45,10 +13,34 @@ const props = defineProps({
   windows: Object,
 })
 
+const emit = defineEmits(['changeDate'])
+
+const viewDate = ref(props.date)
+
+const nextMonth = () => {
+  viewDate.value = dayjs(viewDate.value).add(1,'month')
+  emit('changeDate', viewDate.value)
+}
+
+const prevMonth = () => {
+  viewDate.value = dayjs(viewDate.value).subtract(1,'month')
+  emit('changeDate', viewDate.value)
+}
+
+const statusClass = (win) => {
+  const attending = props.windows.attending.get(win.id)
+  if (attending && attending.winid === win.id) {
+    return 'text-bg-success'
+  } else if (win.numAttending >= win.numNeeded) {
+    return 'text-bg-secondary'
+  }
+  return 'text-bg-available'
+}
+
 const weeks = computed({
   get() {
-    const year = props.date.getFullYear()
-    const month = props.date.getMonth()
+    const year = dayjs(viewDate.value).year()
+    const month = dayjs(viewDate.value).month()
     const d1 = new Date(year, month, 1).getDay()
     const dlast = new Date(year, month+1, 0).getDate()
     const dend = new Date(year, month,dlast).getDay()
@@ -63,11 +55,11 @@ const weeks = computed({
         lastyear = year - 1
       }
       let dayNumber = lastmonthlastdate - i + 1
-      let day = createDay(dayNumber, new Date(lastyear, lastmonth, dayNumber))
+      let day = createDay(dayNumber, false, new Date(lastyear, lastmonth, dayNumber))
       days.push(day)
     }
     for (let i = 1; i<= dlast; i++) {
-      let day = createDay(i, new Date(year, month, i))
+      let day = createDay(i, true, new Date(year, month, i))
       days.push(day)
     }
     // Loop to add the first dates of the next month
@@ -79,7 +71,7 @@ const weeks = computed({
         nextmonth = 0
       }
       let dayNumber = i - dend + 1
-      let day = createDay(dayNumber, new Date(nextyear, nextmonth, dayNumber))
+      let day = createDay(dayNumber, false, new Date(nextyear, nextmonth, dayNumber))
       days.push(day)
     }
 
@@ -118,13 +110,60 @@ function endrow(index) {
   return false
 }
 
-function createDay(number, date) {
-  const result = { number: number, date:date}
+function createDay(number, curMonth, date) {
+  const result = { number: number, curMonth: curMonth, date:date}
   return result
 }
 
 function isoDate(date) {
-  let result = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
-  return result
+  const d = dayjs(date)
+  return d.format()
 }
 </script>
+
+
+<template>
+<div class="mt-3">
+  <div class="row border text-center">
+  <h2>
+    <button class="btn btn-primary btn-small" @click="prevMonth"><i class="bi bi-chevron-left"></i></button>
+  {{ dayjs(viewDate).format('MMMM') }} {{ dayjs(viewDate).format("YYYY") }}
+    <button class="btn btn-primary btn-small" @click="nextMonth"><i class="bi bi-chevron-right"></i></button>
+  </h2>
+  </div>
+  <week-header />
+
+  <template v-for="week in weeks">
+    <div class="row text-center cal-week">
+      <template v-for="(day,index) in week">
+      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
+        <div class="text-center">
+          <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">
+            {{day.number}}
+          </span>
+        </div>
+        <div class="text-center">
+          <router-link
+            class="btn btn-secondary btn-sm"
+            :to="{name:'ScheduleWindow', params: {'date':isoDate(day.date)}}">+</router-link>
+        </div>
+        <div v-for="w in windows.getDay(day)">
+          <router-link :to="{name:'ScheduleWindowById', params: {id:w.id}}">
+            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+              {{w.location}} {{w.tasktype}}
+              {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
+            </div>
+          </router-link>
+        </div>
+        <!-- Unavailability -->
+        <div v-for="u in windows.getUnavail(day)">
+          <div :class="['badge','rounded-pill','text-bg-danger','text-wrap','d-block','m-1']">
+            <span>{{u.name}}</span>
+          </div>
+        </div>
+      </div>
+      </template>
+    </div>
+  </template>
+</div>
+</template>
