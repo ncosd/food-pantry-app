@@ -1,3 +1,20 @@
+<script setup>
+import { getAuth, signOut } from 'firebase/auth'
+import { config } from '@/config'
+import { useAuthUserStore } from '@/stores/authUser'
+import { useRouter } from 'vue-router'
+
+const user = useAuthUserStore()
+const router = useRouter()
+
+const signOutClick = () => {
+  const auth = getAuth()
+  signOut(auth).then( ()=> {
+    router.replace({name: 'Login'})
+  })
+}
+</script>
+
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -53,20 +70,3 @@
    </div>
   </nav>
 </template>
-
-<script setup>
-import { getAuth, signOut } from 'firebase/auth'
-import { config } from '@/config'
-import { useAuthUserStore } from '@/stores/authUser'
-import { useRouter } from 'vue-router'
-
-const user = useAuthUserStore()
-const router = useRouter()
-
-const signOutClick = () => {
-  const auth = getAuth()
-  signOut(auth).then( ()=> {
-    router.replace({name: 'Login'})
-  })
-}
-</script>
