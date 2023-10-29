@@ -1,4 +1,5 @@
 <script setup>
+import ThemeChooser from '@/components/ThemeChooser.vue'
 import { getAuth, signOut } from 'firebase/auth'
 import { config } from '@/config'
 import { useAuthUserStore } from '@/stores/authUser'
@@ -52,6 +53,7 @@ const signOutClick = () => {
         </ul>
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li><ThemeChooser></ThemeChooser></li>
           <template v-if="user && user.isLoggedIn === true">
             <li class="navbar-text pe-2">
               <i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}
