@@ -7,6 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.5.0">October 18, 2023 - 1.5.0</h2>
   <ul>
+    <li>User can select between Dark/Light/Auto theme</li>
     <li>Updated README.md for running the firebase emulator and vite simultaneously</li>
     <li>Upgraded to bootstrap 5.3.2 and bootstrap-icons 1.11.1</li>
   </ul>
