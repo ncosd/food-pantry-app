@@ -23,7 +23,6 @@ fetch('/__/firebase/init.json').then(async response => {
     getAnalytics(firebaseApp)
   } else {
     console.log("firebase/init.json response not ok, have you started the firebase server locally?")
-    console.log('apikey=',import.meta.env.VITE_FB_APIKEY)
     firebaseApp = initializeApp({
       apiKey: import.meta.env.VITE_FB_APIKEY,
       authDomain: import.meta.env.VITE_FB_AUTHDOMAIN,
