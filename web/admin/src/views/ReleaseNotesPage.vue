@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.6.0">Date to be determined - 1.6.0</h2>
+  <ul>
+    <li></li>
+  </ul>
   <h2 id="1.5.0">December 8, 2023 - 1.5.0</h2>
   <ul>
     <li>User can select between Dark/Light/Auto theme</li>
