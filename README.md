@@ -6,7 +6,7 @@ The Food Pantry Application is designed to help run day to day operations.  The 
 * [X] Guests and Volunteers can register with the application
 * [X] Volunteers can apply for specific days/hours they would like to volunteer
 * [X] Guests can apply to be on the delivery list
-* [ ] Admins can maintain the list of volunteers that will attend on specific dates
+* [X] Admins can maintain the list of volunteers that will attend on specific dates
 * [ ] Admins can maintain the list of deliveries that will be made on delivery days
 * [ ] Admins can maintain an inventory of what is available and amounts of items.
 
@@ -52,18 +52,21 @@ Set the env to be the dev one
 
     firebase use dev
 
-Create a `.env.dev` file for both functions and admin folders
+Create a `.env.dev` file for both functions and admin folders.  Configure the `VITE_FB_` values from your project configuration
 
-    SENGRID_KEY='something'
-    SENDGRID_FROM='no-reply@example.com'
-    DELIVERY_TO='to@example.com'
-    DELIVERY_BCC='bcc@example.com'
+    VITE_FB_APIKEY="big-long-string"
+    VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
+    VITE_FB_PROJECTID="projectname"
+    VITE_FB_STORAGEBUCKET="project-storage-bucket.appspot.com"
+    VITE_FB_MESSAGINGSENDERID="some-id-number"
+    VITE_FB_APPID="some-app-id-number"
+    VITE_FB_MEASUREMENTID="some-app-id"
 
 Use these commands for developing locally:
 
     # you should be in the web/app directory
     npm run serve:firebase:emulator   # leave this running in one terminal
-    npm run build:watch               # leave this running in another terminal
+    npm run dev                       # leave this running in another terminal, this will run vite with hot-reloading
 
 Running these two commands will run the emulators in one terminal, and Vite build in the other.  The firebase service will not do hot-reloading in the browser when Vite builds to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work to load the latest built code.
 

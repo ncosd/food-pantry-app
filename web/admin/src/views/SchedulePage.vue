@@ -18,7 +18,7 @@ const windows = reactive({
     if (!day) { return null }
     const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
     const unavails = windows.unavails.get(key)
-    console.log('getUnavail key', key, 'unavails', unavails)
+    // console.log('getUnavail key', key, 'unavails', unavails)
     return unavails
   },
 
@@ -67,7 +67,7 @@ const refreshUnavails = async()=>{
     const startdate = dayjs(ud.startDate.toDate())
     const enddate = dayjs(ud.endDate.toDate())
     const days = enddate.diff(startdate, 'day')
-    console.log('days', days)
+    // console.log('days', days)
     for (let i=0; i<days;i++) {
       const key = (startdate.month()+1) + '-' + (startdate.date()+i)
       var out = windows.unavails.get(key)
@@ -76,13 +76,13 @@ const refreshUnavails = async()=>{
         windows.unavails.set(key, out)
       }
       out.push(ud)
-      console.log('push ', key, 'ud', ud, out)
+      // console.log('push ', key, 'ud', ud, out)
     }
   })
 }
 
 const changeDate = async (newDate) => {
-  console.log('Parent SchedulePage changeDate=', newDate)
+  // console.log('Parent SchedulePage changeDate=', newDate)
   viewDate.value = newDate
   await refreshWindows()
   await refreshUnavails()
@@ -91,6 +91,6 @@ const changeDate = async (newDate) => {
 
 <template>
 <div class="container">
- <admin-calendar-scheduler :date="now" :windows="windows" @change-date="changeDate"></admin-calendar-scheduler>
+ <admin-calendar-scheduler :date="viewDate" :windows="windows" @change-date="changeDate"></admin-calendar-scheduler>
 </div>
 </template>

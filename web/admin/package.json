@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite -m dev",
     "build": "vite build",
     "build:prod": "vite build",
     "build:dev": "vite build -m dev",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^4.3.0",
-    "bootstrap": "^5.3.0",
-    "bootstrap-icons": "^1.10.5",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.1",
     "dayjs": "^1.11.7",
     "firebase": "^9.22.1",
     "pinia": "^2.1.3",
