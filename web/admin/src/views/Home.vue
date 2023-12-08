@@ -15,7 +15,7 @@ const windows = reactive({
      if (!day) { return null }
      const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
      const entries = windows.entries.get(key)
-     //console.log('key='+ key + ' entries=' + entries)
+     // console.log('key='+ key + ' entries=' + entries)
      return entries
   },
   getUnavail: (day)=> {
@@ -47,11 +47,11 @@ const refreshUnavails = async() => {
     const key = (sd.getMonth()+1) + '-' + sd.getDate()
     windows.unavails.set(key, data)
     // check if enddate is later
-    const ed = data.endDate.toDate()
-   console.log('refreshUnavails sd, ed', sd, ed)
-    if (ed !== sd) {
-      console.log('refreshUnavails diff sd!=ed', sd, ed)
-    }
+    // const ed = data.endDate.toDate()
+    // console.log('refreshUnavails sd, ed', sd, ed)
+    // if (ed !== sd) {
+    //   console.log('refreshUnavails diff sd!=ed', sd, ed)
+    // }
   })
 }
 
@@ -59,7 +59,7 @@ const computeWindows = async () => {
   const begindate = new Date(viewDate.value.get('year'), viewDate.value.get('month'), -5)
   const enddate = new Date(viewDate.value.year(), viewDate.value.month() + 1,7)
 
-  console.log('computeWindows begindate '+ begindate + ' enddate=' + enddate)
+  // console.log('computeWindows begindate '+ begindate + ' enddate=' + enddate)
   // get the windows for this month
   const db = getFirestore()
   const q = query(collection(db, "window"), where("starttime", ">",begindate), where ('starttime','<',enddate) );
@@ -83,13 +83,10 @@ const computeWindows = async () => {
 
   const attending = query(collectionGroup(db, 'attending'))
   const attendingSnap = await getDocs(attending)
-  console.log('user.data.uid=', user.data.uid, 'Before attending collectionGroup snap=', attendingSnap.size)
+
   attendingSnap.forEach((d)=> {
     if (d.id === user.data.uid) {
-      console.log('adding attending winid=', d.data().winid, ' data=', d.data(), d.id)
       windows.attending.set(d.data().winid, d.data())
-    } else {
-      console.log('skipping winid', d.data().winid, ' uid', d.id)
     }
   })
 }
@@ -101,7 +98,6 @@ onBeforeMount( async () =>{
 })
 
 const changeDate = async (newDate) => {
-  console.log('Parent Home newDate=', newDate)
   viewDate.value = newDate
   await computeWindows()
   await refreshUnavails()
