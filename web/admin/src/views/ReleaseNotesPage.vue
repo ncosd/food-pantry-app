@@ -9,7 +9,7 @@
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/212">#212</a> Add User Guide completed</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/237">#237</a> Show loading spinner when registering</li>
-    <li><a href="https://github.com/ncosd/food-pantry-app/issues/212">#212</a> Add User Guide completed</li>
+    <li>Change login to use Vue composition</li>
   </ul>
   <h2 id="1.5.0">December 8, 2023 - 1.5.0</h2>
   <ul>
