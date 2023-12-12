@@ -54,15 +54,15 @@
             </div>
 
             <div class="row mb-3 border-top border-bottom">
-              <div>Best days for you:</div>
+              <div class="mt-3">Best days for you:</div>
               <div class="form-check ms-3"><input id="avail_monday" class="form-check-input" type="checkbox" v-model="profile.avail_monday"><label class="form-check-label" for="avail_monday">Monday</label></div>
               <div class="form-check ms-3"><input id="avail_tuesday" class="form-check-input" type="checkbox" v-model="profile.avail_tuesday"><label class="form-check-label" for="avail_tuesday">Tuesday</label></div>
               <div class="form-check ms-3"><input id="avail_thursday" class="form-check-input" type="checkbox" v-model="profile.avail_thursday"><label class="form-check-label" for="avail_thursday">Thursday</label></div>
-              <div class="form-check ms-3"><input id="avail_saturday" class="form-check-input" type="checkbox" v-model="profile.avail_saturday"><label class="form-check-label" for="avail_saturday">Saturday</label></div>
+              <div class="form-check ms-3 mb-3"><input id="avail_saturday" class="form-check-input" type="checkbox" v-model="profile.avail_saturday"><label class="form-check-label" for="avail_saturday">Saturday</label></div>
             </div>
 
             <div class="row">
-              <div class="form-check mb-3">
+              <div class="form-check ms-3 mb-3">
                 <div v-if="acceptLiftError" class="text-bg-danger">This is required to volunteer.</div>
                 <input id="acceptliftclean" class="form-check-input" type="checkbox" v-model="profile.acceptLiftClean">
                 <label for="acceptliftclean" class="form-label">Are you able to safely lift 35 lbs on a regular basis? All of our volunteer
@@ -72,7 +72,7 @@
             </div>
 
             <div class="row">
-              <div class="form-check mb-3">
+              <div class="form-check ms-3 mb-3">
                 <div v-if="acceptParentError" class="text-bg-danger">This is required to volunteer.</div>
                 <input id="acceptParent" class="form-check-input" type="checkbox" v-model="profile.acceptParent">
                 <label for="acceptParent" class="form-label">I understand that volunteers under 16 years of age need to be accompanied by a
@@ -82,7 +82,7 @@
             </div>
 
             <div class="row">
-              <div class="form-check mb-3">
+              <div class="form-check ms-3 mb-3">
                 <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
                 <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine">
                 <label for="acceptfrontline" class="form-label">{{config.AdminFrontline}}</label>
@@ -90,17 +90,21 @@
             </div>
 
             <div class="row">
-              <div class="form-check mb-3">
+              <div class="form-check mb-3 ms-3">
               <div v-if="acceptTermsError" class="text-bg-danger">You must accept the Terms and Privacy Policy to register and use the site.</div>
                 <input id="acceptTerms" class="form-check-input" type="checkbox" v-model="profile.acceptTerms">
                 <label for="acceptTerms" class="form-label">I have read and accept the Terms of use and Privacy Policy.</label>
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="form-label">Is there anything else we should know related to your interest in volunteering at
+            <div class="row mb-3 border-top">
+              <label class="form-label mt-3" for="extranote">Is there anything else we should know related to your interest in volunteering at
                 the food bank?</label>
-              <textarea class="form-control" v-model="profile.extraNote"></textarea>
+              <textarea id="extranote" class="form-control" v-model="profile.extraNote"></textarea>
+            </div>
+
+            <div class="row ms-2 mt-3 mb-3" v-if="spin">
+              <LoadingSpinner :visible="spin"/>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -115,6 +119,9 @@
 
 <script>
 import { config } from '@/config.js'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+
+
 export default {
   name: 'VolunteerRegistrationForm',
   props: [
@@ -147,9 +154,13 @@ export default {
       passwordError: false,
       firstnameError: false,
       lastnameError: false,
-      config: config,
+config: config,
+spin: false,
     }
-  },
+},
+components: {
+LoadingSpinner,
+},
   methods: {
     resetErrors() {
       this.acceptTermsError = false
@@ -160,7 +171,8 @@ export default {
       this.emailError = false
       this.passwordError = false
       this.firstnameError = false
-      this.lastnameError = false
+this.lastnameError = false
+this.spin = false
     },
     validate() {
       this.error = ""
@@ -233,6 +245,7 @@ export default {
       }
       const data = { 'email': this.email, 'password': this.password, 'profile': this.profile }
 
+      this.spin = true
       this.$emit('submitted', data)
     },
   }

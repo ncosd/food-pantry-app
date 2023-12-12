@@ -4,6 +4,7 @@ import { ref, reactive, computed, onBeforeMount } from 'vue'
 import { collection, collectionGroup, getDocs, getFirestore, query, where, orderBy } from "firebase/firestore";
 import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
 const user = useAuthUserStore()
 const viewDate = ref(dayjs(new Date()))

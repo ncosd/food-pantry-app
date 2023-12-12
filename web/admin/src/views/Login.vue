@@ -1,3 +1,55 @@
+<script setup>
+import { ref } from 'vue'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+
+const router = useRouter()
+const error = ref("")
+const showSuccess = ref(false)
+const successMessage = ref("")
+const showPass = ref(false)
+const valid = ref(false)
+const password = ref('')
+const email = ref('')
+const spin = ref(false)
+
+const submit = ()=> {
+  error.value = "";
+  showSuccess.value = false;
+  spin.value = true
+  const auth = getAuth()
+
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then( () => {
+      spin.value = false
+      showSuccess.value = true
+      successMessage.value = "You have signed in."
+      router.push({name:'Home'})
+
+    })
+    .catch(err => {
+        showSuccess.value = false
+      switch(err.code) {
+      case "auth/invalid-email":
+        error.value = "Invalid email"
+        break
+      case "auth/user-not-found":
+        error.value = "No account found, have you registered with this email address?"
+        break
+      case "auth/wrong-password":
+        error.value = "Incorrect password"
+        break
+      default:
+        error.value = err.message;
+        break
+      }
+      spin.value = false
+    })
+}
+</script>
+
+
 <template>
   <div class="container">
     <div class="row justify-content-center">
@@ -25,6 +77,10 @@
                  <div class="col"><input class="form-control" type="password" autocomplete="password" v-model="password" required></div>
                </div>
 
+               <div class="row my-3" v-if="spin">
+                 <LoadingSpinner class="ms-3" :visible="spin"/>
+               </div>
+
                <div class="row">
                  <div class="col-sm-offset-2 col-sm-10">
                    <button type="submit" class="btn btn-primary">Login</button>
@@ -39,58 +95,3 @@
    </div>
  </div>
 </template>
-
-<script>
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-
-export default {
-  name: 'LoginPage',
-  data() {
-    return {
-      error: "",
-      showSuccess: false,
-      successMessage: "",
-      showPass: false,
-      valid: false,
-      password: '',
-      email: '',
-      rules: {
-        required: value => !!value || 'Required.',
-        emailRule: v => !v || /.+@.+/.test(v) || 'Invalid Email Address'
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.error = "";
-      this.showSuccess = false;
-      const auth = getAuth()
-
-      signInWithEmailAndPassword(auth, this.email, this.password)
-      .then( () => {
-        this.showSuccess = true;
-        this.successMessage = "You have signed in.";
-        this.$router.replace({name:'Home'});
-
-      })
-      .catch(err => {
-        this.showSuccess = false
-        switch(err.code) {
-          case "auth/invalid-email":
-            this.error = "Invalid email"
-            break
-          case "auth/user-not-found":
-            this.error = "No account found, have you registered with this email address?"
-            break
-          case "auth/wrong-password":
-            this.error = "Incorrect password"
-            break
-          default:
-            this.error = err.message;
-            break
-        }
-      })
-    }
-  }
-}
-</script>
