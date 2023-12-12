@@ -5,9 +5,11 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.6.0">Date to be determined - 1.6.0</h2>
+  <h2 id="1.6.0">December 12, 2023 - 1.6.0</h2>
   <ul>
-    <li></li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/212">#212</a> Add User Guide completed</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/237">#237</a> Show loading spinner when registering</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/212">#212</a> Add User Guide completed</li>
   </ul>
   <h2 id="1.5.0">December 8, 2023 - 1.5.0</h2>
   <ul>
