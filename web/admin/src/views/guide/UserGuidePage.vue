@@ -46,15 +46,34 @@
 
         <h1 id="windowsignup">Signing up for a day and time window</h1>
         <ol>
-          <li></li>
+          <li>Find a time.
+            <p>Search for a delivery time on the volunteer calendar and click on it.</p>
+            <img src="/img/guide/image8.png" class="my-4 img-fluid border border-2">
+          </li>
 
+          <li>Signing up
+            <p>Once you have clicked a day where there is a delivery, you will be taken to the page below.</p>
+            <img src="/img/guide/image4.png" class="my-4 img-fluid border border-2">
+          </li>
+
+          <li>Click Sign up to register for that day.
+            <p>Once you have clicked Sign up, you will be indicated with the message below that you are now signed up for that day.</p>
+            <img src="/img/guide/image6.png" class="my-4 img-fluid border border-2">
+          </li>
         </ol>
 
 
         <h1 id="cancelwindow">Cancel a volunteer window</h1>
         <ol>
-          <li></li>
+          <li>Finding a time
+            <p>Search for your registered delivery time on the volunteer calendar and click on it.</p>
+            <img src="/img/guide/image8.png" class="my-4 img-fluid border border-2">
+          </li>
 
+          <li>Canceling the time
+            <p>Click Cancel to cancel the volunteer window you have previously registered for.</p>
+            <img src="/img/guide/image4.png" class="my-4 img-fluid border border-2">
+          </li>
         </ol>
 
 
