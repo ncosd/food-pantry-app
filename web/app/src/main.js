@@ -3,23 +3,20 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-
 import { initializeApp } from 'firebase/app'
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
-import { getAuth, connectAuthEmulator } from "firebase/auth"
+import { getAuth, connectAuthEmulator, getIdTokenResult } from "firebase/auth"
 import { getAnalytics } from "firebase/analytics"
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
-// TODO: this is a workaround for the vite-sass compiler issue
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import '@/scss/styles.scss'
+import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
-//import * as colorModes from '@/color-modes.js'
 
 
 fetch('/__/firebase/init.json').then(async response => {
-  await response;
+  await response
   var firebaseApp
+
   if (response.ok) {
     const config = await response.json()
     firebaseApp = initializeApp(config)
@@ -48,7 +45,6 @@ fetch('/__/firebase/init.json').then(async response => {
     connectFunctionsEmulator(functions, 'localhost', 5001)
   }
 
-
   getAuth().onAuthStateChanged(user => {
     useAuthUserStore().save(user)
   });
@@ -57,5 +53,4 @@ fetch('/__/firebase/init.json').then(async response => {
   app.use(createPinia())
   app.use(router)
   app.mount('#app')
-
 })
