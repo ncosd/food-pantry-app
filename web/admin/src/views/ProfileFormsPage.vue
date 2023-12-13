@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onBeforeMount } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useRouter } from 'vue-router'
 import ProfileTabs from '@/components/ProfileTabs.vue'

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onBeforeMount } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc,getCountFromServer } from 'firebase/firestore'

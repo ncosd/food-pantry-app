@@ -1,6 +1,6 @@
 <script setup>
 import { config } from '@/config.js'
-import { ref, defineProps, onBeforeMount } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { collection, getFirestore, query, where, doc, getDoc, updateDoc } from 'firebase/firestore'

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, onBeforeMount, onMounted, reactive } from 'vue'
+import { ref, onBeforeMount, onMounted, reactive } from 'vue'
 import { collection, getFirestore, query, where, orderBy, doc, getDocs, getDoc, addDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
