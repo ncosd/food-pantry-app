@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite -m dev",
     "build:dev": "vite build -m dev",
     "build": "vite build",
     "build:prod": "vite build",
