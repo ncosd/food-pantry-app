@@ -1,7 +1,7 @@
 # Food Pantry App
-Web application for Food Pantries.  Volunteers can register with the site, and choose locations and days/times from a schedule.
+This is food pantry software written as a web application for Food Pantries.  Volunteers can register with the site, and choose locations and days/times from a schedule.
 
-The Food Pantry Application is designed to help run day to day operations.  The highest priority items are below, and you can see the full roadmap at the projects link.  The current sprints are being run off the Volunteer Portal board.  If there is something you need added, please create a new issue.
+The Food Pantry Application is designed to help run day to day operations and manage food pantry volunteers.  The highest priority items are below, and you can see the full roadmap at the projects link.  The current sprints are being run off the [Project Board](https://github.com/orgs/ncosd/projects/2/views/1).  If there is something you need added, please create a new issue.
 
 * [X] Guests and Volunteers can register with the application
 * [X] Volunteers can apply for specific days/hours they would like to volunteer
@@ -68,7 +68,7 @@ Use these commands for developing locally:
     npm run serve:firebase:emulator   # leave this running in one terminal
     npm run dev                       # leave this running in another terminal, this will run vite with hot-reloading
 
-Running these two commands will run the emulators in one terminal, and Vite build in the other.  The firebase service will not do hot-reloading in the browser when Vite builds to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work to load the latest built code.
+Running these two commands will run the emulators in one terminal, and Vite build in the other.  You can open your browser to http://localhost:5173 to see the page.  The firebase service will not do hot-reloading in the browser when Vite builds to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work to load the latest built code.
 
 ### Java installed?
 The firebase emulator needs node.js 8.0 or higher and Java JDK version 11 or higher.
