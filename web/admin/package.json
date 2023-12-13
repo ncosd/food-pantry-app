@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "dev": "vite -m dev",
+    "dev": "vite -m dev --port 5174",
     "build": "vite build",
     "build:prod": "vite build",
     "build:dev": "vite build -m dev",
