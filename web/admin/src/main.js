@@ -35,7 +35,7 @@ fetch('/__/firebase/init.json').then(async response => {
   }
 
   const db = getFirestore(firebaseApp)
-  if (window.location.hostname == "localhost") {
+  if (import.meta.env.VITE_RUN_LOCAL === 'true' && window.location.hostname == "localhost") {
     console.log('localhost detected, using emulator localhost:8080 and function emulator 5001')
     connectFirestoreEmulator(db, 'localhost', 8080);
 

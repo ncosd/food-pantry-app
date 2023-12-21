@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc,getCountFromServer } from 'firebase/firestore'
@@ -23,12 +23,16 @@ const cancelDisabled = ref(true)
 const signupDisabled = ref(false)
 const numAttending = ref(0)
 
+const isInPast = computed(()=>{
+  const winDay = dayjs(volWindow.value.data().starttime.toDate())
+  return dayjs().isAfter(winDay)
+})
+
 const loadWindowData = (async () => {
   if (props.id) {
 
     const acol = collection(db, 'window', props.id, 'attending')
     const asnap = await getCountFromServer(acol)
-    console.log('asnap.count', asnap.data().count)
     numAttending.value = asnap.data().count
 
     const winRef = doc(db, 'window', props.id)
@@ -44,13 +48,13 @@ const loadWindowData = (async () => {
       if (attendingSnap.exists()) {
         isSignedUp.value = true
         signedUpMessage.value = 'signed up'
-        cancelDisabled.value = false
+        cancelDisabled.value = false || isInPast.value
         signupDisabled.value = true
       } else {
         isSignedUp.value = false
         signedUpMessage.value = 'not signed up'
         cancelDisabled.value = true
-        signupDisabled.value = false
+        signupDisabled.value = false || isInPast.value
       }
     } else {
       errMsg.value = 'Error reading window from database, please try again later.'
@@ -58,13 +62,11 @@ const loadWindowData = (async () => {
   }
 })
 
-
 onBeforeMount( async () => {
   if (props.id) {
     loadWindowData()
   }
 })
-
 
 const signUp = (async () => {
   successMsg.value = ''
@@ -112,6 +114,7 @@ const cancelWindow = (async ()=>{
     <div class="my-3">
       <button class="btn btn-sm btn-primary" @click.prevent="signUp" :disabled="signupDisabled">Sign up</button>
       <button class="btn btn-sm btn-danger mx-3" :disabled="cancelDisabled" @click.prevent="cancelWindow">Cancel</button>
+      <div class="mt-3" v-if="isInPast">This event is in the past, you cannot change your attendance.</div>
     </div>
     <div class="d-none">
       <button class="btn btn-sm"><i class="bi bi-calendar"></i> Add to Calendar</button>
