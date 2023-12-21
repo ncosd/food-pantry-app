@@ -7,7 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.7.0">December , 2023 - 1.7.0</h2>
   <ul>
-    <li></li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/240">#240</a> Users should not be able to sign up for past volunteer windows.</li>
   </ul>
   <h2 id="1.6.0">December 12, 2023 - 1.6.0</h2>
   <ul>
