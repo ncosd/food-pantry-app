@@ -4,6 +4,7 @@ import { ref, reactive, computed, onBeforeMount } from 'vue'
 import { collection, collectionGroup, getDocs, getFirestore, query, where, orderBy } from "firebase/firestore";
 import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
+import ColorKey from '@/components/ColorKey.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
 const user = useAuthUserStore()
@@ -109,6 +110,7 @@ const changeDate = async (newDate) => {
 <template>
   <div class="container">
     <h1>Volunteer Calendar</h1>
+    <ColorKey />
     <admin-calendar :date="viewDate" :windows="windows" @change-date="changeDate"></admin-calendar>
   </div>
 </template>
