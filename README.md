@@ -41,7 +41,7 @@ You can run this project locally against the firebase emulators.  You can see ho
 >     firebase target:apply hosting app _projectid_
 >     firebase target:apply hosting admin _projectid_-admin
 
-After login and configuring a project (on the spark plan) clone the repo:
+After login and configuring a project (on the spark plan) clone the repo, or if you plan on contributing by writing code, fork the repo, and then clone your fork.  The instructions for cloning the repo are given below.
 
     git clone git@github.com:ncosd/food-pantry-app.git
     cd web/functions && npm install
