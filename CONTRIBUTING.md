@@ -17,5 +17,10 @@ To get started running the Food Pantry App locally, follow the instructions for 
 ## Development workflow
 Branch `main` holds the current stable version of the project.   Each release is tagged with a version number like `v1.7.0`.  Work done between releases is done on a branch from `main` named with the word `dev-` and the version number of the next release, for example `dev-v1.8.0`.  If you are working on code, it is a good practice to create a branch from the `dev-vX.Y.Z` branch named `issue#-short-description-in-a-word-or-two` and do your work there.  When you open a pull request, target it at the `ncosd/food-pantry-app/branches/dev-vX.Y.Z` branch for the next release.
 
+When opening a pull request, also add a line in the Release Notes for that version.
+
+- Admin: https://github.com/ncosd/food-pantry-app/blob/main/web/admin/src/views/ReleaseNotesPage.vue
+- App: TBD pending https://github.com/ncosd/food-pantry-app/issues/246
+
 # Pull Requests
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
