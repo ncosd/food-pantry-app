@@ -16,6 +16,8 @@ The project uses Github projects for its roadmap, you can find the roadmap here:
 ## Developing
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
 
+Use this link to find good first issues https://github.com/ncosd/food-pantry-app/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue and https://github.com/ncosd/food-pantry-app/blob/main/CONTRIBUTING.md has information helpful to get started.
+
 This project uses firebase, Vue.js (version 3), and bootstrap 5.3.  The project can be configured with information stored in local files which are not stored in github.  You can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
 
 ### Prerequisites
