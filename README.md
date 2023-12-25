@@ -54,6 +54,8 @@ Set the env to be the dev one
 
     firebase use dev
 
+Copy `web/app/env.demo` to `web/app/.env`.  Copy `web/admin/env.demo` to `web/admin/.env`
+
 Create a `.env.dev` file for both functions and admin folders.  Configure the `VITE_FB_` values from your project configuration
 
     VITE_FB_APIKEY="big-long-string"
@@ -103,9 +105,9 @@ npm run storybook
 It will get easier over time as the process is refined.   Currently, the best way for you to use this project is to:
 
 1. Fork this repo
-2. Configure for your organization name by creating a `.env` file in  `app/src/.env`
+2. Configure for your organization name by creating a `.env` file in  `app/.env`
 
-    file: app/src/.env
+    file: app/.env
 ```sh
 VITE_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
 VITE_ORGANIZATION_NAME = 'org name' # this is your organization name.
