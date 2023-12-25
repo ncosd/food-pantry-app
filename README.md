@@ -105,9 +105,9 @@ npm run storybook
 It will get easier over time as the process is refined.   Currently, the best way for you to use this project is to:
 
 1. Fork this repo
-2. Configure for your organization name by creating a `.env` file in  `app/.env`
+2. Configure for your organization name by creating a `.env` file in `web/app/.env`.  You can copy `env.demo` as a starting point.  You will also need to do this for the admin app in `web/admin`.  A portion of the file is shown here:
 
-    file: app/.env
+    file: web/app/.env
 ```sh
 VITE_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
 VITE_ORGANIZATION_NAME = 'org name' # this is your organization name.
@@ -121,12 +121,14 @@ VITE_DELIVERY_ZIPCODES="12345"
 3. Create a firebase project with hosting, firestore, and functions.  You will need to configure the functions similar to the json file above.
 4. Build the vue project:
 
-    cd app;
+    cd web/app;
+    npm run build
+    cd ../admin
     npm run build
 
 5. Deploy it to your firebase project
 
-   cd app;
+   cd web
    firebase deploy
 
 If you have a question, open a [Question issue](https://github.com/ncosd/food-pantry-app/issues/new?assignees=&labels=question&template=question.md&title=%5BQ%5D+)
