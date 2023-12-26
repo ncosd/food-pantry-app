@@ -56,7 +56,7 @@ Set the env to be the dev one
 
 Copy `web/app/env.demo` to `web/app/.env`.  Copy `web/admin/env.demo` to `web/admin/.env`
 
-Create a `.env.dev` file for both functions and admin folders.  Configure the `VITE_FB_` values from your project configuration
+Create a `.env` file for both functions and admin folders.  Configure the `VITE_FB_` values from your project configuration
 
     VITE_FB_APIKEY="big-long-string"
     VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
@@ -109,6 +109,7 @@ It will get easier over time as the process is refined.   Currently, the best wa
 
     file: web/app/.env
 ```sh
+VITE_RUN_LOCAL=true
 VITE_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
 VITE_ORGANIZATION_NAME = 'org name' # this is your organization name.
 VITE_PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
