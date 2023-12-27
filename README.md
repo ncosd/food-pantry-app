@@ -58,14 +58,15 @@ Prepare the `.env` files:
 - Copy `web/app/env.demo` to `web/app/.env`.
 - Copy `web/admin/env.demo` to `web/admin/.env` to create a `.env` file for both `app` and `admin` folders.
 - Configure the `VITE_FB_` values from your firebase project configuration into the following environment variables in the `.env` files:
-
-    VITE_FB_APIKEY="big-long-string"
-    VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
-    VITE_FB_PROJECTID="projectname"
-    VITE_FB_STORAGEBUCKET="project-storage-bucket.appspot.com"
-    VITE_FB_MESSAGINGSENDERID="some-id-number"
-    VITE_FB_APPID="some-app-id-number"
-    VITE_FB_MEASUREMENTID="some-app-id"
+```sh
+VITE_FB_APIKEY="big-long-string"
+VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
+VITE_FB_PROJECTID="projectname"
+VITE_FB_STORAGEBUCKET="project-storage-bucket.appspot.com"
+VITE_FB_MESSAGINGSENDERID="some-id-number"
+VITE_FB_APPID="some-app-id-number"
+VITE_FB_MEASUREMENTID="some-app-id"
+```
 
 Use these commands for developing locally:
 
