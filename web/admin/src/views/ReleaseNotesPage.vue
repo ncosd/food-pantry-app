@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.8.0">January , 2024 - 1.8.0</h2>
+  <ul>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/">#</a> </li>
+  </ul>
   <h2 id="1.7.0">December 27, 2023 - 1.7.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/215">#215</a> Create color key for the volunteer window calendar.</li>
