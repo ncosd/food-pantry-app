@@ -16,6 +16,8 @@ The project uses Github projects for its roadmap, you can find the roadmap here:
 ## Developing
 Pull requests are welcome, and will be reviewed.   If you are new to open source development there are many resources on github, and [this guide](https://github.com/freeCodeCamp/how-to-contribute-to-open-source) can be helpful with getting started.
 
+Use this link to find good first issues https://github.com/ncosd/food-pantry-app/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue and https://github.com/ncosd/food-pantry-app/blob/main/CONTRIBUTING.md has information helpful to get started.
+
 This project uses firebase, Vue.js (version 3), and bootstrap 5.3.  The project can be configured with information stored in local files which are not stored in github.  You can develop locally on your laptop without deploying to your own firebase project.  To develop and run locally without deploying to firebase you can use the emulators and a project that is on the free Spark plan.  If you want to deploy to firebase, then you will need to upgrade to the Blaze plan because firebase functions are used in this project.  However, as a developer you do not need to deploy to firebase, and do not need to upgrade your project to the blaze plan.
 
 ### Prerequisites
@@ -41,7 +43,7 @@ You can run this project locally against the firebase emulators.  You can see ho
 >     firebase target:apply hosting app _projectid_
 >     firebase target:apply hosting admin _projectid_-admin
 
-After login and configuring a project (on the spark plan) clone the repo:
+After login and configuring a project (on the spark plan) clone the repo, or if you plan on contributing by writing code, fork the repo, and then clone your fork.  The instructions for cloning the repo are given below.
 
     git clone git@github.com:ncosd/food-pantry-app.git
     cd web/functions && npm install
@@ -52,15 +54,19 @@ Set the env to be the dev one
 
     firebase use dev
 
-Create a `.env.dev` file for both functions and admin folders.  Configure the `VITE_FB_` values from your project configuration
-
-    VITE_FB_APIKEY="big-long-string"
-    VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
-    VITE_FB_PROJECTID="projectname"
-    VITE_FB_STORAGEBUCKET="project-storage-bucket.appspot.com"
-    VITE_FB_MESSAGINGSENDERID="some-id-number"
-    VITE_FB_APPID="some-app-id-number"
-    VITE_FB_MEASUREMENTID="some-app-id"
+Prepare the `.env` files:
+- Copy `web/app/env.demo` to `web/app/.env`.
+- Copy `web/admin/env.demo` to `web/admin/.env` to create a `.env` file for both `app` and `admin` folders.
+- Configure the `VITE_FB_` values from your firebase project configuration into the following environment variables in the `.env` files:
+```sh
+VITE_FB_APIKEY="big-long-string"
+VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
+VITE_FB_PROJECTID="projectname"
+VITE_FB_STORAGEBUCKET="project-storage-bucket.appspot.com"
+VITE_FB_MESSAGINGSENDERID="some-id-number"
+VITE_FB_APPID="some-app-id-number"
+VITE_FB_MEASUREMENTID="some-app-id"
+```
 
 Use these commands for developing locally:
 
@@ -101,10 +107,11 @@ npm run storybook
 It will get easier over time as the process is refined.   Currently, the best way for you to use this project is to:
 
 1. Fork this repo
-2. Configure for your organization name by creating a `.env` file in  `app/src/.env`
+2. Configure for your organization name by creating a `.env` file in `web/app/.env`.  You can copy `env.demo` as a starting point.  You will also need to do this for the admin app in `web/admin`.  A portion of the file is shown here:
 
-    file: app/src/.env
+    file: web/app/.env
 ```sh
+VITE_RUN_LOCAL=true
 VITE_APP_NAV_NAME = 'name' # this is the name in the navbar at the top.
 VITE_ORGANIZATION_NAME = 'org name' # this is your organization name.
 VITE_PROJECT_LONG_NAME = 'long name' # this is the name of the website you are going to deploy.  Usually a long version of you Project Name.
@@ -117,12 +124,14 @@ VITE_DELIVERY_ZIPCODES="12345"
 3. Create a firebase project with hosting, firestore, and functions.  You will need to configure the functions similar to the json file above.
 4. Build the vue project:
 
-    cd app;
+    cd web/app;
+    npm run build
+    cd ../admin
     npm run build
 
 5. Deploy it to your firebase project
 
-   cd app;
+   cd web
    firebase deploy
 
 If you have a question, open a [Question issue](https://github.com/ncosd/food-pantry-app/issues/new?assignees=&labels=question&template=question.md&title=%5BQ%5D+)
