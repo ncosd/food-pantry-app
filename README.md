@@ -54,9 +54,10 @@ Set the env to be the dev one
 
     firebase use dev
 
-Copy `web/app/env.demo` to `web/app/.env`.  Copy `web/admin/env.demo` to `web/admin/.env`
-
-Create a `.env` file for both functions and admin folders.  Configure the `VITE_FB_` values from your project configuration
+Prepare the `.env` files:
+- Copy `web/app/env.demo` to `web/app/.env`.
+- Copy `web/admin/env.demo` to `web/admin/.env` to create a `.env` file for both `app` and `admin` folders.
+- Configure the `VITE_FB_` values from your firebase project configuration into the following environment variables in the `.env` files:
 
     VITE_FB_APIKEY="big-long-string"
     VITE_FB_AUTHDOMAIN="projectname.firebaseapp.com"
