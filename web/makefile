@@ -19,3 +19,6 @@ build-admin:
 
 serve:
 	cd admin && npm run serve:firebase:emulator
+
+release:
+	gh release
