@@ -114,7 +114,7 @@ const cancelWindow = (async ()=>{
     <div class="my-3">
       <button class="btn btn-sm btn-primary" @click.prevent="signUp" :disabled="signupDisabled">Sign up</button>
       <button class="btn btn-sm btn-danger mx-3" :disabled="cancelDisabled" @click.prevent="cancelWindow">Cancel</button>
-      <div class="mt-3" v-if="isInPast">This event is in the past, you cannot change your attendance.</div>
+      <div class="mt-3 text-warning" v-if="isInPast"><i class="bi bi-exclamation-triangle-fill"></i> This event is in the past, you cannot change your attendance.</div>
     </div>
     <div class="d-none">
       <button class="btn btn-sm"><i class="bi bi-calendar"></i> Add to Calendar</button>
