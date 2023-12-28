@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.9.0">January , 2024 - 1.9.0</h2>
+  <ul>
+    <li>Release notes here</li>
+  </ul>
   <h2 id="1.8.0">December 28, 2023 - 1.8.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/239">#239</a> Phone shows daily mode.</li>
