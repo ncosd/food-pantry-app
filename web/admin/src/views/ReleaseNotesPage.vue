@@ -7,6 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.8.0">January , 2024 - 1.8.0</h2>
   <ul>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/239">#239</a> Phone shows daily mode.</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/253">#253</a> List attending volunteers on the admin schedule window page.</li>
     <li>Adds unavailability as red to the ColorKey on the calendar page.</li>
     <li>Username in navbar linked to profile page.</li>
