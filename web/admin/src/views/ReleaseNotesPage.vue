@@ -5,7 +5,7 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.8.0">January , 2024 - 1.8.0</h2>
+  <h2 id="1.8.0">December 28, 2024 - 1.8.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/239">#239</a> Phone shows daily mode.</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/253">#253</a> List attending volunteers on the admin schedule window page.</li>
