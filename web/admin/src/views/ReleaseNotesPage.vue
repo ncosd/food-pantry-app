@@ -9,6 +9,7 @@
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/253">#253</a> List attending volunteers on the admin schedule window page.</li>
     <li>Adds unavailability as red to the ColorKey on the calendar page.</li>
+    <li>Username in navbar linked to profile page.</li>
   </ul>
   <h2 id="1.7.0">December 27, 2023 - 1.7.0</h2>
   <ul>

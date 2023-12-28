@@ -56,7 +56,7 @@ const signOutClick = () => {
           <li><ThemeChooser></ThemeChooser></li>
           <template v-if="user && user.isLoggedIn === true">
             <li class="navbar-text pe-2">
-              <i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}
+              <router-link class="navbar-text text-decoration-none" :to="{name:'Profile', params: { uid: user.data.uid } }"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</router-link>
             </li>
             <li class="nav-item">
               <a class="btn btn-primary" @click.prevent="signOutClick">Sign Out</a>
