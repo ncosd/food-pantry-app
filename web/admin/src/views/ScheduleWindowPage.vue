@@ -21,6 +21,7 @@ const endDate = ref(dayjs().hour(9+3).minute(0).toDate())
 const range = ref()
 const showSaveMessage = ref(false)
 const showDeleteMessage = ref(false)
+const attending = ref([])
 
 windowEntry.value = data
 range.value = [scheduleDate.value, endDate.value]
@@ -61,6 +62,15 @@ onBeforeMount( async () => {
       scheduleDate.value = dayjs(data.starttime.toDate()).toDate()
       endDate.value = dayjs(data.endtime.toDate()).toDate()
       range.value = [scheduleDate.value, endDate.value]
+
+      // get attending
+      const attendingQuery = query(collection(db, '/window/' + winRef.id + '/attending'))
+      const attendingSnap = await getDocs(attendingQuery)
+      attending.value = []
+      attendingSnap.forEach((item)=>{
+        attending.value.push({ id: item.id, name: item.data().name})
+      })
+
     } else {
       console.log('Error reading window from database, please try again later.')
     }
@@ -182,7 +192,16 @@ const deleteWindow = async () => {
           <button class="btn btn-danger btn-sm" @click.prevent="deleteWindow">Delete</button>
         </div>
       </div>
-
     </form>
+
+    <div v-if="attending.length > 0">
+      <h2>Attending</h2>
+      <ol>
+        <li v-for="item in attending"><router-link :to="{name:'Profile', params: { 'uid': item.id}}">{{ item.name }}</router-link></li>
+      </ol>
     </div>
+    <div v-else>
+      <h2>No volunteers have signed up yet</h2>
+    </div>
+  </div>
 </template>
