@@ -23,4 +23,4 @@ release:
 	gh release
 
 pr:
-	gh pr create --base dev-$(VERSION)
+	gh pr create --base dev-$(VERSION) --fill
