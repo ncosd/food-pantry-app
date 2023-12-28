@@ -25,7 +25,7 @@ const windows = reactive({
     const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
     const unavail = windows.unavails.get(key)
     if (unavail) {
-      return [].push(unavail)
+      return [unavail]
     }
   },
 })

@@ -125,37 +125,71 @@ function isoDate(date) {
 <template>
 <div class="mt-3">
   <div class="row border text-center">
-  <h2>
-    <button class="btn btn-primary btn-small" @click="prevMonth"><i class="bi bi-chevron-left"></i></button>
-  {{ dayjs(viewDate).format('MMMM') }} {{ dayjs(viewDate).format("YYYY") }}
-    <button class="btn btn-primary btn-small" @click="nextMonth"><i class="bi bi-chevron-right"></i></button>
-  </h2>
+    <h2>
+      <button class="btn btn-primary btn-small" @click="prevMonth"><i class="bi bi-chevron-left"></i></button>
+      {{ dayjs(viewDate).format('MMMM') }} {{ dayjs(viewDate).format("YYYY") }}
+      <button class="btn btn-primary btn-small" @click="nextMonth"><i class="bi bi-chevron-right"></i></button>
+    </h2>
   </div>
-  <week-header />
 
-  <template v-for="week in weeks">
-    <div class="row text-center cal-week">
-      <template v-for="(day,index) in week">
-      <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
-        <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{day.number}}</span>
-        <div v-for="w in windows.getDay(day)">
-          <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
-            <div :class="['badge','rounded-pill',statusClass(w),'text-wrap','d-block','m-1']">
-            <span class="d-none d-md-block">{{w.location}} </span>
-            <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
-            <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
+  <div class="d-none d-md-block">
+    <week-header />
+
+    <template v-for="week in weeks">
+      <div class="row text-center cal-week">
+        <template v-for="(day,index) in week">
+          <div :class="[colClass, borderClass, {'d-none': (index % 6 == 0)}, {'d-md-block': (index % 6 == 0)}]" >
+            <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{day.number}}</span>
+            <div v-for="w in windows.getDay(day)">
+              <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
+                <div :class="['badge','rounded-pill',statusClass(w),'text-wrap','d-block','m-1']">
+                  <span class="d-none d-md-block">{{w.location}} </span>
+                  <span class="d-block d-md-none">{{w.tasktype.substring(0,3)}}</span><span class="d-none d-md-block">{{w.tasktype}}</span>
+                  <span class="d-none d-md-block">{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</span>
+                </div>
+              </router-link>
             </div>
-          </router-link>
-        </div>
-        <!-- Unavailability -->
-        <div v-for="u in windows.getUnavail(day)">
-            <div :class="['badge','rounded-pill','text-bg-danger','text-wrap','d-block','m-1']">
-              <span>Out</span>
+            <!-- Unavailability -->
+            <div v-for="u in windows.getUnavail(day)">
+              <div :class="['badge','rounded-pill','text-bg-danger','text-wrap','d-block','m-1']">
+                <span>Out</span>
+              </div>
             </div>
-        </div>
+          </div>
+        </template>
       </div>
-      </template>
-    </div>
-  </template>
+    </template>
+  </div>
+
+  <!-- phone -->
+  <div class="d-md-none">
+    <template v-for="week in weeks">
+
+        <template v-for="(day,index) in week">
+          <div class="border text-center">
+            <span :class="[{'text-opacity-75': day.curMonth == false}, {'text-secondary': day.curMonth == false}]">{{ dayjs(day.date).format('dddd') }} {{day.number}}</span>
+            <div v-for="w in windows.getDay(day)">
+              <router-link :to="{name:'VolWindow', params: {id:w.id}}" class="text-decoration-none">
+                <div :class="['badge','rounded-pill',statusClass(w),'text-wrap','d-block','m-1']">
+                  <div>{{w.location}} </div>
+                  <div>{{w.tasktype}}</div>
+                  <div>{{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}</div>
+                </div>
+              </router-link>
+            </div>
+            <!-- Unavailability -->
+            <div v-for="u in windows.getUnavail(day)">
+              <div :class="['badge','rounded-pill','text-bg-danger','text-wrap','d-block','m-1']">
+                <router-link class="text-decoration-none text-reset" :to='{name:"Unavailable"}'>{{ u.name }} Out</router-link>
+              </div>
+            </div>
+          </div>
+        </template>
+
+    </template>
+  </div>
+
+
+
 </div>
 </template>
