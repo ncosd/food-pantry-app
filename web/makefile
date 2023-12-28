@@ -1,7 +1,6 @@
-.PHONY: build build-echo build-app build-admin serve
+.PHONY: build build-echo build-app build-admin serve release pr
 ENV?=dev
-
-
+VERSION := $(shell grep version admin/src/config.js | tr -d " " | tr -d "version:" | tr -d \" | tr -d \,)
 
 build: build-echo build-app build-admin
 
@@ -22,3 +21,6 @@ serve:
 
 release:
 	gh release
+
+pr:
+	gh pr create --base dev-$(VERSION)
