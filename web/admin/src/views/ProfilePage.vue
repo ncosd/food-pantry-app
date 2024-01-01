@@ -15,8 +15,16 @@ const user = useAuthUserStore()
 const router = useRouter()
 const profile = ref()
 const status = ref()
+const userId = ref()
 var profileRef = null
 var stateRef = null
+
+const phoneError = ref(false)
+const acceptLiftError = ref(false)
+const acceptParentError = ref(false)
+const acceptFrontLineError = ref(false)
+const acceptTermsError = ref(false)
+
 
 const save = ( async ()=>{
   await updateDoc(profileRef, profile.value)
@@ -38,17 +46,18 @@ const save = ( async ()=>{
 })
 
 onBeforeMount( async () => {
+  userId.value = props.uid
+
   if (props.uid === '' || props.uid === undefined) {
-    props.uid = user.data.uid
+    userId.value = user.data.uid
   }
 
-  console.log('ProfilePage onBeforeMount props.uid', props.uid)
   const db = getFirestore()
-  profileRef = doc(db, "volunteerprofile", props.uid)
+  profileRef = doc(db, "volunteerprofile", userId.value)
   const profileSnap = await getDoc(profileRef)
   if (profileSnap.exists()) {
     profile.value = profileSnap.data()
-    stateRef = doc(db, "volunteerprofilestate", props.uid)
+    stateRef = doc(db, "volunteerprofilestate", userId.value)
     const stateSnap = await getDoc(stateRef)
     if (stateSnap.exists()) {
       status.value = stateSnap.data().status
@@ -77,7 +86,7 @@ onBeforeMount( async () => {
 <template>
 <div class="container">
 
-  <ProfileTabs activeTab="Registration" :uid="props.uid"></ProfileTabs>
+  <ProfileTabs activeTab="Registration" :uid="userId"></ProfileTabs>
 
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
