@@ -19,6 +19,12 @@ const userId = ref()
 var profileRef = null
 var stateRef = null
 
+const phoneError = ref(false)
+const acceptLiftError = ref(false)
+const acceptParentError = ref(false)
+const acceptFrontLineError = ref(false)
+const acceptTermsError = ref(false)
+
 
 const save = ( async ()=>{
   await updateDoc(profileRef, profile.value)
@@ -46,7 +52,6 @@ onBeforeMount( async () => {
     userId.value = user.data.uid
   }
 
-  console.log('ProfilePage onBeforeMount userId', userId.value)
   const db = getFirestore()
   profileRef = doc(db, "volunteerprofile", userId.value)
   const profileSnap = await getDoc(profileRef)
