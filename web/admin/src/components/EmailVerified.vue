@@ -14,15 +14,15 @@ const sendVerificationEmail = async () => {
 </script>
 
 <template>
-  <div>
-    <span class="fw-medium">{{ user.data.email }}</span>
-    <template v-if="user.data.emailVerified">
-      <span class="fst-italic ms-2">Verified</span>
-      <i class="bi bi-patch-check text-success ms-1" />
-    </template>
-    <template v-else>
-      <i class="bi bi-exclamation-circle text-danger ms-2" />
-      <button class="btn btn-sm btn-outline-primary ms-2" type="button" :onClick="sendVerificationEmail">Send Verification Email</button>
-    </template>
-  </div>
+<div>
+  <span class="fw-medium">{{ user.data.email }}</span>
+  <template v-if="user.data.emailVerified">
+    <i class="bi bi-patch-check text-success ms-2" />
+    <span class="fst-italic ms-1">Verified</span>
+  </template>
+  <template v-else>
+    <i class="bi bi-exclamation-circle text-danger ms-2" />
+    <button class="btn btn-sm btn-primary ms-2" type="button" :onClick="sendVerificationEmail">Send Verification Email</button>
+  </template>
+</div>
 </template>
