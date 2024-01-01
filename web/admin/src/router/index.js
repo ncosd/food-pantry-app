@@ -99,13 +99,6 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
-    path: '/profile-account/:uid?',
-    name: 'Profile-Account',
-    props: true,
-    component: () => import('@/views/ProfileAccountPage.vue'),
-    meta: { requiresLogin: true },
-  },
-  {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,
@@ -184,7 +177,7 @@ router.beforeEach((to, from) => {
   if (to.meta.requiresLogin === true) {
     if (user.isLoggedIn !== true) {
       return { name: 'Login' }
-    } else if (user.isVolunteer && user.isPending === true) {
+    } else if (!user.isVolunteer || user.isPending === true) {
       return { name: 'Pending' }
     }
   }
