@@ -88,11 +88,13 @@ onBeforeMount( async () => {
 <div class="container">
   <ProfileTabs activeTab="Registration" :uid="userId"></ProfileTabs>
 
+
   <div class="my-3">
     <h3 class="fs-4">Email Verification</h3>
     <EmailVerified v-if="userId == user.data.uid"/>
     <div v-else>Unavailable at this time for this user.</div>
   </div>
+
   <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
     <div class="row my-3">
