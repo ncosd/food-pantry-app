@@ -95,7 +95,7 @@ onBeforeMount( async () => {
     <div v-else>Unavailable at this time for this user.</div>
   </div>
 
-  <template v-if="user.isAdmin && uid != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
+  <template v-if="user.isAdmin && userId != user.data.uid"><div class="text-bg-warning">Viewing as admin</div></template>
   <template v-if="profile && profile.email">
     <div class="row my-3">
       <div class="col">
