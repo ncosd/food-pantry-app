@@ -19,9 +19,9 @@ const refreshList = async () => {
 }
 
 const sortList = param => {
-  console.log(param)
   sortAsc.value = sortBy.value === param ? !sortAsc.value : true
   sortBy.value = param
+
   refreshList()
 }
 
