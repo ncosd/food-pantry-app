@@ -145,6 +145,12 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/admin/reports',
+    name: 'AdminReportPage',
+    component: () => import('@/views/AdminReportPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/ContactPage.vue'),
