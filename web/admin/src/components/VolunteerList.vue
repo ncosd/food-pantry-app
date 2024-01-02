@@ -1,89 +1,96 @@
 <script setup>
-import { getFirestore, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
-import { getFunctions, httpsCallable } from 'firebase/functions'
+import { getFirestore, collection, doc, getDoc, updateDoc } from "firebase/firestore"
+import { getFunctions, httpsCallable } from "firebase/functions"
+import SortableTableHeader from "./SortableTableHeader.vue"
 
-const emit = defineEmits(['refreshList'])
+const emit = defineEmits(["refreshList", "sort-list"])
 
 const props = defineProps({
   volunteers: Array,
+  sortBy: String,
+  sortAsc: Boolean,
 })
 
-const formatDate = (t) => {
+const formatDate = t => {
   let d = t.toDate()
-  let result = (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear()
+  let result = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear()
   return result
 }
 
-const niy = ( () => {
-  alert('Not implemented yet.')
-})
+const niy = () => {
+  alert("Not implemented yet.")
+}
 
 const functions = getFunctions()
-const setVolunteer = httpsCallable(functions, 'setVolunteerv2')
+const setVolunteer = httpsCallable(functions, "setVolunteerv2")
 
-const updateApprove = ( async (id) => {
+const updateApprove = async id => {
   try {
-    const resp = await setVolunteer({"id": id})
+    const resp = await setVolunteer({ id: id })
     console.log(JSON.stringify(resp))
 
     const db = getFirestore()
-    const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
-    await updateDoc(vProfileStateRef, {'status': 'active'})
-    console.log('approved' + id)
-    emit('refreshList')
-    } catch (err) {
-      console.log('error ' + err)
-    }
-})
+    const vProfileStateRef = await doc(db, "volunteerprofilestate", id)
+    await updateDoc(vProfileStateRef, { status: "active" })
+    console.log("approved" + id)
+    emit("refreshList")
+  } catch (err) {
+    console.log("error " + err)
+  }
+}
 
-const inactivateVolunteer = httpsCallable(functions, 'inactivateVolunteerv2')
+const inactivateVolunteer = httpsCallable(functions, "inactivateVolunteerv2")
 
-const updateInactive = ( async (id) => {
+const sort = param => {
+  emit("sort-list", param)
+}
+
+const updateInactive = async id => {
   try {
-    const resp = await inactivateVolunteer({"id": id})
-    console.log('inactivateVolunteer=' + JSON.stringify(resp))
+    const resp = await inactivateVolunteer({ id: id })
+    console.log("inactivateVolunteer=" + JSON.stringify(resp))
 
     const db = getFirestore()
-    const vProfileStateRef = await doc(db, 'volunteerprofilestate', id)
-    await updateDoc(vProfileStateRef, {'status': 'inactive'})
-    console.log('inactive ' + id)
-    emit('refreshList')
+    const vProfileStateRef = await doc(db, "volunteerprofilestate", id)
+    await updateDoc(vProfileStateRef, { status: "inactive" })
+    console.log("inactive " + id)
+    emit("refreshList")
   } catch (err) {
-    console.log('error ' + err)
+    console.log("error " + err)
   }
-})
-
+}
 </script>
 
 <template>
-<div class="container">
-  <div class="table-responsive-md">
-  <table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Status</th>
-      <th scope="col">Action</th>
-      <th scope="col">Updated</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="v in volunteers">
-      <td>{{v.firstname}}</td>
-      <td>{{v.lastname}}</td>
-      <td><router-link :to="{ name: 'Profile', params:{ uid: v.userid}}">{{v.email}}</router-link></td>
-      <td>{{v.status}}</td>
-      <td>
-        <button class="btn btn-sm btn-primary me-1" @click="updateApprove(v.userid)">Approve</button>
-        <button class="btn btn-sm btn-secondary" @click="updateInactive(v.userid)">Deactivate</button>
-      </td>
-      <td>{{formatDate(v.updated)}}</td>
-    </tr>
-  </tbody>
-  </table>
+  <div class="container">
+    <div class="table-responsive-md">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <SortableTableHeader heading="First Name" sortKey="firstname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
+            <SortableTableHeader heading="Last Name" sortKey="lastname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
+            <SortableTableHeader heading="Email" sortKey="email" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+            <SortableTableHeader heading="Updated" sortKey="updated" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="v in volunteers">
+            <td>{{ v.firstname }}</td>
+            <td>{{ v.lastname }}</td>
+            <td>
+              <router-link :to="{ name: 'Profile', params: { uid: v.userid } }">{{ v.email }}</router-link>
+            </td>
+            <td>{{ v.status }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary me-1" @click="updateApprove(v.userid)">Approve</button>
+              <button class="btn btn-sm btn-secondary" @click="updateInactive(v.userid)">Deactivate</button>
+            </td>
+            <td>{{ formatDate(v.updated) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
-</div>
 </template>

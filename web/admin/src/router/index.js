@@ -32,7 +32,7 @@ const routes = [
   {
     path: '/pending',
     name: 'Pending',
-    component: () => import ('../views/Pending.vue'),
+    component: () => import('../views/Pending.vue'),
   },
   {
     path: '/forgot-password',
@@ -48,61 +48,61 @@ const routes = [
     path: '/volunteers',
     name: 'Volunteers',
     component: VolunteersPage,
-    meta: { requiresLogin: true, admin: true},
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/schedule',
     name: 'Schedule',
-    component: () => import ('@/views/SchedulePage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    component: () => import('@/views/SchedulePage.vue'),
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/schedule-window/:date?',
     name: 'ScheduleWindow',
     props: true,
-    component: () => import ('@/views/ScheduleWindowPage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    component: () => import('@/views/ScheduleWindowPage.vue'),
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/schedule-window/id/:id',
     name: 'ScheduleWindowById',
     props: true,
-    component: () => import ('@/views/ScheduleWindowPage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    component: () => import('@/views/ScheduleWindowPage.vue'),
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/volunteerwindow/:id',
     name: 'VolWindow',
     props: true,
-    component: () => import ('@/views/VolunteerWindow.vue'),
+    component: () => import('@/views/VolunteerWindow.vue'),
     meta: { requiresLogin: true },
   },
   {
     path: '/profile/:uid?',
     name: 'Profile',
     props: true,
-    component: () => import ('@/views/ProfilePage.vue'),
+    component: () => import('@/views/ProfilePage.vue'),
     meta: { requiresLogin: true },
   },
   {
     path: '/profile-forms/:uid?',
     name: 'Profile-Forms',
     props: true,
-    component: () => import ('@/views/ProfileFormsPage.vue'),
+    component: () => import('@/views/ProfileFormsPage.vue'),
     meta: { requiresLogin: true },
   },
   {
     path: '/profile-certs/:uid?',
     name: 'Profile-Certs',
     props: true,
-    component: () => import ('@/views/ProfileCertificationsPage.vue'),
+    component: () => import('@/views/ProfileCertificationsPage.vue'),
     meta: { requiresLogin: true },
   },
   {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,
-    component: () => import ('@/views/UnavailablePage.vue'),
+    component: () => import('@/views/UnavailablePage.vue'),
     meta: { requiresLogin: true },
   },
   {
@@ -110,26 +110,26 @@ const routes = [
     name: 'Location',
     props: true,
     component: () => import('@/views/LocationPage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/locations',
     name: 'LocationsList',
     component: () => import('@/views/LocationsListPage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/tasktype/:id?',
     name: 'TaskType',
     props: true,
     component: () => import('@/views/TaskTypePage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/tasktypes',
     name: 'TaskTypesList',
     component: () => import('@/views/TaskTypesListPage.vue'),
-    meta: { requiresLogin: true, admin: true},
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/agreement/:name',
@@ -143,6 +143,12 @@ const routes = [
     name: 'ConfidentialAgreement',
     component: () => import('@/views/ConfidentialityPage.vue'),
     meta: { requiresLogin: true },
+  },
+  {
+    path: '/admin/reports',
+    name: 'AdminReportPage',
+    component: () => import('@/views/AdminReportPage.vue'),
+    meta: { requiresLogin: true, admin: true },
   },
   {
     path: '/contact',
@@ -172,7 +178,7 @@ const router = new createRouter({
 })
 
 // This callback runs before every route change, including on page load.
-router.beforeEach( (to, from) => {
+router.beforeEach((to, from) => {
   const user = useAuthUserStore()
   if (to.meta.requiresLogin === true) {
     if (user.isLoggedIn !== true) {
