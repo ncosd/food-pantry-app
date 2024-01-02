@@ -21,7 +21,7 @@ const sendVerificationEmail = async () => {
     <span class="fst-italic ms-1">Verified</span>
   </template>
   <template v-else>
-    <i class="bi bi-exclamation-circle text-danger ms-2" />
+    <i class="bi bi-exclamation-circle text-danger ms-2" title="Email not verified"/>
     <button class="btn btn-sm btn-primary ms-2" type="button" :onClick="sendVerificationEmail">Send Verification Email</button>
   </template>
 </div>

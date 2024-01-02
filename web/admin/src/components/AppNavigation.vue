@@ -61,7 +61,7 @@ const signOutClick = () => {
               <router-link class="navbar-text text-decoration-none" :to="{ name: 'Profile', params: { uid: user.data.uid } }"
                 ><i class="bi bi-person-fill"></i>
                 {{ user.data && user.data.displayName }}
-                <i v-if="!(user.data && user.data.emailVerified)" title="verify email" class="ms-1 bi bi-exclamation-circle text-danger" />
+                <i v-if="!(user.data && user.data.emailVerified)" title="Email not verified" class="ms-1 bi bi-exclamation-circle text-danger" />
               </router-link>
             </li>
             <li class="nav-item">
