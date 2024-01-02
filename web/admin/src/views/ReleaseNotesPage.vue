@@ -13,7 +13,7 @@
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/39">#39</a> Add a way for users to verify their email.</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/171">#171</a> Add sorting to volunteer list page.</li>
-    <li><a href="https://github.com/ncosd/food-pantry-app/issues/241">#241</a> Add error messages to volunteer registration page.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/241">#241</a> Show error messages on volunteer registration page.</li>
   </ul>
   <h2 id="1.8.0">December 28, 2023 - 1.8.0</h2>
   <ul>
