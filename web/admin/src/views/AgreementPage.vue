@@ -18,7 +18,7 @@ onBeforeMount(async()=>{
   if (docSnap.exists()) {
     agreementHTML.value = docSnap.data().html
   } else {
-    agreementHTML.value = '<div><strong>Agreement not found.</strong></div>'
+    agreementHTML.value = '<div><strong>Agreement (' + props.name + ') not found in database.</strong></div>'
   }
 })
 

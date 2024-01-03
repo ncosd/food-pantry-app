@@ -26,5 +26,3 @@ const props = defineProps({
     </label>
   </form>
 </template>
-
-<style></style>

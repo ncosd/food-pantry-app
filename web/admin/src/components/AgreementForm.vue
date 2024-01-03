@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from 'vue'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   agreementHTML: String,
+  name: String,
+  agreementId: String,
 })
 </script>
 
@@ -13,12 +16,12 @@ const props = defineProps({
     <form>
       <div>
         <input type="checkbox" class="form-check-input me-3" id="agreementCheck">
-        <label class="form-check-label" for="agreementCheck">By checking this, I agree with all of the above.</label>
+        <label class="form-check-label" for="agreementCheck">By checking this, I have read and I agree with all of the above.</label>
       </div>
 
       <div>
           <label class="form-label" for="agreementDate">Date</label>
-          <input type="text" class="form-control" id="agreementDate" />
+          <input type="text" class="form-control" id="agreementDate" :value="dayjs().toDate()"/>
       </div>
 
       <div>
@@ -29,9 +32,7 @@ const props = defineProps({
       </div>
 
       <div>
-          <label class="form-label" for="printedName">
-            Printed Name
-          </label>
+          <label class="form-label" for="printedName">Printed Name</label>
           <input type="text" class="form-control" id="printedName" />
       </div>
       <div class="mt-3">
@@ -40,5 +41,3 @@ const props = defineProps({
     </form>
   </div>
 </template>
-
-<style></style>
