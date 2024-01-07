@@ -10,20 +10,19 @@ const props = defineProps({
 
 const user = useAuthUserStore()
 const router = useRouter()
+const userId = ref(props.uid)
 
 onBeforeMount(async () => {
-if (props.uid === '' || props.uid === undefined) {
-props.uid = user.data.uid
-}
-
-console.log('ProfileFormsPage uid=', props.uid)
+  if (props.uid === '' || props.uid === undefined) {
+    userId.value = user.data.uid
+  }
 })
 </script>
 
 <template>
 <div class="container">
 
-  <ProfileTabs activeTab="Forms" :uid="props.uid"></ProfileTabs>
+  <ProfileTabs activeTab="Forms" :uid="userId"></ProfileTabs>
 
   <h2 class="my-3">Electronic Forms</h2>
   <div class="mt-3 row fw-bold">
