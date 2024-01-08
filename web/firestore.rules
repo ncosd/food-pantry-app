@@ -81,5 +81,10 @@ service cloud.firestore {
       allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.token.volunteer == true);
     }
 
+    match /signedagreements/{uid}/{agreementname}/{id} {
+      allow create: if request.auth != null && request.auth.uid == uid;
+      allow read, delete: if request.auth != null && (request.auth.uid == uid || request.auth.token.admin == true);
+    }
+
   }
 }
