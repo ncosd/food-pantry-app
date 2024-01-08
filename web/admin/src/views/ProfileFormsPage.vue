@@ -21,7 +21,7 @@ onBeforeMount(async () => {
   }
 
   // check agreement form
-  const confQuery = query(collection(db, 'signedagreements', user.data.uid, 'confidentiality'), orderBy('agreementDate', 'desc'), limit(1))
+  const confQuery = query(collection(db, 'signedagreements', userId.value, 'confidentiality'), orderBy('agreementDate', 'desc'), limit(1))
   const confSnap = await getDocs(confQuery)
   if (confSnap.size > 0) {
     confAgreement.value = confSnap.docs[0].data()
