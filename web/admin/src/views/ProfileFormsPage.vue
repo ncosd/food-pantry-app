@@ -3,19 +3,30 @@ import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useRouter } from 'vue-router'
 import ProfileTabs from '@/components/ProfileTabs.vue'
+import { getFirestore, getCountFromServer, doc, getDoc, getDocs, addDoc, collection, query, limit, orderBy } from 'firebase/firestore'
 
 const props = defineProps({
   uid: String,
 })
 
+const db = getFirestore()
 const user = useAuthUserStore()
 const router = useRouter()
 const userId = ref(props.uid)
+const confAgreement = ref(null)
 
 onBeforeMount(async () => {
   if (props.uid === '' || props.uid === undefined) {
     userId.value = user.data.uid
   }
+
+  // check agreement form
+  const confQuery = query(collection(db, 'signedagreements', user.data.uid, 'confidentiality'), orderBy('agreementDate', 'desc'), limit(1))
+  const confSnap = await getDocs(confQuery)
+  if (confSnap.size > 0) {
+    confAgreement.value = confSnap.docs[0].data()
+  }
+
 })
 </script>
 
@@ -37,10 +48,12 @@ onBeforeMount(async () => {
       <router-link :to="{name:'AgreementForm', params: { name: 'confidentiality'}}">Confidentiality Agreement</router-link>
     </div>
     <div class="col">
-      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unsigned
+      <div v-if="confAgreement && confAgreement && confAgreement.agreeCheckBox"><i class="bi bi-check-circle text-success"/> Signed</div>
+      <div v-else><i class="bi bi-exclamation-diamond-fill text-danger"></i> Unsigned</div>
     </div>
     <div class="col">
-
+      <div v-if="confAgreement && confAgreement.agreementDate">{{confAgreement.agreementDate.toDate()}}</div>
+      <div v-else>-</div>
     </div>
   </div>
 

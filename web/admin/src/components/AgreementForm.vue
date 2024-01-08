@@ -5,8 +5,7 @@ import { VueSignaturePad } from 'vue-signature-pad'
 
 const props = defineProps({
   agreementHTML: String,
-  name: String,
-  agreementId: String,
+  name: String
 })
 
 const emit = defineEmits(['saveSignature'])
@@ -49,7 +48,6 @@ const saveForm = ()=>{
   console.log('Saving signature')
   emit('saveSignature', {
     agreementDate: agreementDate.value,
-    agreementId: props.agreementId,
     agreementName: props.name,
     agreeCheckBox: agreeCheckBox.value,
     printedName: userName.value,

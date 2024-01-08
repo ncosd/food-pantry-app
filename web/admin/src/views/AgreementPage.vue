@@ -16,6 +16,7 @@ const agreementHTML = ref()
 const showErr = ref(false)
 const showSuccess = ref(false)
 
+
 onBeforeMount(async()=>{
   const docRef = doc(db, 'agreements', props.name)
   const docSnap = await getDoc(docRef)
@@ -32,12 +33,10 @@ const saveSignatureHandler = async (formData) => {
   showErr.value = false
   try {
     const savedSigRef = await addDoc(collection(db, 'signedagreements', user.data.uid, props.name),
-                                   { ...FormData })
-    console.log('savedSigRef', savedSigRef.id)
+                                   { ...formData })
     showSuccess.value = true
     router.push({name:'Profile-Forms'})
   } catch (err) {
-    console.log('err', err)
     showErr.value = true
   }
 }
