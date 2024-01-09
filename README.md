@@ -70,11 +70,15 @@ VITE_FB_MEASUREMENTID="some-app-id"
 
 Use these commands for developing locally:
 
-    # you should be in the web/app directory
+    # you should be in the web/admin directory
     npm run serve:firebase:emulator   # leave this running in one terminal
-    npm run dev                       # leave this running in another terminal, this will run vite with hot-reloading
+    npm run dev                       # Leave this running in another terminal, this will run vite with hot-reloading on port 5174
 
-Running these two commands will run the emulators in one terminal, and Vite build in the other.  You can open your browser to http://localhost:5173 to see the page.  The firebase service will not do hot-reloading in the browser when Vite builds to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work to load the latest built code.
+    # to run the guest app in web/app directory
+    npm run dev                       # leave this running in another terminal, this will run vite with hot-reloading on port 5173
+
+
+Running these three commands will run the emulators in one terminal, and Vite build in the other for the Guest and Admin apps.  You can open your browser to http://localhost:5173 to see the guest pages, and http://localhost:5174 to the volunteer pages.  The firebase service will not do hot-reloading in the browser when Vite builds to the `dist` folder whenever changes are made, so you will need to reload the web browser as you work to load the latest built code.
 
 ### Java installed?
 The firebase emulator needs node.js 8.0 or higher and Java JDK version 11 or higher.
