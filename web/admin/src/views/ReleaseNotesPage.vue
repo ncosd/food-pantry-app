@@ -7,6 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.11.0">January , 2024 - 1.11.0</h2>
   <ul>
+    <li>Improved "make release" automation.</li>
     <li>Clarified how to run the Guest and Volunteer apps on the README.md file.</li>
   </ul>
   <h2 id="1.10.0">January 9, 2024 - 1.10.0</h2>
