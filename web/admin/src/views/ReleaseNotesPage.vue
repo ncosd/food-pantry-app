@@ -7,7 +7,9 @@
   <h1>Release Notes</h1>
   <h2 id="1.10.0">January 9, 2024 - 1.10.0</h2>
   <ul>
-    <li></li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/181">#181 Adds signable confidentiality agreement page.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/271">#271 Adds design page for admin reporting page.</li>
+    <li>Various macro warning fixes.</li>
   </ul>
   <h2 id="1.9.1">January 2, 2024 - 1.9.1</h2>
   <ul>
