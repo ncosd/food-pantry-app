@@ -63,6 +63,11 @@ const routes = [
     name: 'Contact',
     component: () => import('../views/ContactPage.vue'),
     meta: config.meta.Contact
+  },
+  {
+    path: '/release-notes/',
+    name: 'ReleaseNotes',
+    component: () => import('@/views/ReleaseNotesPage.vue'),
   }
 ]
 

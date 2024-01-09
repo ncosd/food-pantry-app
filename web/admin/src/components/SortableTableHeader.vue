@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineEmits, defineProps } from "vue"
+import { computed } from "vue"
 
 const emit = defineEmits(["sort-list"])
 const props = defineProps({

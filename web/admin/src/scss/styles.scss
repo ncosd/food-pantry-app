@@ -1,11 +1,3 @@
-// TODO: this is a workaround for the vite-sass issue of loading the woff files in bootstrap-icons.scss using variables
-@font-face {
-  font-display: block;
-  font-family: "bootstrap-icons";
-  src: url("~bootstrap-icons/font/fonts/bootstrap-icons.woff2?1fa40e8900654d2863d011707b9fb6f2") format("woff2"),
-url("~bootstrap-icons/font/fonts/bootstrap-icons.woff?1fa40e8900654d2863d011707b9fb6f2") format("woff");
-}
-
 @import "~bootstrap/scss/_functions.scss";
 @import "~bootstrap/scss/_variables.scss";
 @import "~bootstrap/scss/_mixins.scss";
@@ -99,4 +91,6 @@ url("~bootstrap-icons/font/fonts/bootstrap-icons.woff?1fa40e8900654d2863d011707b
 
 
 @import "~bootstrap/scss/bootstrap.scss";
+// NOTE: this is a workaround for the vite-sass issue of loading the woff files in bootstrap-icons.scss using variables
+$bootstrap-icons-font-file: "~bootstrap-icons/font/fonts/bootstrap-icons";
 @import "~bootstrap-icons/font/bootstrap-icons.scss";
