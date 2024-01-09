@@ -47,6 +47,12 @@
             </div>
             <div class="col-md-6">
               <div class="mb-3">
+                <label class="form-label">Pronoun</label>
+                <input class="form-control" v-model="profile.pronoun" autocomplete="phone">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
                 <div v-if="phoneError" class="text-bg-danger">Phone required to volunteer format: 111-222-4444.</div>
                 <label class="form-label">Phone</label>
                 <input class="form-control" v-model="profile.phone" autocomplete="phone" placeholder="111-222-4444" required>
@@ -133,6 +139,7 @@ export default {
       profile: {
         firstname: '',
         lastname: '',
+        pronoun:'',
         phone: '',
         acceptLiftClean: false,
         acceptParent: false,
