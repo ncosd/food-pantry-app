@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, getIdTokenResult } from 'firebase/auth'
 import { useRouter } from 'vue-router'
+import { config } from '@/config'
 
 const router = useRouter()
 
@@ -20,7 +21,14 @@ const submit = () => {
   showSuccess.value = false;
 
   signInWithEmailAndPassword(auth, email.value, password.value)
-    .then( () => {
+    .then(async () => {
+      const user = await auth.currentUser
+
+      const token = await getIdTokenResult(user)
+      if (token.claims.volunteer === true) {
+        window.location.href = config.VolunteerPortalURL
+      }
+
       showSuccess.value = true
       successMessage.value = "You have signed in."
       router.replace({name:'Home'})
