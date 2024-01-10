@@ -45,19 +45,24 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label class="form-label">Pronouns</label>
-                <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <div v-if="phoneError" class="text-bg-danger">Phone required to volunteer format: 111-222-4444.</div>
+                  <label class="form-label">Phone</label>
+                  <input class="form-control" v-model="profile.phone" autocomplete="phone" placeholder="111-222-4444" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Pronouns (optional)</label>
+                  <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
+                </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <div v-if="phoneError" class="text-bg-danger">Phone required to volunteer format: 111-222-4444.</div>
-                <label class="form-label">Phone</label>
-                <input class="form-control" v-model="profile.phone" autocomplete="phone" placeholder="111-222-4444" required>
-              </div>
-            </div>
+
 
             <div class="row mb-3 border-top border-bottom">
               <div class="mt-3">Best days for you:</div>
@@ -83,15 +88,6 @@
                 <input id="acceptParent" class="form-check-input" type="checkbox" v-model="profile.acceptParent">
                 <label for="acceptParent" class="form-label">I understand that volunteers under 16 years of age need to be accompanied by a
                   parent.</label>
-
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="form-check ms-3 mb-3">
-                <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
-                <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine">
-                <label for="acceptfrontline" class="form-label">{{config.AdminFrontline}}</label>
               </div>
             </div>
 
@@ -143,7 +139,6 @@ export default {
         phone: '',
         acceptLiftClean: false,
         acceptParent: false,
-        acceptFrontLine: false,
         acceptTerms: false,
         preferredtimes: '',
         extraNote: '',
@@ -155,7 +150,6 @@ export default {
       acceptTermsError: false,
       acceptLiftError: false,
       acceptParentError: false,
-      acceptFrontLineError: false,
       phoneError: false,
       emailError: false,
       passwordError: false,
@@ -173,7 +167,7 @@ LoadingSpinner,
       this.acceptTermsError = false
       this.acceptLiftError = false
       this.acceptParentError = false
-      this.acceptFrontLineError = false
+
       this.phoneError = false
       this.emailError = false
       this.passwordError = false
@@ -234,11 +228,6 @@ this.spin = false
       if (!this.profile.acceptParent) {
         this.acceptParentError = true
         this.error += " Acknowledge under 16 must be accompanied by parent."
-      }
-
-      if (!this.profile.acceptFrontLine) {
-        this.acceptFrontLineError = true
-        this.error += " Accept Front Line worker statement."
       }
 
       if (this.error) {

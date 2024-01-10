@@ -11,8 +11,9 @@ import EmailVerified from '@/components/EmailVerified.vue'
 const props = defineProps({
   uid: String
 })
-const user = useAuthUserStore()
 
+const db = getFirestore()
+const user = useAuthUserStore()
 const router = useRouter()
 const profile = ref()
 const status = ref()
@@ -23,13 +24,10 @@ var stateRef = null
 const phoneError = ref(false)
 const acceptLiftError = ref(false)
 const acceptParentError = ref(false)
-const acceptFrontLineError = ref(false)
 const acceptTermsError = ref(false)
-
 
 const save = async ()=>{
   await updateDoc(profileRef, profile.value)
-  await updateDoc(stateRef, { status: status.value })
 
   if (user.data.displayName != profile.value.displayname) {
     const auth = getAuth()
@@ -53,7 +51,6 @@ onBeforeMount( async () => {
     userId.value = user.data.uid
   }
 
-  const db = getFirestore()
   profileRef = doc(db, "volunteerprofile", userId.value)
   const profileSnap = await getDoc(profileRef)
   if (profileSnap.exists()) {
@@ -77,7 +74,6 @@ onBeforeMount( async () => {
       avail_saturday: false,
       acceptLiftClean: false,
       acceptParent: false,
-      acceptFrontLine: false,
       extraNote: ''
     }
     status.value = 'in-review'
@@ -101,18 +97,7 @@ onBeforeMount( async () => {
     <div class="row my-3">
       <div class="col">
         <label class="form-label me-3" for="status">Volunteer Status</label>
-        <template v-if="user.isAdmin">
-          <select class="form-select" v-model="status">
-            <option value="active">active</option>
-            <option value="in-review">in-review</option>
-            <option value="inactive">inactive</option>
-          </select>
-        </template>
-        <template v-else>
-          <div class="p-3 bg-light text-dark">
-            {{ status }}
-          </div>
-        </template>
+          <input name="status" class="form-control" :value="status" disabled>
       </div>
     </div>
     <div class="row my-3">
@@ -136,16 +121,14 @@ onBeforeMount( async () => {
       </div>
     </div>
     <div class="row my-3">
-      <div class="col">
-        <label class="form-label" for="pronoun">Pronouns</label>
-        <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
-      </div>
-    </div>
-    <div class="row my-3">
-      <div class="col">
+      <div class="col-12 col-md-6">
         <div v-if="phoneError" class="text-bg-danger">Phone required to volunteer format: 111-222-4444.</div>
         <label class="form-label" for="phone">Phone</label>
         <input class="form-control" v-model="profile.phone" autocomplete="phone" placeholder="111-222-4444" required>
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="pronoun">Pronouns (optional)</label>
+        <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
       </div>
     </div>
 
@@ -175,16 +158,6 @@ onBeforeMount( async () => {
           <div v-if="acceptParentError" class="text-bg-danger">This is required to volunteer.</div>
           <input id="acceptParent" class="form-check-input" type="checkbox" v-model="profile.acceptParent" disabled>
           <label for="acceptParent" class="form-label">I understand that volunteers under 16 years of age need to be accompanied by a parent.</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-check mb-3">
-          <div v-if="acceptFrontLineError" class="text-bg-danger">This is required to volunteer.</div>
-          <input id="acceptfrontline" class="form-check-input" type="checkbox" v-model="profile.acceptFrontLine" disabled>
-          <label for="acceptfrontline" class="form-label">{{ config.AdminFrontline }}</label>
         </div>
       </div>
     </div>
