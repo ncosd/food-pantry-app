@@ -138,7 +138,7 @@ onBeforeMount( async () => {
     <div class="row my-3">
       <div class="col">
         <label class="form-label" for="pronoun">Pronoun</label>
-        <input class="form-control" v-model="profile.pronoun" autocomplete="pronoun">
+        <input class="form-control" v-model="profile.pronoun" autocomplete="pronouns" placeholder="(she/her, they/them, he/him, etc)">
       </div>
     </div>
     <div class="row my-3">
