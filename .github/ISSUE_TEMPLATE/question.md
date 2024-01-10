@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-<!-- Choose a Topic: Contributing, Hosting, Deploying -->
+<!-- Choose a Topic: Contributing, Hosting, Deploying, Other -->
 # Topic:
 
-# Question:
 <!-- Write your question here -->
+# Question:
