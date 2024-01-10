@@ -8,6 +8,7 @@
   <h2 id="1.11.0">January , 2024 - 1.11.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/238">#238</a> Add pronouns to the profile.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/276">#276</a> Remove front line worker attestation.</li>
     <li>Improved "make release" automation.</li>
     <li>Clarified how to run the Guest and Volunteer apps on the README.md file.</li>
   </ul>
