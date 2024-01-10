@@ -70,6 +70,7 @@ onBeforeMount( async () => {
       firstname: '',
       lastname: '',
       phone: '',
+      pronoun:'',
       avail_monday: false,
       avail_tuesday: false,
       avail_thursday: false,
@@ -132,6 +133,12 @@ onBeforeMount( async () => {
       <div class="col-12 col-md-6">
         <label class="form-label" for="lastname">Last Name</label>
         <input type="text" id="lastname" class="form-control" v-model="profile.lastname">
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class="col">
+        <label class="form-label" for="pronoun">Pronouns</label>
+        <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
       </div>
     </div>
     <div class="row my-3">
