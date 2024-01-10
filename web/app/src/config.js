@@ -9,6 +9,7 @@ export let config = {
   DeliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || "",
   DeliveryFormURL: import.meta.env.VITE_DELIVERY_FORM_URL || "/delivery-form",
   VolunteerPortalURL: import.meta.env.VITE_VOLUNTEER_PORTAL_URL || "VOLUNTEER_PORTAL_URL",
+  EnableGuestLogin: import.meta.env.VITE_ENABLE_GUEST_LOGIN || "false",
 
   meta: {
     Home: {
