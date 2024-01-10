@@ -48,7 +48,7 @@
             <div class="col-md-6">
               <div class="mb-3">
                 <label class="form-label">Pronouns</label>
-                <input class="form-control" v-model="profile.pronoun" autocomplete="phone">
+                <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
               </div>
             </div>
             <div class="col-md-6">
