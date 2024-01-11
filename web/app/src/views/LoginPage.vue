@@ -1,3 +1,59 @@
+<script setup>
+import { ref } from 'vue'
+import { getAuth, signInWithEmailAndPassword, getIdTokenResult } from 'firebase/auth'
+import { useRouter } from 'vue-router'
+import { config } from '@/config'
+
+const router = useRouter()
+
+const error = ref('')
+const showSuccess = ref(false)
+const successMessage = ref('')
+const showPass = ref(false)
+const valid = ref(false)
+const password = ref('')
+const email = ref('')
+
+const auth = getAuth()
+
+const submit = () => {
+  error.value = "";
+  showSuccess.value = false;
+
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then(async () => {
+      const user = await auth.currentUser
+
+      const token = await getIdTokenResult(user)
+      if (token.claims.volunteer === true) {
+        window.location.href = config.VolunteerPortalURL
+      }
+
+      showSuccess.value = true
+      successMessage.value = "You have signed in."
+      router.replace({name:'Home'})
+
+    })
+    .catch(err => {
+        showSuccess.value = false
+      switch(err.code) {
+      case "auth/invalid-email":
+        error.value = "Invalid email"
+        break
+      case "auth/user-not-found":
+        error.value = "No account found, have you registered with this email address?"
+        break
+      case "auth/wrong-password":
+        error.value = "Incorrect password"
+        break
+      default:
+        error.value = err.message;
+        break
+      }
+    })
+}
+</script>
+
 <template>
   <div class="container">
     <div class="row justify-content-center">
@@ -39,58 +95,3 @@
    </div>
  </div>
 </template>
-
-<script>
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-
-export default {
-  name: 'LoginPage',
-  data() {
-    return {
-      error: "",
-      showSuccess: false,
-      successMessage: "",
-      showPass: false,
-      valid: false,
-      password: '',
-      email: '',
-      rules: {
-        required: value => !!value || 'Required.',
-        emailRule: v => !v || /.+@.+/.test(v) || 'Invalid Email Address'
-      },
-    }
-  },
-  methods: {
-    submit() {
-      this.error = "";
-      this.showSuccess = false;
-      const auth = getAuth()
-
-      signInWithEmailAndPassword(auth, this.email, this.password)
-      .then( () => {
-        this.showSuccess = true;
-        this.successMessage = "You have signed in.";
-        this.$router.replace({name:'Home'});
-
-      })
-      .catch(err => {
-        this.showSuccess = false
-        switch(err.code) {
-          case "auth/invalid-email":
-            this.error = "Invalid email"
-            break
-          case "auth/user-not-found":
-            this.error = "No account found, have you registered with this email address?"
-            break
-          case "auth/wrong-password":
-            this.error = "Incorrect password"
-            break
-          default:
-            this.error = err.message;
-            break
-        }
-      })
-    }
-  }
-}
-</script>

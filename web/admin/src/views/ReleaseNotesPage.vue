@@ -5,6 +5,13 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.11.0">January 10, 2024 - 1.11.0</h2>
+  <ul>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/238">#238</a> Add pronouns to the profile.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/276">#276</a> Remove front line worker attestation.</li>
+    <li>Improved "make release" automation.</li>
+    <li>Clarified how to run the Guest and Volunteer apps on the README.md file.</li>
+  </ul>
   <h2 id="1.10.0">January 9, 2024 - 1.10.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/181">#181</a> Adds signable confidentiality agreement page.</li>

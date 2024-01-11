@@ -5,8 +5,8 @@ Closes #
 # Description
 <!-- What does the PR do, add a feature, refactor, fix a bug? -->
 
+## Release Note
+- [ ] Added a release note to either `web/app/src/views/ReleaseNotesPage.vue` or `web/admin/src/views/ReleaseNotesPage.vue`
+
 # Testing
 <!-- How should a reviewer verify this PR does what it should? -->
-
-# Stakeholders
-<!-- @ tag if someone should review this and you do not have permissions to set reviewers.  Or if someone should take notice. -->

@@ -1,3 +1,25 @@
+<script setup>
+import { getAuth, signOut } from 'firebase/auth'
+import { config } from '@/config'
+import { useRouter } from 'vue-router'
+import { useAuthUserStore } from '@/stores/authUser'
+
+const user = useAuthUserStore()
+const router = useRouter()
+const auth = getAuth()
+
+const signOutClick = () => {
+  signOut(auth)
+    .then( () => {
+      router.push({ name: "Home" })
+    }).catch(
+      (err) => {
+        console.log("Error logging out: " + err)
+      }
+    )
+}
+</script>
+
 <template>
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
@@ -24,8 +46,7 @@
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-      <!--
-        <div class="d-flex">
+        <div class="d-flex" v-if="config.EnableGuestLogin === 'true'">
           <template v-if="user && user.isLoggedIn === true">
           <span class="nav-item py-2"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</span>
           <a class="btn btn-primary mx-2" @click.prevent="signOutClick">Sign Out</a>
@@ -34,46 +55,9 @@
           <a class="btn btn-primary mx-2" href="/login" role="button">Login</a>
           </template>
         </div>
-        -->
+
       </ul>
     </div>
   </div>
 </nav>
 </template>
-
-<script>
-import { getAuth, signOut } from 'firebase/auth'
-import { config } from '@/config'
-import { useRouter } from 'vue-router'
-import { useAuthUserStore } from '@/stores/authUser'
-
-
-export default {
-  name: 'AppNavigation',
-  data() {
-    return {
-      user: null,
-      config: config
-    }
-  },
-  mounted() {
-    this.user = useAuthUserStore()
-  },
-  methods: {
-   signOutClick() {
-     const router = useRouter()
-     const auth = getAuth()
-     signOut(auth)
-     .then( () => {
-       router.replace({ name: "Home" })
-     }).catch((err) => {
-     console.log("Error logging out: " + err)
-   })
-  }
- }
-}
-</script>
-
-<style scoped>
-
-</style>

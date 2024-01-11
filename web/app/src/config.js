@@ -1,5 +1,5 @@
 export let config = {
-  version: "1.10.0",
+  version: "1.11.0",
   appNavName: import.meta.env.VITE_APP_NAV_NAME || 'APP_NAV_NAME',
   OrganizationName: import.meta.env.VITE_ORGANIZATION_NAME || 'ORGANIZATION_NAME',
   ProjectLongName: import.meta.env.VITE_PROJECT_LONG_NAME || 'PROJECT_LONG_NAME',
@@ -9,6 +9,7 @@ export let config = {
   DeliveryMessage: import.meta.env.VITE_DELIVERY_MESSAGE || "",
   DeliveryFormURL: import.meta.env.VITE_DELIVERY_FORM_URL || "/delivery-form",
   VolunteerPortalURL: import.meta.env.VITE_VOLUNTEER_PORTAL_URL || "VOLUNTEER_PORTAL_URL",
+  EnableGuestLogin: import.meta.env.VITE_ENABLE_GUEST_LOGIN || "false",
 
   meta: {
     Home: {
