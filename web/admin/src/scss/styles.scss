@@ -86,7 +86,10 @@
     background-color: $red-500;
 }
 
-
+.text-bg-holiday {
+    color: color-contrast($red-500) if($enable-important-utilities, !important, null);
+    background-color: $red-700;
+}
 
 
 

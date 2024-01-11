@@ -119,6 +119,17 @@ function isoDate(date) {
   const d = dayjs(date)
   return d.format()
 }
+
+
+
+const windowColor = (win) => {
+  console.log('windowColor(win)=', win.tasktype, win)
+  if (win.tasktype === 'Holiday') {
+    return 'text-bg-holiday'
+  }
+
+  return 'text-bg-secondary'
+}
 </script>
 
 
@@ -149,7 +160,7 @@ function isoDate(date) {
         </div>
         <div v-for="w in windows.getDay(day)">
           <router-link :to="{name:'ScheduleWindowById', params: {id:w.id}}">
-            <div class="badge rounded-pill text-bg-warning text-wrap d-block m-1">
+            <div class="badge rounded-pill text-wrap d-block m-1" :class="windowColor(w)">
               {{w.location}} {{w.tasktype}}
               {{dayjs(w.starttime.toDate()).format('h:mm A')}} - {{dayjs(w.endtime.toDate()).format('h:mm A')}}
             </div>

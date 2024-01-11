@@ -7,7 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.12.0">January , 2024 - 1.12.0</h2>
   <ul>
-    <li></li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/279">#279</a> Holiday displayed as dark red on calendar.</li>
   </ul>
   <h2 id="1.11.0">January 10, 2024 - 1.11.0</h2>
   <ul>
