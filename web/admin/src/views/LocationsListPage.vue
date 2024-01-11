@@ -18,12 +18,11 @@ onBeforeMount( async () => {
 
 })
 
-const mapsquery = ( (loc)=>{
-const mapurl = 'https://www.google.com/maps/search/?api=1&query='
-const q = loc.street + ',' + loc.city + ',' + loc.state + ',' + loc.zip
+const mapsquery = (loc)=>{
+  const mapurl = 'https://www.google.com/maps/search/?api=1&query='
+  const q = loc.street + ',' + loc.city + ',' + loc.state + ',' + loc.zip
   return mapurl + encodeURIComponent(q)
-})
-
+}
 </script>
 
 <template>

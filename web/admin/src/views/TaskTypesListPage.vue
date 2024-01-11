@@ -1,14 +1,14 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
-import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
 
 const user = useAuthUserStore()
 const tasktypes = ref()
 
 onBeforeMount( async () => {
   const db = getFirestore()
-  const q = query(collection(db, "tasktype"))
+  const q = query(collection(db, "tasktype"), orderBy('name'))
   const ttRef = await getDocs(q)
   const ttarray = []
   ttRef.forEach((tt)=> {
@@ -17,13 +17,6 @@ onBeforeMount( async () => {
   tasktypes.value = ttarray
 
 })
-
-const mapsquery = ( (tt)=>{
-const mapurl = 'https://www.google.com/maps/search/?api=1&query='
-const q = tt.street + ',' + tt.city + ',' + tt.state + ',' + tt.zip
-  return mapurl + encodeURIComponent(q)
-})
-
 </script>
 
 <template>
