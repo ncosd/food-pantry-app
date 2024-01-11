@@ -1,70 +1,69 @@
 <template>
-  <form @submit.prevent="submit">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Volunteer Sign Up</div>
-          <div class="card-body">
-            <template v-if="showSuccess">
-              <div class="text-bg-success">{{ successMessage }}</div>
-            </template>
-            <template v-if="error">
-              <div class="text-bg-danger">{{ error }}</div>
-            </template>
+<form @submit.prevent="submit">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">Volunteer Sign Up</div>
+        <div class="card-body">
+          <template v-if="showSuccess">
+            <div class="text-bg-success">{{ successMessage }}</div>
+          </template>
+          <template v-if="error">
+            <div class="text-bg-danger">{{ error }}</div>
+          </template>
 
-            <div class="row my-3">
-              <div v-if="emailError" class="text-bg-danger">Email is required.  Please check email is correct.</div>
-              <label class="form-label">Email</label>
-              <div class="col-sm-10">
-                <input type="text" v-model="email" autocomplete="username" class="form-control" placeholder="name@example.com" required>
+          <div class="row my-3">
+            <div v-if="emailError" class="text-bg-danger">Email is required.  Please check email is correct.</div>
+            <label class="form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="text" v-model="email" autocomplete="username" class="form-control" placeholder="name@example.com" required>
+            </div>
+          </div>
+
+          <div class="row my-3">
+            <div v-if="passwordError" class="text-bg-danger">Password is required, must be at least 8 characters.</div>
+            <label class="form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" v-model="password" autocomplete="new-password" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <div v-if="firstnameError" class="text-bg-danger">First name is required.</div>
+                <label class="form-label">First Name</label>
+                <input class="form-control" v-model="profile.firstname" autocomplete="First Name" required>
               </div>
             </div>
 
-            <div class="row my-3">
-              <div v-if="passwordError" class="text-bg-danger">Password is required, must be at least 8 characters.</div>
-              <label class="form-label">Password</label>
-              <div class="col-sm-10">
-                <input type="password" v-model="password" autocomplete="new-password" class="form-control" required>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <div v-if="lastnameError" class="text-bg-danger">Last Name is required.</div>
+                <label class="form-label">Last Name</label>
+                <input class="form-control" v-model="profile.lastname" autocomplete="Last Name" required>
               </div>
             </div>
+          </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <div v-if="firstnameError" class="text-bg-danger">First name is required.</div>
-                  <label class="form-label">First Name</label>
-                  <input class="form-control" v-model="profile.firstname" autocomplete="First Name" required>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <div v-if="lastnameError" class="text-bg-danger">Last Name is required.</div>
-                  <label class="form-label">Last Name</label>
-                  <input class="form-control" v-model="profile.lastname" autocomplete="Last Name" required>
-                </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <div v-if="phoneError" class="text-bg-danger">Phone required to volunteer format: 111-222-4444.</div>
+                <label class="form-label">Phone</label>
+                <input class="form-control" v-model="profile.phone" autocomplete="phone" placeholder="111-222-4444" required>
               </div>
             </div>
-
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <div v-if="phoneError" class="text-bg-danger">Phone required to volunteer format: 111-222-4444.</div>
-                  <label class="form-label">Phone</label>
-                  <input class="form-control" v-model="profile.phone" autocomplete="phone" placeholder="111-222-4444" required>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label class="form-label">Pronouns (optional)</label>
-                  <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
-                </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label">Pronouns (optional)</label>
+                <input class="form-control" v-model="profile.pronoun" placeholder="(she/her, they/them, he/him, etc)">
               </div>
             </div>
+          </div>
 
-
-            <div class="row mb-3 border-top border-bottom">
+          <div class="row mb-3 border-top border-bottom">
+            <div class="col-md-6">
               <div class="mt-3">Best days for you:</div>
               <div class="form-check ms-3"><input id="avail_monday" class="form-check-input" type="checkbox" v-model="profile.avail_monday"><label class="form-check-label" for="avail_monday">Monday</label></div>
               <div class="form-check ms-3"><input id="avail_tuesday" class="form-check-input" type="checkbox" v-model="profile.avail_tuesday"><label class="form-check-label" for="avail_tuesday">Tuesday</label></div>
@@ -72,7 +71,16 @@
               <div class="form-check ms-3 mb-3"><input id="avail_saturday" class="form-check-input" type="checkbox" v-model="profile.avail_saturday"><label class="form-check-label" for="avail_saturday">Saturday</label></div>
             </div>
 
-            <div class="row">
+            <div class="col-md-6">
+              <div class="mt-3">
+                <input id="iWantToBeADriver" class="form-check-input me-3" type="checkbox" v-model="profile.isDriver">
+                <label for="iWantToBeADriver" class="form-label">I want to be a delivery driver</label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
               <div class="form-check ms-3 mb-3">
                 <div v-if="acceptLiftError" class="text-bg-danger">This is required to volunteer.</div>
                 <input id="acceptliftclean" class="form-check-input" type="checkbox" v-model="profile.acceptLiftClean">
@@ -141,6 +149,7 @@ export default {
         acceptParent: false,
         acceptTerms: false,
         preferredtimes: '',
+        isDriver: false,
         extraNote: '',
       },
       error: '',
@@ -155,13 +164,13 @@ export default {
       passwordError: false,
       firstnameError: false,
       lastnameError: false,
-config: config,
-spin: false,
+      config: config,
+      spin: false,
     }
-},
-components: {
-LoadingSpinner,
-},
+  },
+  components: {
+    LoadingSpinner,
+  },
   methods: {
     resetErrors() {
       this.acceptTermsError = false
@@ -172,8 +181,8 @@ LoadingSpinner,
       this.emailError = false
       this.passwordError = false
       this.firstnameError = false
-this.lastnameError = false
-this.spin = false
+      this.lastnameError = false
+      this.spin = false
     },
     validate() {
       this.error = ""

@@ -72,6 +72,7 @@ onBeforeMount( async () => {
       avail_tuesday: false,
       avail_thursday: false,
       avail_saturday: false,
+      isDriver: false,
       acceptLiftClean: false,
       acceptParent: false,
       extraNote: ''
@@ -84,9 +85,9 @@ onBeforeMount( async () => {
 <template>
 <div class="container">
   <ProfileTabs activeTab="Registration" :uid="userId"></ProfileTabs>
+  <div class="border-start border-end border-bottom p-3">
 
-
-  <div class="my-3">
+  <div class="mb-3">
     <h3 class="fs-4">Email Verification</h3>
     <EmailVerified v-if="userId == user.data.uid"/>
     <div v-else>Unavailable at this time for this user.</div>
@@ -132,13 +133,20 @@ onBeforeMount( async () => {
       </div>
     </div>
 
-    <div class="row my-3">
-      <div class="col">
+    <div class="row my-3 border-top border-bottom">
+      <div class="col-md-6 my-3">
         <div>Best days for you:</div>
         <div class="form-check ms-3"><input id="avail_monday" class="form-check-input" type="checkbox" v-model="profile.avail_monday"><label class="form-check-label" for="avail_monday">Monday</label></div>
         <div class="form-check ms-3"><input id="avail_tuesday" class="form-check-input" type="checkbox" v-model="profile.avail_tuesday"><label class="form-check-label" for="avail_tuesday">Tuesday</label></div>
         <div class="form-check ms-3"><input id="avail_thursday" class="form-check-input" type="checkbox" v-model="profile.avail_thursday"><label class="form-check-label" for="avail_thursday">Thursday</label></div>
         <div class="form-check ms-3"><input id="avail_saturday" class="form-check-input" type="checkbox" v-model="profile.avail_saturday"><label class="form-check-label" for="avail_saturday">Saturday</label></div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mt-3">
+          <input id="iWantToBeADriver" class="form-check-input me-3" type="checkbox" v-model="profile.isDriver">
+          <label for="iWantToBeADriver" class="form-label">I want to be a delivery driver</label>
+        </div>
       </div>
     </div>
 
@@ -184,5 +192,6 @@ onBeforeMount( async () => {
       </div>
     </div>
   </template>
+</div>
 </div>
 </template>
