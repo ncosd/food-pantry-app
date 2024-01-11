@@ -51,7 +51,7 @@ const createTaskType = ( async ()=>{
 const clearCreate = ()=>{
   tasktype.value = {
     name: '',
-    displayName: '',
+    displayname: '',
     description: '',
   }
 }
