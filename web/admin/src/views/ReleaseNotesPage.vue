@@ -5,7 +5,7 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.12.0">January , 2024 - 1.12.0</h2>
+  <h2 id="1.12.0">January 17, 2024 - 1.12.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/277">#277</a> Volunteer can indicate if they want to be a driver.</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/279">#279</a> Holiday displayed as dark red on calendar.</li>

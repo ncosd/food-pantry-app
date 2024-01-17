@@ -56,6 +56,10 @@ service cloud.firestore {
       allow create, update, delete: if request.auth != null && (request.auth.uid == uid || request.auth.token.admin == true);
     }
 
+    match /{path=**}/attending/{uid} {
+      allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.token.volunteer == true);
+    }
+
     match /unavail/{uid}/ua/{id} {
       allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.uid == uid);
       allow create, update, delete: if request.auth != null && (request.auth.uid == uid || request.auth.token.admin == true);
@@ -63,7 +67,6 @@ service cloud.firestore {
     match /{path=**}/ua/{id} {
       allow read: if request.auth != null && request.auth.token.admin == true;
     }
-
 
     match /privacypolicy/{version} {
       allow read;
@@ -77,13 +80,13 @@ service cloud.firestore {
       allow read: if request.auth != null && (request.auth.token.volunteer == true || request.auth.token.pendingvolunteer == true);
     }
 
-    match /{path=**}/attending/{uid} {
-      allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.token.volunteer == true);
-    }
-
     match /signedagreements/{uid}/{agreementname}/{id} {
       allow create: if request.auth != null && request.auth.uid == uid;
       allow read, delete: if request.auth != null && (request.auth.uid == uid || request.auth.token.admin == true);
+    }
+
+    match /forms/{formName} {
+      allow create, read, update, delete: if request.auth != null && request.auth.token.admin == true;
     }
 
   }

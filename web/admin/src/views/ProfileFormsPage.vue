@@ -70,7 +70,7 @@ onBeforeMount(async () => {
   </div>
 
   <div class="row border-bottom">
-    <div class="col-md">Driver Accepted</div>
+    <div class="col-md"><router-link :to='{"name": "ProfileAdminForms", "params": { "driverId": userId, "formName": "driver"}}'>Driver Acceptance Form</router-link></div>
     <div class="col-md">
       <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
     </div>
