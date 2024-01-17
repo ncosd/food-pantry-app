@@ -7,7 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.12.0">January 17, 2024 - 1.12.0</h2>
   <ul>
-    <li><a href="https://github.com/ncosd/food-pantry-app/issues/277">#277</a> Volunteer can indicate if they want to be a driver.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/277">#277</a> Volunteer can indicate if they want to be a driver, Admins can see what to do to approve a driver and save the approved status.</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/279">#279</a> Holiday displayed as dark red on calendar.</li>
   </ul>
   <h2 id="1.11.0">January 10, 2024 - 1.11.0</h2>
