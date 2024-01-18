@@ -99,7 +99,7 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
-    path: '/profile-admin-forms/:driverId/:formName',
+    path: '/profile-admin-forms/:volunteerId/:formName',
     name: 'ProfileAdminForms',
     props: true,
     meta: { requiresLogin: true, admin: true },

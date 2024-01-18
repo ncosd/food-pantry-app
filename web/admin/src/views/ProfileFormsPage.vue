@@ -4,6 +4,7 @@ import { useAuthUserStore } from '@/stores/authUser'
 import { useRouter } from 'vue-router'
 import ProfileTabs from '@/components/ProfileTabs.vue'
 import { getFirestore, getCountFromServer, doc, getDoc, getDocs, addDoc, collection, query, limit, orderBy } from 'firebase/firestore'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   uid: String,
@@ -14,6 +15,9 @@ const user = useAuthUserStore()
 const router = useRouter()
 const userId = ref(props.uid)
 const confAgreement = ref(null)
+
+const driverStatus = ref(false)
+const driverDate = ref(null)
 
 onBeforeMount(async () => {
   if (props.uid === '' || props.uid === undefined) {
@@ -26,6 +30,14 @@ onBeforeMount(async () => {
   if (confSnap.size > 0) {
     confAgreement.value = confSnap.docs[0].data()
   }
+
+  const driverRef = doc(db, 'processedForms', userId.value, 'forms', 'driver')
+  const driverSnap = await getDoc(driverRef)
+  if (driverSnap.exists()) {
+    driverStatus.value = driverSnap.data().completed
+    driverDate.value = dayjs(driverSnap.data().date.toDate())
+  }
+
 
 })
 </script>
@@ -40,7 +52,6 @@ onBeforeMount(async () => {
     <div class="col-md">Form Name</div>
     <div class="col-md">Status</div>
     <div class="col-md">Date Signed</div>
-    <div v-if="user.isAdmin" class="col-md">&nbsp;</div>
   </div>
 
 
@@ -56,7 +67,6 @@ onBeforeMount(async () => {
       <div v-if="confAgreement && confAgreement.agreementDate">{{confAgreement.agreementDate.toDate()}}</div>
       <div v-else>-</div>
     </div>
-    <div v-if="user.isAdmin" class="col-md">&nbsp;</div>
   </div>
 
 
@@ -65,26 +75,27 @@ onBeforeMount(async () => {
   <div class="mt-3 row fw-bold border-bottom">
     <div class="col-md">Form Name</div>
     <div class="col-md">Status</div>
-    <div class="col-md">Date Approved</div>
-    <div v-if="user.isAdmin" class="col-md">Action</div>
+    <div class="col-md">Date Modified</div>
   </div>
 
-  <div class="row border-bottom">
-    <div class="col-md"><router-link :to='{"name": "ProfileAdminForms", "params": { "driverId": userId, "formName": "driver"}}'>Driver Acceptance Form</router-link></div>
+  <div class="row py-3 border-bottom">
+    <div class="col-md"><router-link :to='{"name": "ProfileAdminForms", "params": { "volunteerId": userId, "formName": "driver"}}'>Driver Acceptance Form</router-link></div>
     <div class="col-md">
-      <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
+      <template v-if="driverStatus">
+        <i class="bi bi-check"></i> Completed
+      </template>
+      <template v-else>
+        <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
+      </template>
     </div>
     <div class="col-md">
-      -
-    </div>
-    <div v-if="user.isAdmin" class="col-md">
-        <button disabled  class="btn btn-sm btn-primary m-2">Approve</button>
-        <button disabled  class="btn btn-sm btn-primary">Un-Approve</button>
+      <template v-if="driverDate">{{ driverDate }}</template>
+      <template v-else>-</template>
     </div>
   </div>
 
 
-  <div class="row border-bottom">
+  <div class="row py-3 border-bottom">
     <div class="col-md">
       Background Check - Child Abuse History Certification
     </div>
@@ -94,13 +105,9 @@ onBeforeMount(async () => {
     <div class="col-md">
       -
     </div>
-    <div v-if="user.isAdmin" class="col-md">
-        <button disabled  class="btn btn-sm btn-primary m-2">Approve</button>
-        <button disabled  class="btn btn-sm btn-primary">Un-Approve</button>
-    </div>
   </div>
 
-  <div class="row border-bottom">
+  <div class="row py-3 border-bottom">
     <div class="col-md">
       Background Check - PA Criminal History Background Check
     </div>
@@ -110,13 +117,9 @@ onBeforeMount(async () => {
     <div class="col-md">
       -
     </div>
-    <div v-if="user.isAdmin" class="col-md">
-        <button disabled  class="btn btn-sm btn-primary m-2">Approve</button>
-        <button disabled  class="btn btn-sm btn-primary">Un-Approve</button>
-    </div>
   </div>
 
-  <div class="row border-bottom">
+  <div class="row py-3 border-bottom">
     <div class="col-md">
       Background Check - Federal Bureau of Investigation (FBI) Criminal Background Check
     </div>
@@ -126,11 +129,6 @@ onBeforeMount(async () => {
     <div class="col-md">
       -
     </div>
-    <div v-if="user.isAdmin" class="col-md">
-        <button disabled  class="btn btn-sm btn-primary m-2">Approve</button>
-        <button disabled  class="btn btn-sm btn-primary">Un-Approve</button>
-    </div>
-
   </div>
 
 
