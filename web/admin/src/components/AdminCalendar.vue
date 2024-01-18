@@ -28,12 +28,18 @@ const prevMonth = () => {
 }
 
 const statusClass = (win) => {
+
+  if (win.tasktype === 'Holiday') {
+    return 'text-bg-holiday'
+  }
+
   const attending = props.windows.attending.get(win.id)
   if (attending && attending.winid === win.id) {
     return 'text-bg-success'
   } else if (win.numAttending >= win.numNeeded) {
     return 'text-bg-secondary'
   }
+
   return 'text-bg-available'
 }
 

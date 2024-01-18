@@ -9,5 +9,6 @@
     <span class="badge rounded-pill text-bg-secondary me-1">staffing met</span>
     <span class="badge rounded-pill text-bg-available me-1">needs volunteers</span>
     <span class="badge rounded-pill text-bg-danger me-1">unavailable</span>
+    <span class="badge rounded-pill text-bg-holiday me-1">Holiday (Closed)</span>
   </div>
 </template>

@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.12.0">January 17, 2024 - 1.12.0</h2>
+  <ul>
+      <li>No issues in the Guest app.</li>
+  </ul>
   <h2 id="1.11.0">January 10, 2024 - 1.11.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/221">#221</a> Redirect a volunteer to the volunteer app if they login to the guest app.</li>

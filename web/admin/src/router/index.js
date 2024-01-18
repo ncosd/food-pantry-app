@@ -99,6 +99,13 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/profile-admin-forms/:volunteerId/:formName',
+    name: 'ProfileAdminForms',
+    props: true,
+    meta: { requiresLogin: true, admin: true },
+    component: () => import('@/views/ProfileAdminFormsPage.vue'),
+  },
+  {
     path: '/unavailable',
     name: 'Unavailable',
     props: true,
