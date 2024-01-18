@@ -82,7 +82,7 @@ onBeforeMount(async () => {
     <div class="col-md"><router-link :to='{"name": "ProfileAdminForms", "params": { "volunteerId": userId, "formName": "driver"}}'>Driver Acceptance Form</router-link></div>
     <div class="col-md">
       <template v-if="driverStatus">
-        <i class="bi bi-check"></i> Completed
+        <i class="bi bi-check-circle text-success"></i> Completed
       </template>
       <template v-else>
         <i class="bi bi-exclamation-diamond-fill text-danger"></i> Unfiled
