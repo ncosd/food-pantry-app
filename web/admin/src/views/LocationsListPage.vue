@@ -28,7 +28,7 @@ const sortList = param => {
 }
 
 onBeforeMount( async () => {
-  await refreshList();
+  await refreshList()
 })
 
 const mapsquery = (loc)=>{
