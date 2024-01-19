@@ -76,7 +76,7 @@ const updateInactive = async id => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="v in volunteers">
+          <tr v-for="v in volunteers" :key="v.email">
             <td>{{ v.firstname }}</td>
             <td>{{ v.lastname }}</td>
             <td>
