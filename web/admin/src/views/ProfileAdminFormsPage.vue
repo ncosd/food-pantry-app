@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { getFirestore, doc, getDoc, setDoc, addDoc, collection } from 'firebase/firestore'
+import { getFirestore, doc, getDoc, setDoc, addDoc, updateDoc, collection } from 'firebase/firestore'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
@@ -87,6 +87,10 @@ const saveForm = async(formData)=>{
       'approver': adminUser.data.uid,
       'approverName': adminUser.data.displayName,
     })
+
+    // Update the VolunteerProfileState with the isDriverApproved value.
+    const vps = doc(db, 'volunteerprofilestate', props.volunteerId)
+    await updateDoc(vps, { isApprovedDriver: completed.value })
 
     showSuccess.value = true
   } catch (err) {

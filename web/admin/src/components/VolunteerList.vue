@@ -70,6 +70,7 @@ const updateInactive = async id => {
             <SortableTableHeader heading="First Name" sortKey="firstname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
             <SortableTableHeader heading="Last Name" sortKey="lastname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
             <SortableTableHeader heading="Email" sortKey="email" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
+            <th scope="col">Driver</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
             <SortableTableHeader heading="Updated" sortKey="updated" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
@@ -82,6 +83,7 @@ const updateInactive = async id => {
             <td>
               <router-link :to="{ name: 'Profile', params: { uid: v.userid } }">{{ v.email }}</router-link>
             </td>
+            <td><i v-if="v.isDriver" class="bi bi-car-front"></i> <i v-if="v.isApprovedDriver" class="bi bi-check-circle text-success"></i></td>
             <td>{{ v.status }}</td>
             <td>
               <button class="btn btn-sm btn-primary me-1" @click="updateApprove(v.userid)">Approve</button>
