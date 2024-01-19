@@ -48,6 +48,7 @@ const mapsquery = (loc)=>{
             <SortableTableHeader heading="Name" sortKey="name" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="Display Name" sortKey="displayname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="Street Address" sortKey="street" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="City" sortKey="city" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="State" sortKey="state" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="Zip" sortKey="zip" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <th scope="col">Map</th>
