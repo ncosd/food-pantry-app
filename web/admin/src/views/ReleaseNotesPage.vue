@@ -7,7 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.13.0">January , 2024 - 1.13.0</h2>
   <ul>
-    <li></li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/275">#275</a> Add sorting the column headers on Locations page.</li>
   </ul>
   <h2 id="1.12.0">January 17, 2024 - 1.12.0</h2>
   <ul>
