@@ -2,7 +2,7 @@
 import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
-import SortableTableHeader from '../components/SortableTableHeader.vue';
+import SortableTableHeader from '@/components/SortableTableHeader.vue'
 
 const user = useAuthUserStore()
 const locations = ref()
