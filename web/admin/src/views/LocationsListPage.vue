@@ -2,20 +2,33 @@
 import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
+import SortableTableHeader from '@/components/SortableTableHeader.vue'
 
 const user = useAuthUserStore()
 const locations = ref()
+const sortBy = ref("name")
+const sortAsc = ref(true)
 
-onBeforeMount( async () => {
+const refreshList = async () => {
   const db = getFirestore()
-  const q = query(collection(db, "location"), orderBy('name'))
+  const q = query(collection(db, "location"), orderBy(sortBy.value, sortAsc.value ? "asc" : "desc"))
   const locRef = await getDocs(q)
   const locarray = []
   locRef.forEach((loc)=> {
     locarray.push({id:loc.id,...loc.data()})
   })
   locations.value = locarray
+}
 
+const sortList = param => {
+  sortAsc.value = sortBy.value === param ? !sortAsc.value : true
+  sortBy.value = param
+
+  refreshList()
+}
+
+onBeforeMount( async () => {
+  await refreshList()
 })
 
 const mapsquery = (loc)=>{
@@ -32,12 +45,12 @@ const mapsquery = (loc)=>{
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Display Name</th>
-            <th scope="col">Street Address</th>
-            <th scope="col">City</th>
-            <th scope="col">State</th>
-            <th scope="col">zip</th>
+            <SortableTableHeader heading="Name" sortKey="name" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Display Name" sortKey="displayname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Street Address" sortKey="street" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="City" sortKey="city" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="State" sortKey="state" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Zip" sortKey="zip" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <th scope="col">Map</th>
             <th scope="col">Action</th>
           </tr>

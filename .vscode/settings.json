@@ -2,5 +2,7 @@
   "files.trimTrailingWhitespace": true,
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "prettier.semi": false,
+  "singleQuote": true
 }

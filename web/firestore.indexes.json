@@ -5,6 +5,64 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "isApprovedDriver",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isDriver",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "firstname",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "volunteerprofilestate",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isApprovedDriver",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "firstname",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "volunteerprofilestate",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isDriver",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "firstname",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "volunteerprofilestate",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "status",
           "order": "ASCENDING"
         },

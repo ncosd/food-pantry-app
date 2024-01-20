@@ -1,6 +1,6 @@
 const functions = require("firebase-functions");
 const { onCall } = require('firebase-functions/v2/https');
-const { onDocumentCreated, onDocumentDeleted, onDocumentWritten } = require('firebase-functions/v2/firestore');
+const { onDocumentCreated, onDocumentDeleted, onDocumentWritten, onDocumentUpdated } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
 const { FieldValue } = require('firebase-admin/firestore');
 const fs = require('firebase-admin/firestore');
@@ -171,6 +171,8 @@ exports.addVolunteerProfileOnCreatev2 = onDocumentCreated('volunteerprofile/{use
     firstname: profile.firstname,
     lastname: profile.lastname,
     email: profile.email,
+    isDriver: profile.isDriver,
+    isApprovedDriver: false,
     status: "in-review",
     created: fs.Timestamp.now(),
     updated: fs.Timestamp.now()
@@ -189,6 +191,48 @@ exports.addVolunteerProfileOnCreatev2 = onDocumentCreated('volunteerprofile/{use
     console.log('Error setting pendingvolunteer claim', error)
   }
 });
+
+// When a Volunteer changes their VolunteerProfile, update the VolunteerProfileState
+exports.updateVolunteerProfile = onDocumentUpdated('volunteerprofile/{userId}', async (event) => {
+
+  const profileSnap = event.data;
+  if (!profileSnap) {
+    console.log('No data.');
+    return;
+  }
+  const profile = event.data.after.data();
+
+  const vpsRef = db.collection('volunteerprofilestate').doc(event.params.userId)
+  const vpsSnap = await vpsRef.get()
+  let vpsData = vpsSnap.data()
+  let saveIt = false
+  if ((!Object.hasOwn(profile, 'isDriver')) || profile.isDriver !== vpsData.isDriver) {
+    if (!Object.hasOwn(profile, 'isDriver')) {
+      vpsData.isDriver = false
+    } else {
+      vpsData.isDriver = profile.isDriver
+    }
+    saveIt = true
+  }
+
+  if (profile.firstname !== vpsData.firstname) {
+    vpsData.firstname = profile.firstname
+    saveIt = true
+  }
+  if (profile.lastname !== vpsData.lastname) {
+    vpsData.lastname = profile.lastname
+    saveIt = true
+  }
+
+  if (saveIt) {
+    await vpsRef.update(vpsData)
+    console.log('saved ', vpsData)
+  }
+
+});
+
+
+
 
 // When an attending is created, update the window.numAttending
 exports.attendingCreated = onDocumentCreated('window/{winId}/attending/{userId}', async (event) => {

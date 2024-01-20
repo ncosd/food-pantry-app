@@ -3,14 +3,25 @@ import { reactive, computed, ref, onBeforeMount } from "vue"
 import VolunteerList from "@/components/VolunteerList.vue"
 import { collection, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore"
 
-var volunteers = ref()
+const volunteers = ref()
 const statusFilter = ref("in-review")
 const sortBy = ref("firstname")
 const sortAsc = ref(true)
+const driverFilter = ref(false)
+const approvedDriverFilter = ref(false)
 
 const refreshList = async () => {
   const db = getFirestore()
-  const q = query(collection(db, "volunteerprofilestate"), where("status", "==", statusFilter.value), orderBy(sortBy.value, sortAsc.value ? "asc" : "desc"))
+  const volunteerCollection = collection(db, "volunteerprofilestate")
+  let q = query(volunteerCollection, where("status", "==", statusFilter.value), orderBy(sortBy.value, sortAsc.value ? "asc" : "desc"))
+
+  if (driverFilter.value) {
+    q = query(q, where('isDriver', '==', true))
+  }
+  if (approvedDriverFilter.value) {
+    q = query(q, where('isApprovedDriver', '==', true))
+  }
+
   const pstates = await getDocs(q)
   volunteers.value = []
   pstates.forEach(prof => {
@@ -31,9 +42,23 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="row ms-1">
-      <b>Filter</b>
+<div class="container">
+
+  <h1>Volunteers</h1>
+  <div class="p-2 m-3">
+    <div><b>Filter</b></div>
+    <div class="row ms-1" >
+      <div class="col">
+        <input id="driverFilter" class="form-check-input me-2" type="checkbox" v-model="driverFilter" @change="refreshList">
+        <label class="form-check-label" for="driverFilter"><i class="bi bi-car-front" title="Driver"></i> Driver</label>
+
+        <input id="approvedDriverFilter" class="form-check-input ms-3 me-2" type="checkbox" v-model="approvedDriverFilter" @change="refreshList">
+        <label class="form-check-label" for="approvedDriverFilter"><i class="bi bi-check-circle text-success"></i> Approved Driver</label>
+
+      </div>
+    </div>
+
+    <div class="row mb-3 ms-1">
       <div class="col">
         <label class="col-form-label" for="statusFilter">Status</label>
         <select class="form-select" id="statusFilter" v-model="statusFilter" @change="refreshList">
@@ -43,7 +68,7 @@ onBeforeMount(async () => {
         </select>
       </div>
     </div>
-
-    <volunteer-list :volunteers="volunteers" :sortBy="sortBy" :sortAsc="sortAsc" @refresh-list="refreshList" @sort-list="sortList"></volunteer-list>
   </div>
+  <volunteer-list :volunteers="volunteers" :sortBy="sortBy" :sortAsc="sortAsc" @refresh-list="refreshList" @sort-list="sortList"></volunteer-list>
+</div>
 </template>
