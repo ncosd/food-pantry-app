@@ -83,7 +83,10 @@ const updateInactive = async id => {
             <td>
               <router-link :to="{ name: 'Profile', params: { uid: v.userid } }">{{ v.email }}</router-link>
             </td>
-            <td><i v-if="v.isDriver" class="bi bi-car-front"></i> <i v-if="v.isApprovedDriver" class="bi bi-check-circle text-success"></i></td>
+            <td>
+              <i v-if="v.isDriver" class="bi bi-car-front" title="Driver"></i>
+              <i v-if="v.isApprovedDriver" class="ms-2 bi bi-check-circle text-success" title="Approved Driver"></i>
+            </td>
             <td>{{ v.status }}</td>
             <td>
               <button class="btn btn-sm btn-primary me-1" @click="updateApprove(v.userid)">Approve</button>
