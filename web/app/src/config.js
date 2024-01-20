@@ -1,5 +1,5 @@
 export let config = {
-  version: "1.13.0",
+  version: "1.14.0",
   appNavName: import.meta.env.VITE_APP_NAV_NAME || 'APP_NAV_NAME',
   OrganizationName: import.meta.env.VITE_ORGANIZATION_NAME || 'ORGANIZATION_NAME',
   ProjectLongName: import.meta.env.VITE_PROJECT_LONG_NAME || 'PROJECT_LONG_NAME',
