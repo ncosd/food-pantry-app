@@ -29,10 +29,13 @@ const signOutClick = () => {
         <ul class="navbar-nav mb-2 mb-lg-0">
           <template v-if="user && user.isAdmin === true">
             <li class="nav-item">
-              <router-link to="/volunteers" class="nav-link">Volunteers</router-link>
+              <router-link class="nav-link" to="/volunteers">Volunteers</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/schedule">Schedule</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'DeliveryDashboard' }">Delivery</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" :to="{ name: 'LocationsList' }">Locations</router-link>
