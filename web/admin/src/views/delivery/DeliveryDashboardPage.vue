@@ -9,7 +9,7 @@ const db = getFirestore()
 
 const numTotalDestinations = ref('0')
 const numOnHold = ref('0')
-const numNoRoute = ref('3')
+const numNoRoute = ref('0')
 const numDrivers = ref('0')
 const numApprovedDrivers = ref('0')
 const numActiveVolunteers = ref('0')
@@ -22,6 +22,7 @@ onBeforeMount( async () => {
   numOnHold.value = numHoldSnap.data().count
   // TODO: calculate numNoRoute
   numNoRoute.value = numTotalDestinations.value - numOnHold.value
+
 
   const numDriversSnap = await getCountFromServer(query(collection(db, 'volunteerprofilestate'),
                                                         where('status', '==', 'active'),
@@ -53,7 +54,7 @@ onBeforeMount( async () => {
         <div class="card-body">
           <div class="row">
             <div class="col"><h5 class="card-title">Total Destinations</h5></div>
-            <div class="col-2"><i class="bi bi-truck fs-3"></i></div>
+            <div class="col-2"><i class="bi bi-geo-alt fs-3"></i></div>
           </div >
           <h1 class="text-center">{{ numTotalDestinations }}</h1>
         </div>
@@ -77,7 +78,10 @@ onBeforeMount( async () => {
         <div class="card-body">
           <div class="row">
             <div class="col"><h5 class="card-title">Destinations Not on a Route</h5></div>
-            <div class="col-3"><i class="bi bi-exclamation-diamond text-danger fs-3"></i></div>
+            <div class="col-3">
+              <i v-if="numNoRoute > 0" class="bi bi-exclamation-diamond text-danger fs-3"></i>
+              <i v-else class="bi bi-check-circle fs-3"></i>
+            </div>
           </div >
           <h1 class="text-center">{{ numNoRoute }}</h1>
         </div>
