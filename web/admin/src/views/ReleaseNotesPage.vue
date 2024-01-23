@@ -7,7 +7,8 @@
   <h1>Release Notes</h1>
   <h2 id="1.14.0">January 24, 2024 - 1.14.0</h2>
   <ul>
-    <li></li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/287">#287</a> Add delivery section for admins.</li>
+    <li>Fix bug where displayname overwritten when an admin changes the profile for another user.</li>
   </ul>
   <h2 id="1.13.0">January 20, 2024 - 1.13.0</h2>
   <ul>
