@@ -10,6 +10,9 @@ const db = getFirestore()
 const numTotalDestinations = ref('0')
 const numOnHold = ref('0')
 const numNoRoute = ref('3')
+const numDrivers = ref('0')
+const numApprovedDrivers = ref('0')
+const numActiveVolunteers = ref('0')
 
 onBeforeMount( async () => {
   const destCollection = collection(db, 'deliverydestination')
@@ -19,6 +22,23 @@ onBeforeMount( async () => {
   numOnHold.value = numHoldSnap.data().count
   // TODO: calculate numNoRoute
   numNoRoute.value = numTotalDestinations.value - numOnHold.value
+
+  const numDriversSnap = await getCountFromServer(query(collection(db, 'volunteerprofilestate'),
+                                                        where('status', '==', 'active'),
+                                                        where('isDriver', '==', true)))
+  numDrivers.value = numDriversSnap.data().count
+
+  const numApprovedDriversSnap = await getCountFromServer(query(collection(db, 'volunteerprofilestate'),
+                                                                where('status', '==', 'active'),
+                                                                where('isDriver', '==', true),
+                                                                where('isApprovedDriver', '==', true),
+                                                               ))
+  numApprovedDrivers.value = numApprovedDriversSnap.data().count
+
+  const numActiveVolunteersSnap = await getCountFromServer(query(collection(db, 'volunteerprofilestate'),
+                                                                 where('status', '==', 'active')))
+  numActiveVolunteers.value = numActiveVolunteersSnap.data().count
+
 
 })
 </script>
@@ -64,6 +84,46 @@ onBeforeMount( async () => {
       </div >
     </div >
   </div>
+
+  <div class="row my-3">
+    <div class="col-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row">
+            <div class="col"><h5 class="card-title">Drivers</h5></div>
+            <div class="col-2"><i class="bi bi-car-front fs-3"></i></div>
+          </div >
+          <h1 class="text-center">{{ numDrivers }}</h1>
+        </div>
+      </div >
+    </div >
+
+    <div class="col-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row">
+            <div class="col"><h5 class="card-title">Approved Drivers</h5></div>
+            <div class="col-2"><i class="bi bi-car-front text-success fs-3"></i></div>
+          </div >
+          <h1 class="text-center">{{ numApprovedDrivers }}</h1>
+        </div>
+      </div >
+    </div >
+
+    <div class="col-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row">
+            <div class="col"><h5 class="card-title">Volunteers</h5></div>
+            <div class="col-2"><i class="bi bi-person fs-3"></i></div>
+          </div >
+          <h1 class="text-center">{{ numActiveVolunteers }}</h1>
+        </div>
+      </div >
+    </div >
+
+  </div>
+
 
   <h2>There are no deliveries scheduled today.</h2>
 
