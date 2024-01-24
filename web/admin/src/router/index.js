@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
-import NotFound from '@/components/NotFound.vue'
 import VolunteerRegistration from '@/views/VolunteerRegistration.vue'
 import VolunteersPage from '@/views/VolunteersPage.vue'
 import { config } from '@/config'
@@ -11,33 +8,33 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('@/views/Home.vue'),
     meta: { requiresLogin: true },
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('@/views/Login.vue'),
   },
   {
     path: '/terms',
     name: 'Terms',
-    component: () => import('../views/TermsPage.vue'),
+    component: () => import('@/views/TermsPage.vue'),
   },
   {
     path: '/privacy-policy',
     name: 'Privacy',
-    component: () => import('../views/PrivacyPage.vue'),
+    component: () => import('@/views/PrivacyPage.vue'),
   },
   {
     path: '/pending',
     name: 'Pending',
-    component: () => import('../views/Pending.vue'),
+    component: () => import('@/views/Pending.vue'),
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: () => import('../views/ForgotPassword.vue'),
+    component: () => import('@/views/ForgotPassword.vue'),
   },
   {
     path: '/register',
@@ -152,6 +149,37 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/delivery/dashboard',
+    name: 'DeliveryDashboard',
+    component: () => import('@/views/delivery/DeliveryDashboardPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/delivery/list',
+    name: 'DeliveryList',
+    component: () => import('@/views/delivery/DeliveryListPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/delivery/destinations',
+    name: 'DestinationsList',
+    component: () => import('@/views/delivery/DestinationsListPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/delivery/destination/:id?',
+    name: 'DestinationPage',
+    component: () => import('@/views/delivery/DestinationPage.vue'),
+    props: true,
+    meta: { requiresLogin: true },
+  },
+  {
+    path: '/delivery/routes',
+    name: 'DeliveryRoutesList',
+    component: () => import('@/views/delivery/RouteListPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
     path: '/admin/reports',
     name: 'AdminReportPage',
     component: () => import('@/views/AdminReportPage.vue'),
@@ -160,7 +188,7 @@ const routes = [
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import('../views/ContactPage.vue'),
+    component: () => import('@/views/ContactPage.vue'),
   },
   {
     path: '/user-guide',
@@ -175,7 +203,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: NotFound,
+    component: () => import('@/components/NotFound.vue'),
   }
 ]
 

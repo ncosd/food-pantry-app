@@ -29,7 +29,7 @@ const acceptTermsError = ref(false)
 const save = async ()=>{
   await updateDoc(profileRef, profile.value)
 
-  if (user.data.displayName != profile.value.displayname) {
+  if (user.data.displayName != profile.value.displayname && (user.data.uid == userId.value)) {
     const auth = getAuth()
 
     updateProfile(auth.currentUser, {

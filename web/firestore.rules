@@ -94,5 +94,19 @@ service cloud.firestore {
       allow read: if request.auth != null && (request.auth.token.admin == true || request.auth.uid == uid);
     }
 
+    match /deliverydestination/{id} {
+      allow create, read, update, delete: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    match /deliveryroute/{id} {
+      allow create, read, update, delete: if request.auth != null && request.auth.token.admin == true;
+    }
+
+    match /delivery/{id} {
+      allow create, read, update, delete: if request.auth != null && request.auth.token.admin == true;
+    }
+
+
+
   }
 }

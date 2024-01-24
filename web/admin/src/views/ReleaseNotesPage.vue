@@ -5,7 +5,12 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.13.0">January , 2024 - 1.13.0</h2>
+  <h2 id="1.14.0">January 24, 2024 - 1.14.0</h2>
+  <ul>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/287">#287</a> Add delivery section for admins.</li>
+    <li>Fix bug where displayname overwritten when an admin changes the profile for another user.</li>
+  </ul>
+  <h2 id="1.13.0">January 20, 2024 - 1.13.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/275">#275</a> Add sorting the column headers on Locations page.</li>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/281">#281</a> Display and filter if a volunteer wants to be a driver and if they are approved.</li>

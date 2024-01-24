@@ -61,5 +61,11 @@ fetch('/__/firebase/init.json').then(async response => {
   const app = createApp(App)
   app.use(createPinia())
   app.use(router)
+  app.directive('focused', {
+    mounted: (el)=>{
+      el.focus()
+    }
+  })
+
   app.mount('#app')
 })
