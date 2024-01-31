@@ -59,6 +59,22 @@ const updateInactive = async id => {
     console.log("error " + err)
   }
 }
+
+const download = (event) => {
+  const anchor = document.createElement('a')
+  let data = '"First-name","Last-Name","email","isDriver","isApprovedDriver"\n'
+  for (let i=0; i<props.volunteers.length; i++) {
+    let v = props.volunteers[i]
+    let row = [v.firstname, v.lastname, v.email, v.isDriver, v.isApprovedDriver].join(',') + '\n'
+    data = data + row
+  }
+
+  anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(data)
+  anchor.target = '_blank'
+  anchor.download = 'volunteers.csv'
+  anchor.click()
+
+}
 </script>
 
 <template>
@@ -96,6 +112,10 @@ const updateInactive = async id => {
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="mt-3">
+      <button class="btn btn-secondary" @click="download"><i class="bi bi-filetype-csv"></i> Download CSV</button>
     </div>
   </div>
 </template>

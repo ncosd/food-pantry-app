@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.15.0">January 31, 2024 - 1.15.0</h2>
+  <ul>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/290">#290</a> Admin can download volunteer list as csv</li>
+  </ul>
   <h2 id="1.14.0">January 24, 2024 - 1.14.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/287">#287</a> Add delivery section for admins.</li>
