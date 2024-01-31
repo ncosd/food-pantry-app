@@ -5,13 +5,17 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.16.0">February 7, 2024 - 1.16.0</h2>
+  <ul>
+    <li>No issues in the Guest app.</li>
+  </ul>
   <h2 id="1.15.0">January 31, 2024 - 1.15.0</h2>
   <ul>
-    <li></li>
+    <li>No issues in the Guest app.</li>
   </ul>
   <h2 id="1.14.0">January 24, 2024 - 1.14.0</h2>
   <ul>
-    <li></li>
+    <li>No issues in the Guest app.</li>
   </ul>
   <h2 id="1.13.0">January 20, 2024 - 1.13.0</h2>
   <ul>
