@@ -1,73 +1,66 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '@/views/HomePage.vue'
-import LoginPage from '@/views/LoginPage.vue'
-import RegisterPage from '@/views/RegisterPage.vue'
-import ContactPage from '@/views/ContactPage.vue'
 import { config } from '@/config'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HomePage,
+    component: () => import('@/pages/HomePage.vue'),
     meta: config.meta.Home
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginPage,
+    component: () => import('@/pages/LoginPage.vue'),
     meta: config.meta.Login
   },
   {
     path: '/register',
     name: 'register',
-    component: RegisterPage,
+    component: () => import('@/pages/RegisterPage.vue'),
     meta: config.meta.Register
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/AboutPage.vue'),
+    component: () => import('@/pages/AboutPage.vue'),
     meta: config.meta.About
 
   },
   {
     path: '/delivery-form',
     name: 'DeliveryForm',
-    component: () => import('../views/DeliveryForm.vue'),
+    component: () => import('@/pages/DeliveryForm.vue'),
     meta: config.meta.DeliveryForm
   },
   {
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
-    component: () => import('../views/PrivacyPolicy.vue'),
+    component: () => import('@/pages/PrivacyPolicy.vue'),
     meta: config.meta.PrivacyPolicy
   },
   {
     path: '/terms',
     name: 'Terms',
-    component: () => import('../views/TermsPage.vue'),
+    component: () => import('@/pages/TermsPage.vue'),
     meta: config.meta.Terms
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: () => import('../views/ForgotPassword.vue'),
+    component: () => import('@/pages/ForgotPassword.vue'),
     meta: config.meta.ForgotPassword
   },
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import('../views/ContactPage.vue'),
+    component: () => import('@/pages/ContactPage.vue'),
     meta: config.meta.Contact
   },
   {
     path: '/release-notes/',
     name: 'ReleaseNotes',
-    component: () => import('@/views/ReleaseNotesPage.vue'),
+    component: () => import('@/pages/ReleaseNotesPage.vue'),
   }
 ]
 
