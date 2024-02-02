@@ -1,3 +1,8 @@
+<script setup>
+const guest_phone = import.meta.env.VITE_GUEST_PHONE
+const office_phone = import.meta.env.VITE_OFFICE_PHONE
+</script>
+
 <template>
   <div class="container">
     <h1>Contact Us</h1>
@@ -7,8 +12,3 @@
     <p>If you have general questions can be directed to the office phone at {{office_phone}}</p>
   </div>
 </template>
-
-<script setup>
-const guest_phone = import.meta.env.VITE_GUEST_PHONE
-const office_phone = import.meta.env.VITE_OFFICE_PHONE
-</script>
