@@ -53,7 +53,13 @@ const routes = [
     path: '/release-notes/',
     name: 'ReleaseNotes',
     component: () => import('@/pages/ReleaseNotesPage.vue'),
-  }
+  },
+    {
+      path: '/volunteer',
+      name: 'VolunteerPage',
+      component: () => import('@/pages/VolunteerPage.vue'),
+      meta: { login: true },
+    },
 ]
 
 const router = createRouter({
@@ -64,6 +70,11 @@ const router = createRouter({
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from) => {
   const user = useAuthUserStore()
+
+  if (user.isLoggedIn && (user.isVolunteer && !user.isAdmin) && to.name !== 'VolunteerPage') {
+    return { name: 'VolunteerPage' }
+  }
+
   if (to.meta.login === true) {
     if (user.isLoggedIn !== true) {
       return { name: 'LoginPage' }
