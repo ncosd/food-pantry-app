@@ -1,3 +1,8 @@
+<script setup>
+import { config } from '@/config';
+import DeliveryExplainer from '@/components/DeliveryExplainer.vue';
+</script>
+
 <template>
   <div class="container">
     <h1>Welcome!</h1>
@@ -9,26 +14,3 @@
 
   </div>
 </template>
-
-<script>
-import { config } from '@/config';
-import DeliveryExplainer from '@/components/DeliveryExplainer.vue';
-
-export default {
-  name: 'HomePage',
-  components: {
-    DeliveryExplainer
-  },
-  computed: {
-
-  },
-  data() {
-    return {
-      config: config,
-      neededList: ""
-    }
-  },
-  created() {
-  }
-}
-</script>
