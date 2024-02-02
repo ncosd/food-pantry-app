@@ -4,17 +4,17 @@ VERSION?=$(shell grep version admin/src/config.js | tr -d " " | tr -d "version:"
 
 build: build-echo build-app build-admin
 
-build-prod: ENV=prod
+build-prod: ENV=production
 build-prod: build
 
 build-echo:
 	@echo building $(ENV)
 
 build-app:
-	cd app && npm run build:$(ENV)
+	cd app && npm run build -- -m $(ENV)
 
 build-admin:
-	cd admin && npm run build:$(ENV)
+	cd admin && npm run build -- -m $(ENV)
 
 serve:
 	cd admin && npm run serve:firebase:emulator

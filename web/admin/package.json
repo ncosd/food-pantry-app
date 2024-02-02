@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite -m dev --port 5174",
     "build": "vite build",
-    "build:prod": "vite build",
     "build:dev": "vite build -m dev",
     "build:watch": "vite build -m dev --watch",
     "preview": "vite preview --port 4173",
