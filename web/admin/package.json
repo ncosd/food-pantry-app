@@ -14,10 +14,10 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "serve": "firebase serve",
     "serve:firebase": "firebase serve",
-    "serve:firebase:emulator": "firebase emulators:start --import=./fixtures",
+    "serve:firebase:emulator": "firebase emulators:start --import=../fixtures",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "export": "firebase emulators:export fixtures"
+    "export": "firebase emulators:export ../fixtures"
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^4.3.0",

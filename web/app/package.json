@@ -13,8 +13,8 @@
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "serve:firebase": "firebase serve",
-    "serve:firebase:emulator": "firebase emulators:start --import=./fixtures",
-    "firebase:export": "firebase emulators:export ./fixtures"
+    "serve:firebase:emulator": "firebase emulators:start --import=../fixtures",
+    "firebase:export": "firebase emulators:export ../fixtures"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
