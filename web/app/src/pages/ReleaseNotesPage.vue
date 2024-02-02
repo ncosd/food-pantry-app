@@ -7,7 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.16.0">February 7, 2024 - 1.16.0</h2>
   <ul>
-    <li>No issues in the Guest app.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/278">#278</a> Add dark/light theme chooser to guest app header.</li>
   </ul>
   <h2 id="1.15.0">January 31, 2024 - 1.15.0</h2>
   <ul>
