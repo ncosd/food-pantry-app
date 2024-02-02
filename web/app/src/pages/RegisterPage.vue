@@ -94,7 +94,7 @@ export default {
         updateProfile(auth.currentUser, {
           displayName: name[1]
         })
-        .then(() => { console.log("after updateProfile"); this.$router.replace({name:'Home'}); })
+        .then(() => { console.log("after updateProfile"); this.$router.replace({name:'HomePage'}); })
         .catch(err=>{
           console.log('err for updateProfile', err)
         })

@@ -31,7 +31,7 @@ const submit = () => {
 
       showSuccess.value = true
       successMessage.value = "You have signed in."
-      router.replace({name:'Home'})
+      router.replace({name:'HomePage'})
 
     })
     .catch(err => {

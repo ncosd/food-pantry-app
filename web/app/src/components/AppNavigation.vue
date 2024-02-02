@@ -11,7 +11,7 @@ const auth = getAuth()
 const signOutClick = () => {
   signOut(auth)
     .then( () => {
-      router.push({ name: "Home" })
+      router.push({ name: "HomePage" })
     }).catch(
       (err) => {
         console.log("Error logging out: " + err)
