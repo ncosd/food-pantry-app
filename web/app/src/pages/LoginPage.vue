@@ -24,11 +24,6 @@ const submit = () => {
     .then(async () => {
       const user = await auth.currentUser
 
-      const token = await getIdTokenResult(user)
-      if (token.claims.volunteer === true) {
-        window.location.href = config.VolunteerPortalURL
-      }
-
       showSuccess.value = true
       successMessage.value = "You have signed in."
       router.replace({name:'HomePage'})
