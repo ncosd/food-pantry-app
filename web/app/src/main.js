@@ -45,9 +45,20 @@ fetch('/__/firebase/init.json').then(async response => {
     connectFunctionsEmulator(functions, 'localhost', 5001)
   }
 
-  getAuth().onAuthStateChanged(user => {
-    useAuthUserStore().save(user)
-  });
+  getAuth().onAuthStateChanged(async user => {
+    let isAdmin = false
+    let isVolunteer = false
+    let isPending = false
+    let isGuest = false
+    if (user) {
+      const token = await getIdTokenResult(user)
+      isAdmin = token.claims.admin === true
+      isVolunteer = token.claims.volunteer === true
+      isGuest = !isVolunteer
+      isPending = token.claims.pendingvolunteer === true
+    }
+    useAuthUserStore().save(user, isAdmin, isVolunteer, isPending, isGuest)
+  })
 
   const app = createApp(App)
   app.use(createPinia())

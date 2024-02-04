@@ -180,7 +180,22 @@ const routes = [
   {
     path: '/admin/reports',
     name: 'AdminReportPage',
-    component: () => import('@/pages/AdminReportPage.vue'),
+    props: true,
+    component: () => import('@/pages/reports/ReportsDashboardPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/admin/reports/guest',
+    name: 'GuestReportPage',
+    props: true,
+    component: () => import('@/pages/reports/GuestReportPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/admin/reports/volunteers',
+    name: 'VolunteerReportPage',
+    props: true,
+    component: () => import('@/pages/reports/VolunteersReportPage.vue'),
     meta: { requiresLogin: true, admin: true },
   },
   {

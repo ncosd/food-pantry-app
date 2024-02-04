@@ -5,9 +5,9 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.16.0">February 7, 2024 - 1.16.0</h2>
+  <h2 id="1.16.0">February 4, 2024 - 1.16.0</h2>
   <ul>
-    <li>TBD</li>
+    <li>Added reports pages for Guests and Volunteers.</li>
   </ul>
   <h2 id="1.15.0">January 31, 2024 - 1.15.0</h2>
   <ul>

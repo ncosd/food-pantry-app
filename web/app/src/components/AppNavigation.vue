@@ -1,4 +1,5 @@
 <script setup>
+import ThemeChooser from '@/components/ThemeChooser.vue'
 import { getAuth, signOut } from 'firebase/auth'
 import { config } from '@/config'
 import { useRouter } from 'vue-router'
@@ -32,23 +33,18 @@ const signOutClick = () => {
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
-
-      <!--
-        <li class="nav-item">
-          <a class="nav-link" :href="config.DeliveryFormURL">Delivery</a>
-        </li>
-        -->
-        <li class="nav-item">
+        <li class="nav-item" v-if="!user.isLoggedIn">
           <a class="nav-link" :href="config.VolunteerPortalURL">Volunteer Portal</a>
+        </li>
+        <li class="nav-item" v-if="user.isLoggedIn">
+          <router-link class="nav-link" :to="{name:'AboutPage'}">Profile</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" :to="{name:'AboutPage'}">About</router-link>
         </li>
-
-
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
+        <li><ThemeChooser></ThemeChooser></li>
         <div class="d-flex" v-if="config.EnableGuestLogin === 'true'">
           <template v-if="user && user.isLoggedIn === true">
           <span class="nav-item py-2"><i class="bi bi-person-fill"></i> {{ user.data && user.data.displayName }}</span>
@@ -58,7 +54,6 @@ const signOutClick = () => {
           <router-link class="btn btn-primary mx-2" :to="{name:'LoginPage'}" role="button">Login</router-link>
           </template>
         </div>
-
       </ul>
     </div>
   </div>

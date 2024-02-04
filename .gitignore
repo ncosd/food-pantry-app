@@ -136,3 +136,7 @@ firebase-config.js
 
 # Do not force everyone to use the same .firebaserc
 .firebaserc
+
+# Do not commit the brand logos
+web/admin/public/img/brand
+web/app/public/img/brand
