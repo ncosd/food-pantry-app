@@ -5,7 +5,7 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.16.0">February 7, 2024 - 1.16.0</h2>
+  <h2 id="1.16.0">February 4, 2024 - 1.16.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/278">#278</a> Add dark/light theme chooser to guest app header.</li>
   </ul>

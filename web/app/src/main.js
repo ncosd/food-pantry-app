@@ -57,7 +57,6 @@ fetch('/__/firebase/init.json').then(async response => {
       isGuest = !isVolunteer
       isPending = token.claims.pendingvolunteer === true
     }
-    console.log('onAuthStateChanged saving', user, isAdmin, isVolunteer, isPending, isGuest)
     useAuthUserStore().save(user, isAdmin, isVolunteer, isPending, isGuest)
   })
 
