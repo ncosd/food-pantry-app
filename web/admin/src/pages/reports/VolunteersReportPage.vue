@@ -1,9 +1,12 @@
 <script setup>
+import ReportsTab from '@/components/reports/ReportsTab.vue'
 
 </script>
 
 <template>
   <div class="container">
+    <ReportsTab activeTab="Volunteers" />
+
     <h1>Reporting - Monthly Volunteer Hours</h1>
     <h2>October 2023</h2>
     <table class="table table-striped">

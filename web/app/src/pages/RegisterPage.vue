@@ -1,110 +1,131 @@
-<template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-           <div class="card-header">Sign Up</div>
-           <div class="card-body">
-              <template v-if="showSuccess">
-                <div class="text-bg-success">{{successMessage}}</div>
-              </template>
-              <template v-if="error">
-                <div class="text-bg-danger">{{error}}</div>
-              </template>
-              <form @submit.prevent="submit">
-              <div class="row my-3">
-                <label class="form-label">Email</label>
-                <div class="col-sm-10">
-                  <input type="text" v-model="email" :rules="[rules.emailRule]" label="Email" autocomplete="username" class="form-control" placeholder="name@example.com">
-                </div>
-              </div>
-
-              <div class="row my-3">
-                <label class="form-label">Password</label>
-                <div class="col-sm-10">
-                  <input type="password" v-model="password" autocomplete="new-password" class="form-control">
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary">Submit</button>
-              <a href="/forgot-password" class="m-3">Forgot Password?</a>
-              <a href="/login" class="m-3">Sign In</a>
-              </form>
-           </div>
-        </div>
-      </div>
-   </div>
- </div>
-</template>
-
-<script>
+<script setup>
+import { ref } from 'vue'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { config } from '@/config.js'
+import { useRouter } from 'vue-router'
 
-export default {
-  name: 'RegisterPage',
-  data() {
-    return {
-      error: "",
-      showSuccess: false,
-      successMessage: "",
-      valid: false,
-      password: '',
-      email: '',
-      rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
-        emailRule: v => !v || /.+@.+/.test(v) || 'Invalid Email Address'
-      },
+const router = useRouter()
+const db = getFirestore()
+
+const showErr = ref(false)
+const errorMsg = ref('')
+const showSuccess = ref(false)
+const successMessage = ref('')
+const email = ref('')
+const password = ref('')
+const zipcode = ref('')
+const valid = ref(false)
+
+const showOutsideArea = ref(false)
+const outsideAreaURL = config.DeliveryOutsideAreaUrl
+
+const auth = getAuth()
+
+const checkServiceArea = () => {
+  if (config.DeliveryZipcodes.length > 0) {
+    if (!config.DeliveryZipcodes.includes(zipcode.value)) {
+      return false
     }
-  },
-  methods: {
-    submit() {
-      this.error = "";
-      this.showSuccess = false;
+  }
+  return true
+}
 
-      if (!this.email) {
-        this.error = "Email is required"
-      } else {
-        if (!(/.+@.+\..+/.test(this.email))) {
-          this.error += " Invalid email address."
-        }
-      }
+const save = async () => {
 
-      if (!this.password) {
-        this.error += " Password is required"
-      }
-      if (this.password && (this.password.length < 8)) {
-        this.error += " Password must be at least 8 characters"
-      }
+  errorMsg.value = ''
+  showErr.value = false
+  showSuccess.value = false
+  showOutsideArea.value = false
 
-      if (this.error) {
-        this.showSuccess = false
-        console.log("error  "+this.error)
-        return false
-      }
+  if (!checkServiceArea()) {
+    errorMsg.value = 'Location outside our service area.'
+    showOutsideArea.value = true
+    showErr.value = true
+    return
+  }
 
-      console.log("before firebase.auth")
+  try {
+    const regData = await createUserWithEmailAndPassword(auth, email.value, password.value)
+    const uid = regData.user.uid
 
-      const auth = getAuth()
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-      .then(data => {
-        this.showSuccess = true;
-        this.successMessage = "Account registered.";
-        const name = this.email.match(/(.+)@/)
-        updateProfile(auth.currentUser, {
-          displayName: name[1]
-        })
-        .then(() => { console.log("after updateProfile"); this.$router.replace({name:'HomePage'}); })
-        .catch(err=>{
-          console.log('err for updateProfile', err)
-        })
-      })
-      .catch(err => {
-        console.log("err=", err)
-        this.showSuccess = false;
-        this.error = err.message;
-      });
+    const name = email.value.match(/(.+)@/)
+    await updateProfile(auth.currentUser, {
+      displayName: name[1]
+    })
+
+    const gProfRef = doc(db, 'guestprofile', uid)
+    await setDoc(gProfRef, { zipcode: zipcode.value })
+
+    // router.replace({name:'HomePage'});
+
+
+  } catch(err) {
+    const code = err.code
+    const msg = err.message
+
+    console.log("err=", code, 'm', msg)
+    switch (code) {
+    case 'auth/email-already-in-use':
+      errorMsg.value = 'Email already in use.'
+      break
+    case 'auth/weak-password':
+      errorMsg.value = 'Password should be at least 6 characters.'
+      break
+
+    default:
+      errorMsg.value = msg
     }
+
+    showSuccess.value = false
+    showErr.value = true
   }
 }
 </script>
+
+<template>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">Sign Up</div>
+        <div class="card-body">
+          <template v-if="showSuccess">
+            <div class="text-bg-success p-3">{{successMessage}}</div>
+          </template>
+          <template v-if="showErr">
+            <div class="text-bg-danger p-3">{{errorMsg}}</div>
+          </template>
+          <template v-if="showOutsideArea">
+            <div class="p-3">If you are outside our service area check <a :href="outsideAreaURL">{{ outsideAreaURL }}</a></div>
+          </template>
+
+          <form @submit.prevent="save">
+            <div class="row my-3">
+              <label for="regEmail" class="form-label">Email</label>
+              <input id="regEmail" type="text" v-model="email" autocomplete="email" class="form-control" placeholder="name@example.com" required>
+            </div>
+
+            <div class="row my-3">
+              <label for="regPassword" class="form-label">Password</label>
+              <input id="regPassword" type="password" v-model="password" autocomplete="new-password" class="form-control" required>
+            </div>
+
+            <div class="row my-3">
+              <label for="regZip" class="form-label">Zipcode</label>
+              <input id="regZip" type="text" v-model="zipcode" class="form-control" placeholder="12345" aria-describedby="regZipHelpBlock" required>
+              <div id="regZipHelpBlock" class="form-text">
+                Enter the zipcode where you live.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/forgot-password" class="m-3">Forgot Password?</a>
+            <a href="/login" class="m-3">Sign In</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
