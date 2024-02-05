@@ -6,9 +6,14 @@ import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
 import ColorKey from '@/components/ColorKey.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
+import { useRoute, useRouter } from 'vue-router'
 
+const route = useRoute()
+const router = useRouter()
+
+const formattedDate = ref(route.query.date) || ref(dayjs().format('YYYYMMDD'))
+const viewDate = formattedDate
 const user = useAuthUserStore()
-const viewDate = ref(dayjs(new Date()))
 const windows = reactive({
   entries: new Map(),
   attending: new Map(),
@@ -100,6 +105,10 @@ onBeforeMount( async () =>{
 })
 
 const changeDate = async (newDate) => {
+  router.replace({
+    name: 'Home',
+    query: { date: ref(dayjs(newDate).format('YYYYMMDD')).value }
+  })
   viewDate.value = newDate
   await computeWindows()
   await refreshUnavails()

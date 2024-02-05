@@ -10,6 +10,12 @@ const routes = [
     meta: { requiresLogin: true },
   },
   {
+    path: '/:date',
+    name: 'HomeDate',
+    component: () => import('@/pages/Home.vue'),
+    meta: { requiresLogin: true },
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/pages/Login.vue'),
@@ -48,6 +54,12 @@ const routes = [
   {
     path: '/schedule',
     name: 'Schedule',
+    component: () => import('@/pages/SchedulePage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/schedule/:date',
+    name: 'ScheduleDate',
     component: () => import('@/pages/SchedulePage.vue'),
     meta: { requiresLogin: true, admin: true },
   },
