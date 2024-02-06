@@ -6,19 +6,23 @@ import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
 import ColorKey from '@/components/ColorKey.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
+import { useRoute, useRouter } from 'vue-router'
 
+const route = useRoute()
+const router = useRouter()
+
+const viewDate = ref(route.query.date ? dayjs(route.query.date, 'YYYYMMDD') : dayjs())
 const user = useAuthUserStore()
-const viewDate = ref(dayjs(new Date()))
 const windows = reactive({
   entries: new Map(),
   attending: new Map(),
   unavails: new Map(),
   getDay: (day)=>{
-     if (!day) { return null }
-     const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
-     const entries = windows.entries.get(key)
-     // console.log('key='+ key + ' entries=' + entries)
-     return entries
+    if (!day) { return null }
+    const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
+    const entries = windows.entries.get(key)
+    // console.log('key='+ key + ' entries=' + entries)
+    return entries
   },
   getUnavail: (day)=> {
     if (!day) { return null }
@@ -100,9 +104,14 @@ onBeforeMount( async () =>{
 })
 
 const changeDate = async (newDate) => {
-  viewDate.value = newDate
+  router.push({
+    name: 'Home',
+    query: { date: newDate.format('YYYYMMDD') }
+  })
+  viewDate.value = dayjs(newDate, 'YYYYMMDD')
   await computeWindows()
   await refreshUnavails()
+
 }
 
 </script>

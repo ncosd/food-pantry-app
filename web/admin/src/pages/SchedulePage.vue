@@ -3,16 +3,20 @@ import { ref, reactive, computed, onBeforeMount } from 'vue'
 import AdminCalendarScheduler from '@/components/AdminCalendarScheduler.vue'
 import { collection, collectionGroup, query, where, getDocs, getFirestore } from "firebase/firestore";
 import dayjs from 'dayjs'
+import { useRoute, useRouter } from 'vue-router'
 
-const viewDate = ref(dayjs())
+const route = useRoute()
+const router = useRouter()
+
+const viewDate = ref(route.query.date ? dayjs(route.query.date, 'YYYYMMDD') : dayjs())
 const windows = reactive({
   entries: new Map(),
   unavails: new Map(),
   getDay: (day)=>{
-     const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
-     const entries = windows.entries.get(key)
-     // console.log('key='+ key + ' entries=' + entries)
-     return entries
+    const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
+    const entries = windows.entries.get(key)
+    // console.log('key='+ key + ' entries=' + entries)
+    return entries
   },
   getUnavail: (day)=> {
     if (!day) { return null }
@@ -82,8 +86,11 @@ const refreshUnavails = async()=>{
 }
 
 const changeDate = async (newDate) => {
-  // console.log('Parent SchedulePage changeDate=', newDate)
-  viewDate.value = newDate
+  router.push({
+    name: 'Schedule',
+    query: { date: dayjs(newDate).format('YYYYMMDD') }
+  })
+  viewDate.value = dayjs(newDate, 'YYYYMMDD')
   await refreshWindows()
   await refreshUnavails()
 }
