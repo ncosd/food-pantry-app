@@ -8,16 +8,15 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-const formattedDate = ref(route.query.date) || ref(dayjs().format('YYYYMMDD'))
-const viewDate = formattedDate
+const viewDate = ref(route.query.date ? dayjs(route.query.date, 'YYYYMMDD') : dayjs())
 const windows = reactive({
   entries: new Map(),
   unavails: new Map(),
   getDay: (day)=>{
-     const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
-     const entries = windows.entries.get(key)
-     // console.log('key='+ key + ' entries=' + entries)
-     return entries
+    const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
+    const entries = windows.entries.get(key)
+    // console.log('key='+ key + ' entries=' + entries)
+    return entries
   },
   getUnavail: (day)=> {
     if (!day) { return null }
@@ -87,12 +86,11 @@ const refreshUnavails = async()=>{
 }
 
 const changeDate = async (newDate) => {
-  // console.log('Parent SchedulePage changeDate=', newDate)
-  router.replace({
+  router.push({
     name: 'Schedule',
-    query: { date: ref(dayjs(newDate).format('YYYYMMDD')).value }
+    query: { date: dayjs(newDate).format('YYYYMMDD') }
   })
-  viewDate.value = newDate
+  viewDate.value = dayjs(newDate, 'YYYYMMDD')
   await refreshWindows()
   await refreshUnavails()
 }

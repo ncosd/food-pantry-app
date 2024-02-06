@@ -11,19 +11,18 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-const formattedDate = ref(route.query.date) || ref(dayjs().format('YYYYMMDD'))
-const viewDate = formattedDate
+const viewDate = ref(route.query.date ? dayjs(route.query.date, 'YYYYMMDD') : dayjs())
 const user = useAuthUserStore()
 const windows = reactive({
   entries: new Map(),
   attending: new Map(),
   unavails: new Map(),
   getDay: (day)=>{
-     if (!day) { return null }
-     const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
-     const entries = windows.entries.get(key)
-     // console.log('key='+ key + ' entries=' + entries)
-     return entries
+    if (!day) { return null }
+    const key = (day.date.getMonth()+1) + '-' + day.date.getDate()
+    const entries = windows.entries.get(key)
+    // console.log('key='+ key + ' entries=' + entries)
+    return entries
   },
   getUnavail: (day)=> {
     if (!day) { return null }
@@ -105,13 +104,14 @@ onBeforeMount( async () =>{
 })
 
 const changeDate = async (newDate) => {
-  router.replace({
+  router.push({
     name: 'Home',
-    query: { date: ref(dayjs(newDate).format('YYYYMMDD')).value }
+    query: { date: newDate.format('YYYYMMDD') }
   })
-  viewDate.value = newDate
+  viewDate.value = dayjs(newDate, 'YYYYMMDD')
   await computeWindows()
   await refreshUnavails()
+
 }
 
 </script>
