@@ -45,7 +45,7 @@ To summarize, the steps you take are:
 
 4. Do your work, don't forget to add to the release notes.
 
-5. Open a pull request from `my-work` to `ncosd/dev`
+5. Open a pull request from `my-work` to `ncosd/dev` https://github.com/ncosd/food-pantry-app/compare/dev...your-name:food-pantry-app:my-work
 
 
 
