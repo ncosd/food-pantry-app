@@ -21,7 +21,7 @@ Branch `main` holds the current stable version of the project.   Each release is
 
 Work done between releases is done on a branch from `main` named `dev`.  If you are working on code, it is a good practice to create a branch from the `dev` branch.  Usually name your branch something like `issue#-short-description-in-a-word-or-two` and do your work there.  When you open a pull request, target it at the `ncosd/food-pantry-app/branches/dev-vX.Y.Z` branch for the next release.
 
-When opening a pull request, also add a line in the Release Notes page for that version.  The page is prepared at the beginning of a development sprint on dev after a release is made.
+When opening a pull request, also add a line in the Release Notes page for that version.  The page is prepared at the beginning of a development sprint on `dev` after a release is made.
 
 - Admin: https://github.com/ncosd/food-pantry-app/blob/main/web/admin/src/views/ReleaseNotesPage.vue
 - App: https://github.com/ncosd/food-pantry-app/blob/main/web/app/src/views/ReleaseNotesPage.vue
@@ -31,14 +31,17 @@ To summarize, the steps you take are:
 1. Fork the repo https://github.com/ncosd/food-pantry-app
 2. Clone your fork
 
+```git
     git clone git@github.com:yourname/food-pantry-app
-
+```
 
 3. Create a branch off `dev`
 
+```git
     git checkout dev
     git checkout -b my-work
     git push -u origin my-work
+```
 
 4. Do your work, don't forget to add to the release notes.
 
