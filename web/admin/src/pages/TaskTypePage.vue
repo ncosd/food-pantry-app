@@ -3,6 +3,7 @@ import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import ConfigTabs from '@/components/ConfigTabs.vue'
 
 const props = defineProps({
   id: String,
@@ -73,34 +74,42 @@ onBeforeMount( async () => {
 
 <template>
 <div class="container">
-         <form @submit.prevent="createTaskType">
-           <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
-           <div v-if="showDeleteMessage" class="text-bg-danger">{{deleteMessage}}</div>
+  <ConfigTabs activeTab="TaskTypes" class="mb-3"/>
 
-           <div class="row">
-             <label class="form-label" for="taskTypeName">Name</label>
-             <input id="taskTypeName" type="text" class="form-control" v-model="tasktype.name" required>
-           </div>
+  <form @submit.prevent="createTaskType">
+    <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
+    <div v-if="showDeleteMessage" class="text-bg-danger">{{deleteMessage}}</div>
 
-           <div class="row">
-             <label class="form-label" for="taskTypeDisplayName">Display Name</label>
-             <input id="taskTypeDisplayName" type="text" class="form-control" v-model="tasktype.displayname" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="taskTypeName">Name</label>
+        <input id="taskTypeName" type="text" class="form-control" v-model="tasktype.name" required>
+      </div>
+    </div>
 
-           <div class="row">
-             <label class="form-label" for="taskTypeDescription">Description</label>
-             <input id="taskTypeDescription" type="text" class="form-control" v-model="tasktype.description" required>
-           </div>
-           <div class="mt-3">
-             <div class="row">
-               <div class="col">
-                 <button type="submit" class="btn btn-primary btn-sm">Save</button>
-               </div>
-               <div class="col text-end">
-                 <button @click.prevent="deleteTaskType" class="btn btn-danger btn-sm">Delete</button>
-               </div>
-             </div>
-           </div>
-         </form>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="taskTypeDisplayName">Display Name</label>
+        <input id="taskTypeDisplayName" type="text" class="form-control" v-model="tasktype.displayname" required>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="taskTypeDescription">Description</label>
+        <input id="taskTypeDescription" type="text" class="form-control" v-model="tasktype.description" required>
+      </div>
+    </div>
+    <div class="mt-3">
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="btn btn-primary btn-sm">Save</button>
+        </div>
+        <div class="col text-end">
+          <button @click.prevent="deleteTaskType" class="btn btn-danger btn-sm">Delete</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 </template>
