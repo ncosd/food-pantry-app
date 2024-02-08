@@ -36,7 +36,7 @@ onBeforeMount( async () => {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="tt in tasktypes">
+          <tr v-for="tt in tasktypes" :key="tt.name">
             <td>{{tt.name}}</td>
             <td>{{tt.displayname}}</td>
             <td>{{tt.description}}</td>

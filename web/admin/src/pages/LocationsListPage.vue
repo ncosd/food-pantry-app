@@ -59,7 +59,7 @@ const mapsquery = (loc)=>{
           </tr>
         </thead>
         <tbody>
-          <tr v-for="loc in locations">
+          <tr v-for="loc in locations" :key="loc.name">
             <td>{{loc.name}}</td>
             <td>{{loc.displayname}}</td>
             <td>{{loc.street}}</td>

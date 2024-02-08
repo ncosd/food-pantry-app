@@ -123,7 +123,6 @@ function isoDate(date) {
 
 
 const windowColor = (win) => {
-  console.log('windowColor(win)=', win.tasktype, win)
   if (win.tasktype === 'Holiday') {
     return 'text-bg-holiday'
   }

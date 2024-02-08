@@ -136,7 +136,7 @@ const deleteWindow = async () => {
         <div class="col">
           <label class="form-label" for="location">Location</label>
           <select id="location" class="form-select" v-model="windowEntry.location">
-            <option v-for="loc in locations" :value="loc.name">{{ loc.name }}</option>
+            <option v-for="loc in locations" :value="loc.name" :key="loc.name">{{ loc.name }}</option>
           </select>
         </div>
       </div>
@@ -145,7 +145,7 @@ const deleteWindow = async () => {
         <div class="col">
           <label class="form-label" for="tasktype">Task Type</label>
           <select id="tasktype" class="form-select" v-model="windowEntry.tasktype">
-            <option v-for="tt in tasks" :value="tt.name">{{ tt.name }}</option>
+            <option v-for="tt in tasks" :value="tt.name" :key="tt.name">{{ tt.name }}</option>
           </select>
         </div>
       </div>
@@ -197,7 +197,7 @@ const deleteWindow = async () => {
     <div v-if="attending.length > 0">
       <h2>Attending</h2>
       <ol>
-        <li v-for="item in attending"><router-link :to="{name:'Profile', params: { 'uid': item.id}}">{{ item.name }}</router-link></li>
+        <li v-for="item in attending" :key="item.id"><router-link :to="{name:'Profile', params: { 'uid': item.id}}">{{ item.name }}</router-link></li>
       </ol>
     </div>
     <div v-else>
