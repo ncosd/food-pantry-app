@@ -78,7 +78,7 @@ onBeforeMount( async () => {
         <div class="card-body">
           <div class="row">
             <div class="col"><h5 class="card-title">Destinations Not on a Route</h5></div>
-            <div class="col-3">
+            <div class="col-2">
               <i v-if="numNoRoute > 0" class="bi bi-exclamation-diamond text-danger fs-3"></i>
               <i v-else class="bi bi-check-circle fs-3"></i>
             </div>

@@ -35,14 +35,20 @@ const signOutClick = () => {
               <router-link class="nav-link" to="/schedule">Schedule</router-link>
             </li>
             <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'OrdersDashboardPage' }">Orders</router-link>
+            </li>
+            <li class="nav-item">
               <router-link class="nav-link" :to="{ name: 'DeliveryDashboard' }">Delivery</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'LocationsList' }">Locations</router-link>
+              <router-link class="nav-link" :to="{ name: 'LocationsList' }">Config</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'TaskTypesList' }">TaskTypes</router-link>
-            </li>
+            <!-- <li class="nav-item"> -->
+            <!--   <router-link class="nav-link" :to="{ name: 'LocationsList' }">Locations</router-link> -->
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+            <!--   <router-link class="nav-link" :to="{ name: 'TaskTypesList' }">TaskTypes</router-link> -->
+            <!-- </li> -->
             <li class="nav-item">
               <router-link class="nav-link" :to="{ name: 'AdminReportPage' }">Reports</router-link>
             </li>

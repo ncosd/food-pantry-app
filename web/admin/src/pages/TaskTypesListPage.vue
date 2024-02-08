@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
+import ConfigTabs from '@/components/ConfigTabs.vue'
 
 const user = useAuthUserStore()
 const tasktypes = ref()
@@ -21,6 +22,8 @@ onBeforeMount( async () => {
 
 <template>
   <div class="container">
+    <ConfigTabs activeTab="TaskTypes" class="mb-3"/>
+
     <router-link class="btn btn-sm btn-primary" :to="{name:'TaskType'}">New TaskType</router-link>
     <div class="table-responsive-md">
       <table class="table table-striped table-hover">
