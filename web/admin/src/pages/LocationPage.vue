@@ -3,6 +3,7 @@ import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import ConfigTabs from '@/components/ConfigTabs.vue'
 
 const props = defineProps({
   id: String,
@@ -76,50 +77,63 @@ onBeforeMount( async () => {
 
 <template>
 <div class="container">
-         <form @submit.prevent="createLocation">
-           <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
-           <div v-if="showDeleteMessage" class="text-bg-danger">{{deleteMessage}}</div>
+  <ConfigTabs activeTab="Locations" class="mb-3"/>
+  <form @submit.prevent="createLocation">
+    <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
+    <div v-if="showDeleteMessage" class="text-bg-danger">{{deleteMessage}}</div>
 
-           <div class="row">
-             <label class="form-label" for="createLocationName">Location Name - short, no spaces</label>
-             <input id="createLocationName" type="text" class="form-control" v-model="location.name" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="createLocationName">Location Name - short, no spaces</label>
+        <input id="createLocationName" type="text" class="form-control" v-model="location.name" required>
+      </div>
+    </div>
 
-           <div class="row">
-             <label class="form-label" for="createLocationDisplayName">Display Name</label>
-             <input id="createLocationDisplayName" type="text" class="form-control" v-model="location.displayname" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="createLocationDisplayName">Display Name</label>
+        <input id="createLocationDisplayName" type="text" class="form-control" v-model="location.displayname" required>
+      </div>
+    </div>
 
-           <div class="row">
-             <label class="form-label" for="createStreet">Street</label>
-             <input id="createStreet" type="text" class="form-control" v-model="location.street" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="createStreet">Street</label>
+        <input id="createStreet" type="text" class="form-control" v-model="location.street" required>
+      </div>
+    </div>
 
-           <div class="row">
-             <label class="form-label" for="createCity">City</label>
-             <input id="createCity" type="text" class="form-control" v-model="location.city" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="createCity">City</label>
+        <input id="createCity" type="text" class="form-control" v-model="location.city" required>
+      </div>
+    </div>
 
-           <div class="row">
-             <label class="form-label" for="createState">State</label>
-             <input id="createState" type="text" class="form-control" v-model="location.state" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="createState">State</label>
+        <input id="createState" type="text" class="form-control" v-model="location.state" required>
+      </div>
+    </div>
 
-           <div class="row">
-             <label class="form-label" for="createZip">Zip</label>
-             <input id="createZip" type="text" class="form-control" v-model="location.zip" required>
-           </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="createZip">Zip</label>
+        <input id="createZip" type="text" class="form-control" v-model="location.zip" required>
+      </div>
+    </div>
 
-           <div class="mt-3">
-             <div class="row">
-               <div class="col">
-                 <button type="submit" class="btn btn-primary btn-sm">Save</button>
-               </div>
-               <div class="col text-end">
-                 <button @click.prevent="deleteLocation" class="btn btn-danger btn-sm">Delete</button>
-               </div>
-             </div>
-           </div>
-         </form>
+    <div class="mt-3">
+      <div class="row mb-3">
+	<div class="col">
+          <button type="submit" class="btn btn-primary btn-sm">Save</button>
+        </div>
+        <div class="col text-end">
+          <button @click.prevent="deleteLocation" class="btn btn-danger btn-sm">Delete</button>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 </template>
