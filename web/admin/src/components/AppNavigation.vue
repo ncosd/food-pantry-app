@@ -41,7 +41,7 @@ const signOutClick = () => {
               <router-link class="nav-link" :to="{ name: 'DeliveryDashboard' }">Delivery</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'LocationsList' }">Config</router-link>
+              <router-link class="nav-link" :to="{ name: 'LocationsList' }">Settings</router-link>
             </li>
             <!-- <li class="nav-item"> -->
             <!--   <router-link class="nav-link" :to="{ name: 'LocationsList' }">Locations</router-link> -->
