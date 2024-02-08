@@ -7,7 +7,8 @@
   <h1>Release Notes</h1>
   <h2 id="1.17.0">February 7, 2024 - 1.17.0</h2>
   <ul>
-    <li>tbd</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/203">#203</a> Check for attending volunteer windows when choosing unavailable date</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/301">#301</a> Prototype for Admin orders pages.</li>
   </ul>
   <h2 id="1.16.0">February 4, 2024 - 1.16.0</h2>
   <ul>
