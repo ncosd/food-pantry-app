@@ -18,7 +18,7 @@ const showDeleteMessage = ref(false)
 const showSavedMessage = ref(false)
 const showStartErrorMessage = ref(false)
 const showVolunteerWindowErrorMessage = ref(false)
-const volunteerWindowId = ref('');
+const volunteerWindowId = ref('')
 
 var startDate = ref(new Date())
 startDate.value.setHours(0)
@@ -53,20 +53,20 @@ const checkIfVolunteerWindow = (async () => {
   windowRef.docs.forEach(async (doc) => {
     const startDateDb = doc.data().starttime.toDate()
     const endDateDb = doc.data().endtime.toDate()
-    const q1 = query(collection(db, 'window', doc.id, 'attending'));
-    const attendingRef = await getDocs(q1);
+    const q1 = query(collection(db, 'window', doc.id, 'attending'))
+    const attendingRef = await getDocs(q1)
     attendingRef.docs.forEach((document) => {
       if(document.id === user.data.uid) {
         if(startDateDb <= endDate.value && endDateDb >= startDate.value ||
         startDate.value <= endDateDb && endDate.value >= startDateDb) {
           volunteerWindowId.value = doc.id
           showVolunteerWindowErrorMessage.value = true
-          return;
+          return
         }
       }
     })
   })
-  showVolunteerWindowErrorMessage.value = false;
+  showVolunteerWindowErrorMessage.value = false
 })
 const deleteUnavail = (async (unid) => {
   const db = getFirestore()
