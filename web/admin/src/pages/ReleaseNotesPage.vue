@@ -7,7 +7,7 @@
   <h1>Release Notes</h1>
   <h2 id="1.18.0">February 14, 2024 - 1.18.0</h2>
   <ul>
-    <li>No issues.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/285">#285</a> Added fix for key when looping over lists.</li>
   </ul>
   <h2 id="1.17.0">February 7, 2024 - 1.17.0</h2>
   <ul>
