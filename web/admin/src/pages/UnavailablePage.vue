@@ -17,6 +17,8 @@ const user = useAuthUserStore()
 const showDeleteMessage = ref(false)
 const showSavedMessage = ref(false)
 const showStartErrorMessage = ref(false)
+const showVolunteerWindowErrorMessage = ref(false)
+const volunteerWindowId = ref('');
 
 var startDate = ref(new Date())
 startDate.value.setHours(0)
@@ -44,6 +46,28 @@ const loadUnavails = (async () => {
   unavailList.value = unavailsRef
 })
 
+const checkIfVolunteerWindow = (async () => {
+  const db = getFirestore()
+  const q = query(collection(db, 'window'))
+  const windowRef = await getDocs(q)
+  windowRef.docs.forEach(async (doc) => {
+    const startDateDb = doc.data().starttime.toDate()
+    const endDateDb = doc.data().endtime.toDate()
+    const q1 = query(collection(db, 'window', doc.id, 'attending'));
+    const attendingRef = await getDocs(q1);
+    attendingRef.docs.forEach((document) => {
+      if(document.id === user.data.uid) {
+        if(startDateDb <= endDate.value && endDateDb >= startDate.value ||
+        startDate.value <= endDateDb && endDate.value >= startDateDb) {
+          volunteerWindowId.value = doc.id
+          showVolunteerWindowErrorMessage.value = true
+          return;
+        }
+      }
+    })
+  })
+  showVolunteerWindowErrorMessage.value = false;
+})
 const deleteUnavail = (async (unid) => {
   const db = getFirestore()
   await deleteDoc(doc(db, 'unavail', user.data.uid, 'ua', unid))
@@ -80,16 +104,17 @@ const saveUnavail = (async () => {
       <div class="row my-3">
         <div class="col">
           <template v-if="showStartErrorMessage"><div class="text-bg-danger">Start Date must be before End Date</div></template>
+          <template v-if="showVolunteerWindowErrorMessage"><div class="text-bg-danger">You have signed up for a volunteer window during this period. Click <router-link :to="{name:'VolWindow', params: {id:volunteerWindowId}}" class="text-decoration-none">here</router-link> sign out of window.</div></template>
           <template v-if="showSavedMessage"><div class="text-bg-success">Saved!</div></template>
           <label class="form-label" for="startDate">Start Date</label>
-          <vue-date-picker v-model="startDate" id="startDate" :enable-time-picker="false"></vue-date-picker>
+          <vue-date-picker @internal-model-change="checkIfVolunteerWindow" v-model="startDate" id="startDate" :enable-time-picker="false"></vue-date-picker>
         </div>
       </div>
 
       <div class="row my-3">
         <div class="col">
           <label class="form-label" for="endDate">End Date</label>
-          <vue-date-picker v-model="endDate" id="endDate" :enable-time-picker="false"></vue-date-picker>
+          <vue-date-picker @internal-model-change="checkIfVolunteerWindow" v-model="endDate" id="endDate" :enable-time-picker="false"></vue-date-picker>
         </div>
       </div>
 
