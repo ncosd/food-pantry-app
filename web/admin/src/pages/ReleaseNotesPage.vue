@@ -5,6 +5,11 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.18.0">February 19, 2024 - 1.18.0</h2>
+  <ul>
+    <li>Show all volunteers by default on the volunteer list page.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/285">#285</a> Added fix for key when looping over lists.</li>
+  </ul>
   <h2 id="1.17.0">February 7, 2024 - 1.17.0</h2>
   <ul>
     <li><a href="https://github.com/ncosd/food-pantry-app/issues/203">#203</a> Check for attending volunteer windows when choosing unavailable date</li>

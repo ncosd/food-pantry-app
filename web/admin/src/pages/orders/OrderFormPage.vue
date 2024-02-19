@@ -98,16 +98,16 @@ const onRemoveOrder = (ev) => {
     <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
     <div v-if="showErrMessage" class="text-bg-danger">{{errMessage}}</div>
 
-    <div class="row mb-3">
+    <div class="row my-3">
       <div class="col">
-        <label class="form-label" for="beginDate">Begin Date</label>
+        <label class="form-label" for="beginDate">Date and time Order form opens</label>
         <input id="beginDate" type="text" class="form-control" v-model="orderForm.beginDate" required>
       </div>
     </div>
 
     <div class="row mb-3">
       <div class="col">
-        <label class="form-label" for="endDate">End Date</label>
+        <label class="form-label" for="endDate">Date and time order form closes</label>
         <input id="endDate" type="text" class="form-control" v-model="orderForm.endDate" required>
       </div>
     </div>
@@ -122,25 +122,31 @@ const onRemoveOrder = (ev) => {
     <div class="row mb-3">
       <div class="col">
         <div class="py-3">Choose Items</div>
-        <div class="d-flex gap-5">
-          <VueDraggable v-model="orderForm.items"
-                        class="d-flex flex-column border w-50"
-                        group="items"
-                        style="min-height:200px;"
-                        @add="onAddOrder"
-                        @remove="onRemoveOrder"
-                        >
+        <div class="d-flex ">
+          <div class="d-flex col-6 flex-column">
+            <div>On Form</div>
+            <VueDraggable v-model="orderForm.items"
+                          class="d-flex flex-column border w-75"
+                          group="items"
+                          style="min-height:200px;"
+                          @add="onAddOrder"
+                          @remove="onRemoveOrder"
+                          >
               <div v-for="item in orderForm.items" :key="item.id" class="border border-1 p-2">
                 {{ item.name }} - {{ item.num }}
               </div>
             </VueDraggable>
-            <VueDraggable v-model="items" group="items" class="d-flex flex-column w-50 border" >
+          </div>
+          <div class="d-flex col-6 flex-column">
+            <div>Inventory</div>
+            <VueDraggable v-model="items" group="items" class="d-flex flex-column w-75 border"
+                          style="min-height:200px;">
               <div v-for="item in items" :key="item.id" class="border border-1 p-2">
                 {{ item.name }} - {{ item.num }}
               </div>
             </VueDraggable>
+          </div>
         </div>
-
       </div>
     </div>
 
@@ -148,7 +154,6 @@ const onRemoveOrder = (ev) => {
     <div class="row mb-3">
       <div class="col">
         <div class="py-3">Item Limits</div>
-
         <div class="table-responsive-md">
           <table class="table table-striped table-hover">
             <thead>
@@ -159,6 +164,11 @@ const onRemoveOrder = (ev) => {
               </tr>
             </thead>
             <tbody>
+              <tr v-for="i in orderForm.items" :key="i.id">
+                <td>{{i.name}}</td>
+                <td><input type="text" v-model="i.num" /></td>
+                <td><input type="text" v-model="i.maxTotal" /></td>
+              </tr>
               <tr v-for="i in items" :key="i.id">
                 <td>{{i.name}}</td>
                 <td><input type="text" v-model="i.num" /></td>

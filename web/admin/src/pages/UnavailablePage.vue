@@ -145,7 +145,7 @@ const saveUnavail = (async () => {
   </thead>
   <tbody>
     <template v-if="unavailList && unavailList.docs.length > 0">
-    <tr v-for="u in unavailList.docs">
+    <tr v-for="u in unavailList.docs" :key="u.id">
       <td>{{dayjs(u.data().startDate.toDate()).format('MM/DD/YYYY')}}</td>
       <td>{{dayjs(u.data().endDate.toDate()).format('MM/DD/YYYY')}}</td>
       <td>

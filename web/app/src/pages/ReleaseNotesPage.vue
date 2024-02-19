@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.18.0">February 19, 2024 - 1.18.0</h2>
+  <ul>
+    <li>No issues.</li>
+  </ul>
   <h2 id="1.17.0">February 7, 2024 - 1.17.0</h2>
   <ul>
     <li>No issues in the Guest app.</li>

@@ -4,7 +4,7 @@ import VolunteerList from "@/components/VolunteerList.vue"
 import { collection, getFirestore, query, where, getDocs, orderBy } from "firebase/firestore"
 
 const volunteers = ref()
-const statusFilter = ref("in-review")
+const statusFilter = ref("all")
 const sortBy = ref("firstname")
 const sortAsc = ref(true)
 const driverFilter = ref(false)
@@ -13,7 +13,10 @@ const approvedDriverFilter = ref(false)
 const refreshList = async () => {
   const db = getFirestore()
   const volunteerCollection = collection(db, "volunteerprofilestate")
-  let q = query(volunteerCollection, where("status", "==", statusFilter.value), orderBy(sortBy.value, sortAsc.value ? "asc" : "desc"))
+  let q = query(volunteerCollection, orderBy(sortBy.value, sortAsc.value ? "asc" : "desc"))
+  if (statusFilter.value != 'all') {
+    q = query(q, where("status", "==", statusFilter.value))
+  }
 
   if (driverFilter.value) {
     q = query(q, where('isDriver', '==', true))
@@ -62,6 +65,7 @@ onBeforeMount(async () => {
       <div class="col">
         <label class="col-form-label" for="statusFilter">Status</label>
         <select class="form-select" id="statusFilter" v-model="statusFilter" @change="refreshList">
+          <option value="all">All</option>
           <option value="in-review">in-review</option>
           <option value="active">active</option>
           <option value="inactive">inactive</option>
