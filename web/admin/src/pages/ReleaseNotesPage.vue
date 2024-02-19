@@ -5,6 +5,10 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
+  <h2 id="1.19.0">February 28, 2024 - 1.19.0</h2>
+  <ul>
+    <li>No issues.</li>
+  </ul>
   <h2 id="1.18.0">February 19, 2024 - 1.18.0</h2>
   <ul>
     <li>Show all volunteers by default on the volunteer list page.</li>
