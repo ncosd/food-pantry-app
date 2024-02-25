@@ -1,66 +1,29 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
+import { config } from '@/config.js'
+import { collection, getFirestore, query, where, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
 import OrdersTabs from '@/components/OrdersTabs.vue'
 import dayjs from 'dayjs'
 import { VueDraggable } from 'vue-draggable-plus'
+import { useUnits } from '@/composables/useUnits.js'
+import { useRouter } from 'vue-router'
 
+const props = defineProps({
+  id: String,
+})
+
+const router = useRouter()
+const db = getFirestore()
 const showSaveMessage = ref(false)
 const showErrMessage = ref(false)
+const showDeleteMessage = ref(false)
 const saveMessage = ref('')
 const errMessage = ref('')
+const deleteMessage = ref('Form deleted')
+const units = useUnits().units
 
 
-const items = ref([
-  {
-    name: 'Apples',
-    id: 'apples',
-    num: 6,
-    maxTotal: 400,
-    weight: 6,      // weight in ounces
-  },
-  {
-    name: 'Beans',
-    id: 'beans',
-    num: 2,
-    maxTotal: 400,
-    weight: 6,
-  },
-  {
-    name: 'Milk',
-    id: 'milk',
-    num: 1,
-    maxTotal: 400,
-    weight: 6,
-  },
-  {
-    name: 'Peas',
-    id: 'peas',
-    num: 2,
-    maxTotal: 400,
-    weight: 6,
-  },
-  {
-    name: 'Rice',
-    id: 'rice',
-    num: 1,
-    maxTotal: 400,
-    weight: 6,
-  },
-  {
-    name: 'Diapers',
-    id: 'diapers',
-    num: 1,
-    maxTotal: 20,
-    weight: 6,
-  },
-  {
-    name: 'Toothpaste',
-    id: 'toothpaste',
-    num: 1,
-    maxTotal: 10,
-    weight: 6,
-  },
-])
+const items = ref([])
 
 const formData = ref({
   beginDate: dayjs().toDate(),
@@ -88,6 +51,38 @@ const onRemoveOrder = (ev) => {
   calculateWeight()
 }
 
+const resetShowMessages = () => {
+  showSaveMessage.value = false
+  showErrMessage.value = false
+  showDeleteMessage.value = false
+  errMessage.value = 'An error occurred'
+}
+
+const getItems = async() => {
+  try {
+    const q = query(collection(db, 'item'), orderBy('name', 'asc'))
+    const orderItems = await getDocs(q)
+    const itemArray = []
+    orderItems.forEach( (item) => {
+      itemArray.push({
+        id: item.id,
+        num: 1,
+        maxTotal: 100,
+        ...item.data()})
+    })
+    items.value = itemArray
+
+  } catch (err) {
+    errMessage.value = 'Error occurred reading items'
+    console.error(err)
+    showErrMessage.value = true
+  }
+}
+
+
+onBeforeMount(async() => {
+  await getItems()
+})
 </script>
 
 <template>
@@ -180,7 +175,7 @@ const onRemoveOrder = (ev) => {
       </div>
     </div>
 
-    <div class="row mb-3">
+    <div class="row mb-3" v-if="config.orders.showWeights">
       <div class="col">
         Estimated weight of order: {{ orderForm.estimatedTotalWeight / 16.0 }} pounds
       </div>

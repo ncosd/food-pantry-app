@@ -14,5 +14,8 @@ const props = defineProps({
     <li class="nav-item">
       <router-link :class="['nav-link', { active: props.activeTab === 'TaskTypes' }]" :to="{ name: 'TaskTypesList'}">TaskTypes</router-link>
     </li>
+    <li class="nav-item">
+      <router-link :class="['nav-link', { active: props.activeTab === 'Orders' }]" :to="{ name: 'OrdersSettingsPage'}">Orders</router-link>
+    </li>
   </ul>
 </template>

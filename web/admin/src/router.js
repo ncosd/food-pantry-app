@@ -79,6 +79,12 @@ const routes = [
     meta: { requiresLogin: true, admin: true },
   },
   {
+    path: '/orders/settings',
+    name: 'OrdersSettingsPage',
+    component: () => import('@/pages/orders/OrdersSettingsPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
     path: '/orders/form',
     name: 'OrderFormPage',
     component: () => import('@/pages/orders/OrderFormPage.vue'),
@@ -94,6 +100,13 @@ const routes = [
     path: '/orders/items',
     name: 'OrderItemListPage',
     component: () => import('@/pages/orders/OrderItemListPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/orders/items/item/:id?',
+    name: 'OrderItemPage',
+    props: true,
+    component: () => import('@/pages/orders/OrderItemPage.vue'),
     meta: { requiresLogin: true, admin: true },
   },
   {
