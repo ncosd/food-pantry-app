@@ -87,7 +87,9 @@ onBeforeMount(async() => {
 
 <template>
 <div class="container">
-  <OrdersTabs activeTab="Form" />
+  <OrdersTabs activeTab="Forms" />
+
+  <h1 class="mt-3">Order Form</h1>
 
   <form>
     <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>

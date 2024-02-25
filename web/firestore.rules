@@ -112,7 +112,17 @@ service cloud.firestore {
     }
 
     match /item/{id} {
-      allow create, read, update, delete: if request.auth != null && request.auth.token.admin == true;
+      allow create, update, delete, list: if request.auth != null && request.auth.token.admin == true;
+      allow read: if request.auth != null;
+    }
+
+    match /orderform/{id} {
+      allow create, update, delete, list: if request.auth != null && request.auth.token.admin == true;
+      allow read: if request.auth != null;
+    }
+
+    match /order/{id} {
+      allow read, create, update, delete, list: if request.auth != null && request.auth.token.admin == true;
     }
 
 

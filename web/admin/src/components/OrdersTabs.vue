@@ -12,7 +12,10 @@ const props = defineProps({
       <router-link :class="['nav-link', { active: props.activeTab === 'Dashboard' }]" aria-current="page" :to="{ name: 'OrdersDashboardPage'}">Dashboard</router-link>
     </li>
     <li class="nav-item">
-      <router-link :class="['nav-link', { active: props.activeTab === 'Form' }]" :to="{ name: 'OrderFormPage'}">Form</router-link>
+      <router-link :class="['nav-link', { active: props.activeTab === 'Forms' }]" :to="{ name: 'OrderFormListPage'}">Forms</router-link>
+    </li>
+    <li class="nav-item">
+      <router-link :class="['nav-link', { active: props.activeTab === 'Orders' }]" :to="{ name: 'OrdersListPage'}">Orders</router-link>
     </li>
     <li class="nav-item">
       <router-link :class="['nav-link', { active: props.activeTab === 'Items' }]" :to="{ name: 'OrderItemListPage'}">Items</router-link>
