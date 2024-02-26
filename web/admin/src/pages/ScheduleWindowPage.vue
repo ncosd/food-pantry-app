@@ -4,12 +4,14 @@ import { collection, getFirestore, query, where, orderBy, doc, getDocs, getDoc, 
 import VueDatePicker from '@vuepic/vue-datepicker'
 import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
+import { useThemeStore } from '@/stores/useThemeStore.js'
 
 const props = defineProps({
   date: String,
   id: String,
 })
 
+const themer = useThemeStore()
 const router = useRouter()
 var data = {}
 const windowEntry = ref()
@@ -178,7 +180,7 @@ const deleteWindow = async () => {
       <div class="row my-3">
         <div class="col">
           <label class="form-label" for="dp-input-timeWindow">Time Window</label>
-          <vue-date-picker uid="timeWindow" v-model="range" range></vue-date-picker>
+          <VueDatePicker uid="timeWindow" v-model="range" :dark="themer.isDark" range></VueDatePicker>
         </div>
       </div>
 
