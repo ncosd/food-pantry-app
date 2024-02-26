@@ -6,7 +6,7 @@ import SortableTableHeader from '@/components/SortableTableHeader.vue'
 
 const db = getFirestore()
 const items = ref()
-const sortBy = ref("name")
+const sortBy = ref("startdate")
 const sortAsc = ref(true)
 
 
@@ -56,7 +56,7 @@ onBeforeMount( async () => {
             <td>{{item.enddate}}</td>
             <td>{{item.active}}</td>
             <td>
-              <router-link class="btn btn-sm btn-primary" :to="{name:'OrderItemPage', params:{id:item.id} }">Edit</router-link>
+              <router-link class="btn btn-sm btn-primary" :to="{name:'OrderFormPage', params:{id:item.id} }">Edit</router-link>
             </td>
           </tr>
         </tbody>

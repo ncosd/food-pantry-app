@@ -9,6 +9,7 @@ import { getAuth, connectAuthEmulator, getIdTokenResult } from "firebase/auth"
 import { getAnalytics } from "firebase/analytics"
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
+import '@vuepic/vue-datepicker/dist/main.css'
 import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
 

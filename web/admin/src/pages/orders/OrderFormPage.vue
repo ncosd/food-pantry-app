@@ -4,14 +4,17 @@ import { config } from '@/config.js'
 import { collection, getFirestore, query, where, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
 import OrdersTabs from '@/components/OrdersTabs.vue'
 import dayjs from 'dayjs'
+import VueDatePicker from '@vuepic/vue-datepicker'
 import { VueDraggable } from 'vue-draggable-plus'
 import { useUnits } from '@/composables/useUnits.js'
 import { useRouter } from 'vue-router'
+import { useThemeStore } from '@/stores/useThemeStore.js'
 
 const props = defineProps({
   id: String,
 })
 
+const themer = useThemeStore()
 const router = useRouter()
 const db = getFirestore()
 const showSaveMessage = ref(false)
@@ -26,8 +29,8 @@ const units = useUnits().units
 const items = ref([])
 
 const formData = ref({
-  beginDate: dayjs().toDate(),
-  endDate: dayjs().toDate(),
+  startdate: dayjs().toDate(),
+  enddate: dayjs().toDate(),
   numMaxOrders: 200,
   items: [],
   estimatedTotalWeight: 0,
@@ -35,20 +38,12 @@ const formData = ref({
 
 const orderForm = ref(formData)
 
-const calculateWeight = () => {
-  let total = 0
-  for (let i=0; i< formData.value.items.length; i++) {
-    total += formData.value.items[i].weight * formData.value.items[i].num
-  }
-  formData.value.estimatedTotalWeight = total
-}
-
 const onAddOrder = (ev) => {
-  calculateWeight()
+
 }
 
 const onRemoveOrder = (ev) => {
-  calculateWeight()
+
 }
 
 const resetShowMessages = () => {
@@ -83,6 +78,25 @@ const getItems = async() => {
 onBeforeMount(async() => {
   await getItems()
 })
+
+const saveForm = async() => {
+  resetShowMessages()
+  try {
+    if (props.id !== null && props.id !== '' && props.id !== undefined) {
+      const formRef = doc(db, 'orderform', props.id)
+      await updateDoc(formRef, orderForm.value)
+      showSaveMessage.value = true
+    } else {
+      const formRef = await addDoc(collection(db, 'orderform'), orderForm.value)
+      showSaveMessage.value = true
+      console.log('saved id', formRef.id)
+      // router.push({name: 'OrderFormListPage'})
+    }
+  } catch (err) {
+    showErrMessage.value = true
+    console.error(err)
+  }
+}
 </script>
 
 <template>
@@ -91,21 +105,21 @@ onBeforeMount(async() => {
 
   <h1 class="mt-3">Order Form</h1>
 
-  <form>
+  <form @submit.prevent="saveForm">
     <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
     <div v-if="showErrMessage" class="text-bg-danger">{{errMessage}}</div>
 
     <div class="row my-3">
       <div class="col">
-        <label class="form-label" for="beginDate">Date and time Order form opens</label>
-        <input id="beginDate" type="text" class="form-control" v-model="orderForm.beginDate" required>
+        <label class="form-label" for="dp-input-beginDate">Date and time Order form opens</label>
+        <VueDatePicker uid="beginDate" v-model="orderForm.startdate" required :dark="themer.isDark"></VueDatePicker>
       </div>
     </div>
 
     <div class="row mb-3">
       <div class="col">
-        <label class="form-label" for="endDate">Date and time order form closes</label>
-        <input id="endDate" type="text" class="form-control" v-model="orderForm.endDate" required>
+        <label class="form-label" for="dp-input-endDate">Date and time order form closes</label>
+        <VueDatePicker uid="endDate" v-model="orderForm.enddate" required :dark="themer.isDark"></VueDatePicker>
       </div>
     </div>
 
@@ -185,13 +199,9 @@ onBeforeMount(async() => {
 
     <div class="row mb-3">
       <div class="col">
-        <button class="btn btn-primary" disabled>Save</button>
+        <button class="btn btn-primary">Save</button>
       </div>
     </div>
-
-
-
   </form>
-
 </div>
 </template>
