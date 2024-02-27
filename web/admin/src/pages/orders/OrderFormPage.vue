@@ -20,8 +20,8 @@ const db = getFirestore()
 const showSaveMessage = ref(false)
 const showErrMessage = ref(false)
 const showDeleteMessage = ref(false)
-const saveMessage = ref('')
-const errMessage = ref('')
+const saveMessage = ref('Form saved.')
+const errMessage = ref('An error occurred')
 const deleteMessage = ref('Form deleted')
 const units = useUnits().units
 const items = ref([])
@@ -106,9 +106,21 @@ const saveForm = async() => {
       const formRef = await addDoc(collection(db, 'orderform'), orderForm.value)
       showSaveMessage.value = true
       console.log('saved id', formRef.id)
-      // router.push({name: 'OrderFormListPage'})
+      router.push({name: 'OrderFormListPage'})
     }
   } catch (err) {
+    showErrMessage.value = true
+    console.error(err)
+  }
+}
+
+const deleteItem = async() => {
+  resetShowMessages()
+  try {
+    await deleteDoc(doc(db, 'orderform', props.id))
+    showDeleteMessage.value = true
+    router.push({name: 'OrderFormListPage'})
+  } catch(err) {
     showErrMessage.value = true
     console.error(err)
   }
@@ -122,8 +134,9 @@ const saveForm = async() => {
   <h1 class="mt-3">Order Form</h1>
 
   <form @submit.prevent="saveForm">
-    <div v-if="showSaveMessage" class="text-bg-success">{{saveMessage}}</div>
-    <div v-if="showErrMessage" class="text-bg-danger">{{errMessage}}</div>
+    <div v-if="showSaveMessage" class="text-bg-success p-3">{{saveMessage}}</div>
+    <div v-if="showDeleteMessage" class="text-bg-success p-3">{{deleteMessage}}</div>
+    <div v-if="showErrMessage" class="text-bg-danger p-3">{{errMessage}}</div>
 
     <div class="row my-3">
       <div class="col">
@@ -215,7 +228,10 @@ const saveForm = async() => {
 
     <div class="row mb-3">
       <div class="col">
-        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-primary" type="submit" id="saveButton">Save</button>
+      </div>
+      <div class="col text-end">
+        <button @click.prevent="deleteItem" class="btn btn-danger" :disabled="props.id === '' || props.id === null || props.id === undefined">Delete</button>
       </div>
     </div>
   </form>
