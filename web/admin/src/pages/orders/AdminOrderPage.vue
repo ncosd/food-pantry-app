@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { config } from '@/config.js'
-import { collection, getFirestore, query, where, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
 import OrdersTabs from '@/components/OrdersTabs.vue'
 import { useUnits } from '@/composables/useUnits.js'
 import { useRouter } from 'vue-router'
+import dayjs from 'dayjs'
 
 const props = defineProps({
   id: String,
@@ -18,18 +19,35 @@ const showDeleteMessage = ref(false)
 const saveMessage = ref('Item Saved')
 const errMessage = ref('An error occurred')
 const deleteMessage = ref('Item Deleted')
+const currentForm = ref(null)
 
 const units = useUnits().units
 
 const item = ref(
   {
-    name: '',
-    numInventory: 0,
-    weight: 0,
-    weightUnits: "ounces"
+    guestid: '',
+    guestname: '',
+    orderdate: dayjs().toDate(),
+    enddate: null,  // TODO: get current form
+    delivery: false,
+    items: [],
   }
 )
 const oldName = ref('')
+
+const getCurrentForm = async ()=> {
+  const now = dayjs()
+  const q = query(collection(db, 'orderform'), where('enddate', '>', now.toDate()), orderBy('enddate', 'asc'))
+  const formDocs = await getDocs(q)
+  if (formDocs.size === 0) { return null }
+  if (formDocs.size === 1) {
+    const formSnap = formDocs.docs[0]
+    return {id:formSnap.id, ...formSnap.data()}
+  }
+  // TODO: find the right one, if there are more staged up
+  console.log(formDocs)
+  return {id:formSnap.id, ...formSnap.data()}
+}
 
 const resetShowMessages = () => {
   showSaveMessage.value = false
@@ -41,9 +59,9 @@ const resetShowMessages = () => {
 const deleteItem = async() => {
   resetShowMessages()
   try {
-    await deleteDoc(doc(db, 'item', props.id))
+    await deleteDoc(doc(db, 'order', props.id))
     showDeleteMessage.value = true
-    router.push({name: 'OrderItemListPage'})
+    router.push({name: 'OrdersListPage'})
   } catch(err) {
     showErrMessage.value = true
     console.error(err)
@@ -53,37 +71,28 @@ const deleteItem = async() => {
 const saveItem = async () => {
   resetShowMessages()
   try {
-    // convert numInventory to number
-    item.value.numInventory = Number(item.value.numInventory)
-    item.value.weight = Number(item.value.weight)
 
     if (props.id !== null && props.id !== '' && props.id !== undefined) {
-      const itemRef = doc(db, 'item', props.id)
-      if (item.value.name !== oldName.value) {
-        // check if there is something with the new name
-        const q = query(collection(db, 'item'), where('name', '==', item.value.name))
-        const docs = await getDocs(q)
-        if (docs.size > 0) {
-          errMessage.value = 'Item with name ' + item.value.name + ' already exists'
-          showErrMessage = true
-          return
-        }
-      }
-
+      const itemRef = doc(db, 'order', props.id)
       await updateDoc(itemRef, item.value)
       showSaveMessage.value = true
     } else {
 
-      const q = query(collection(db, 'item'), where('name', '==', item.value.name))
+      const q = query(collection(db, 'order'), where('name', '==', item.value.guestname))
       const docs = await getDocs(q)
       if (docs.size > 0) {
-        errMessage.value = 'Item with name ' + item.value.name + ' already exists'
+        errMessage.value = 'Order with guestname ' + item.value.guestname + ' already exists'
         showErrMessage = true
         return
       }
 
-      const itemRef = await addDoc(collection(db, 'item'), item.value)
-      router.push({name: 'OrderItemListPage'})
+      console.log('saveItem currentForm, enddate', currentForm.value, currentForm.value.enddate)
+      if (currentForm.value && currentForm.value.enddate) {
+        item.value.enddate = currentForm.value.enddate
+      }
+
+      const itemRef = await addDoc(collection(db, 'order'), item.value)
+      router.push({name: 'OrdersListPage'})
 
     }
   } catch(err) {
@@ -94,12 +103,14 @@ const saveItem = async () => {
 
 onBeforeMount(async() => {
   try {
+    currentForm.value = await getCurrentForm()
+
     if (props.id) {
-      const itemRef = doc(db, 'item', props.id)
+      const itemRef = doc(db, 'order', props.id)
       const itemSnap = await getDoc(itemRef)
       if (itemSnap.exists()) {
         item.value = itemSnap.data()
-        oldName.value = itemSnap.data().name
+        oldName.value = itemSnap.data().guestname
       } else {
         showErrMessage.value = true
         errMessage.value = 'Item does not exist'
@@ -114,9 +125,9 @@ onBeforeMount(async() => {
 
 <template>
 <div class="container">
-  <OrdersTabs activeTab="Items" />
+  <OrdersTabs activeTab="Orders" />
 
-  <h1>Order Item</h1>
+  <h1>Admin Order Page</h1>
 
   <form @submit.prevent="saveItem">
     <div v-if="showSaveMessage" class="p-3 text-bg-success">{{saveMessage}}</div>
@@ -125,33 +136,12 @@ onBeforeMount(async() => {
 
     <div class="row mb-3">
       <div class="col">
-        <label class="form-label" for="itemName">Name</label>
-        <input id="itemName" type="text" class="form-control" v-model="item.name" required>
+        <label class="form-label" for="guestName">Guest Name</label>
+        <input id="guestName" type="text" class="form-control" v-model="item.guestname" required>
+        <div id="guestHelpBlock" class="form-text">Guest ID: {{item.guestid || 'not registered'}}</div>
       </div>
     </div>
 
-    <div class="row mb-3">
-      <div class="col">
-        <label class="form-label" for="numInventory">Number in Inventory</label>
-        <input id="numInventory" type="text" class="form-control" v-model="item.numInventory" required>
-      </div>
-    </div>
-
-    <div v-if="config.orders.showWeights" class="row mb-3">
-      <div class="col">
-        <label class="form-label" for="weight">Weight</label>
-        <input id="weight" type="text" class="form-control" v-model="item.weight" required>
-      </div>
-    </div>
-
-    <div v-if="config.orders.showWeights" class="row mb-3">
-      <div class="col">
-        <label class="form-label" for="weightUnits">Weight Units</label>
-        <select id="weightUnits" class="form-select" v-model="item.weightUnits">
-          <option v-for="(u,i) in units" :value="u.name" :key="u.name">{{u.displayName}}</option>
-        </select>
-      </div>
-    </div>
 
     <div class="row mb-3">
       <div class="col">

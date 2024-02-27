@@ -9,9 +9,18 @@ import { getAuth, connectAuthEmulator, getIdTokenResult } from "firebase/auth"
 import { getAnalytics } from "firebase/analytics"
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
+import '@vuepic/vue-datepicker/dist/main.css'
 import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
 
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(advancedFormat)
 
 fetch('/__/firebase/init.json').then(async response => {
   await response

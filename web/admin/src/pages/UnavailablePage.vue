@@ -6,13 +6,14 @@ import dayjs from 'dayjs'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useRouter } from 'vue-router'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
-
+import { useThemeStore } from '@/stores/useThemeStore'
 
 function toDate(timestamp) {
   const val = new Date(timestamp*1000)
   return val
 }
 
+const themer = useThemeStore()
 const user = useAuthUserStore()
 const showDeleteMessage = ref(false)
 const showSavedMessage = ref(false)
@@ -106,15 +107,15 @@ const saveUnavail = (async () => {
           <template v-if="showStartErrorMessage"><div class="text-bg-danger">Start Date must be before End Date</div></template>
           <template v-if="showVolunteerWindowErrorMessage"><div class="text-bg-danger">You have signed up for a volunteer window during this period. Click <router-link :to="{name:'VolWindow', params: {id:volunteerWindowId}}" class="text-decoration-none">here</router-link> sign out of window.</div></template>
           <template v-if="showSavedMessage"><div class="text-bg-success">Saved!</div></template>
-          <label class="form-label" for="startDate">Start Date</label>
-          <vue-date-picker @internal-model-change="checkIfVolunteerWindow" v-model="startDate" id="startDate" :enable-time-picker="false"></vue-date-picker>
+          <label class="form-label" for="dp-input-startDate">Start Date</label>
+          <VueDatePicker @internal-model-change="checkIfVolunteerWindow" v-model="startDate" uid="startDate" :enable-time-picker="false" :dark="themer.isDark"></VueDatePicker>
         </div>
       </div>
 
       <div class="row my-3">
         <div class="col">
-          <label class="form-label" for="endDate">End Date</label>
-          <vue-date-picker @internal-model-change="checkIfVolunteerWindow" v-model="endDate" id="endDate" :enable-time-picker="false"></vue-date-picker>
+          <label class="form-label" for="dp-input-endDate">End Date</label>
+          <VueDatePicker @internal-model-change="checkIfVolunteerWindow" v-model="endDate" uid="endDate" :enable-time-picker="false" :dark="themer.isDark"></VueDatePicker>
         </div>
       </div>
 

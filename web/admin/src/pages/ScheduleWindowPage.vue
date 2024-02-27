@@ -2,15 +2,16 @@
 import { ref, onBeforeMount, onMounted, reactive } from 'vue'
 import { collection, getFirestore, query, where, orderBy, doc, getDocs, getDoc, addDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import VueDatePicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
 import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
+import { useThemeStore } from '@/stores/useThemeStore.js'
 
 const props = defineProps({
   date: String,
   id: String,
 })
 
+const themer = useThemeStore()
 const router = useRouter()
 var data = {}
 const windowEntry = ref()
@@ -178,8 +179,8 @@ const deleteWindow = async () => {
 
       <div class="row my-3">
         <div class="col">
-          <label class="form-label" for="a">Time Window</label>
-          <vue-date-picker v-model="range" range></vue-date-picker>
+          <label class="form-label" for="dp-input-timeWindow">Time Window</label>
+          <VueDatePicker uid="timeWindow" v-model="range" :dark="themer.isDark" range></VueDatePicker>
         </div>
       </div>
 
