@@ -7,7 +7,8 @@
   <h1>Release Notes</h1>
   <h2 id="1.19.0">February 28, 2024 - 1.19.0</h2>
   <ul>
-    <li>No issues.</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/301">#301</a> Adds Order form for admins.</li>
+    <li>Add sorting volunteer list page by status.</li>
   </ul>
   <h2 id="1.18.0">February 19, 2024 - 1.18.0</h2>
   <ul>

@@ -87,7 +87,7 @@ const download = (event) => {
             <SortableTableHeader heading="Last Name" sortKey="lastname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
             <SortableTableHeader heading="Email" sortKey="email" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
             <th scope="col">Driver</th>
-            <th scope="col">Status</th>
+            <SortableTableHeader heading="Status" sortKey="status" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
             <th scope="col">Action</th>
             <SortableTableHeader heading="Updated" sortKey="updated" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sort" />
           </tr>
