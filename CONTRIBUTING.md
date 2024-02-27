@@ -14,14 +14,14 @@ Not sure how something works?  Ask a question by [Opening a Question Issue](http
 # Getting Started
 To get started running the Food Pantry App locally, follow the instructions for setting up your [development environment](https://github.com/ncosd/food-pantry-app?tab=readme-ov-file#developing).
 
-To contribute code, you should fork the https://github.com/ncosd/food-pantry-app repository and develop your fix in a branch other than `main`.  Then open a pull request from your branch to `ncosd/food-pantry-app/branches/dev`.
+To contribute code, you should fork the https://github.com/ncosd/food-pantry-app repository and develop your fix in a branch other than `main`.  Then open a pull request from your branch to `ncosd/food-pantry-app/branches/main`.
 
 ## Development workflow
-Branch `main` holds the current stable version of the project.   Each release is tagged with a version number like `v1.7.0`.
+Branch `stable` holds the current stable version of the project.   Each release is tagged with a version number like `v1.7.0`.
 
-Work done between releases is done on a branch from `main` named `dev`.  If you are working on code, it is a good practice to create a branch from the `dev` branch.  Usually name your branch something like `issue#-short-description-in-a-word-or-two` and do your work there.  When you open a pull request, target it at the `ncosd/food-pantry-app/branches/dev-vX.Y.Z` branch for the next release.
+Work done between releases is done on `main`.  If you are working on code, it is a good practice to create a branch from the `main` branch.  Usually name your branch something like `issue#-short-description-in-a-word-or-two` and do your work there.  When you open a pull request, target it at the `ncosd/food-pantry-app/branches/main` branch to have it included in the next release.
 
-When opening a pull request, also add a line in the Release Notes page for that version.  The page is prepared at the beginning of a development sprint on `dev` after a release is made.
+When opening a pull request, also add a line in the Release Notes page for that version.  The page is prepared at the beginning of a development sprint on `main` after a release is made.
 
 - Admin: https://github.com/ncosd/food-pantry-app/blob/main/web/admin/src/views/ReleaseNotesPage.vue
 - App: https://github.com/ncosd/food-pantry-app/blob/main/web/app/src/views/ReleaseNotesPage.vue
@@ -35,17 +35,17 @@ To summarize, the steps you take are:
     git clone git@github.com:yourname/food-pantry-app
 ```
 
-3. Create a branch off `dev`
+3. Create a branch off `main`
 
 ```git
-    git checkout dev
+    git checkout main
     git checkout -b my-work
     git push -u origin my-work
 ```
 
 4. Do your work, don't forget to add to the release notes.
 
-5. Open a pull request from `my-work` to `ncosd/dev` https://github.com/ncosd/food-pantry-app/compare/dev...your-name:food-pantry-app:my-work
+5. Open a pull request from `my-work` to `ncosd/main` https://github.com/ncosd/food-pantry-app/compare/main...your-name:food-pantry-app:my-work
 
 
 
