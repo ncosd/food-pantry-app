@@ -3,10 +3,11 @@ import { ref, onBeforeMount } from 'vue'
 import OrdersTabs from '@/components/OrdersTabs.vue'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
 import SortableTableHeader from '@/components/SortableTableHeader.vue'
+import dayjs from 'dayjs'
 
 const db = getFirestore()
 const items = ref()
-const sortBy = ref("name")
+const sortBy = ref("guestname")
 const sortAsc = ref(true)
 
 
@@ -44,19 +45,19 @@ onBeforeMount( async () => {
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <SortableTableHeader heading="Start Date" sortKey="startdate" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Guest Name" sortKey="guestname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Order Date" sortKey="orderdate" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="End Date" sortKey="enddate" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
-            <th scope="col">Active</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in items" :key="item.id">
-            <td>{{item.startdate}}</td>
-            <td>{{item.enddate}}</td>
-            <td>{{item.active}}</td>
+            <td>{{item.guestname}}</td>
+            <td>{{dayjs(item.orderdate.toDate()).format('MM-DD-YYYY')}}</td>
+            <td>{{item.enddate && dayjs(item.enddate.toDate()).format('MM-DD-YYYY')}}</td>
             <td>
-              <router-link class="btn btn-sm btn-primary" :to="{name:'OrderItemPage', params:{id:item.id} }">Edit</router-link>
+              <router-link class="btn btn-sm btn-primary" :to="{name:'AdminOrderPage', params:{id:item.id} }">Edit</router-link>
             </td>
           </tr>
         </tbody>
