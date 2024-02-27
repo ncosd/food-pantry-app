@@ -24,8 +24,6 @@ const saveMessage = ref('')
 const errMessage = ref('')
 const deleteMessage = ref('Form deleted')
 const units = useUnits().units
-
-
 const items = ref([])
 
 const formData = ref({
@@ -77,6 +75,24 @@ const getItems = async() => {
 
 onBeforeMount(async() => {
   await getItems()
+
+  try {
+    if (props.id) {
+      const formRef = doc(db, 'orderform', props.id)
+      const formSnap = await getDoc(formRef)
+      if (formSnap.exists()) {
+        orderForm.value = formSnap.data()
+        orderForm.value.startdate = formSnap.data().startdate.toDate()
+        orderForm.value.enddate = formSnap.data().enddate.toDate()
+      } else {
+        showErrMessage = true
+        errMessage.value = 'Form does not exist'
+      }
+    }
+  } catch (err) {
+    showErrMessage.value = true
+    console.error(err)
+  }
 })
 
 const saveForm = async() => {
@@ -112,14 +128,14 @@ const saveForm = async() => {
     <div class="row my-3">
       <div class="col">
         <label class="form-label" for="dp-input-beginDate">Date and time Order form opens</label>
-        <VueDatePicker uid="beginDate" v-model="orderForm.startdate" required :dark="themer.isDark"></VueDatePicker>
+        <VueDatePicker uid="beginDate" v-model="orderForm.startdate" required :dark="themer.isDark" format="MM/dd/yyyy hh:mm a"></VueDatePicker>
       </div>
     </div>
 
     <div class="row mb-3">
       <div class="col">
         <label class="form-label" for="dp-input-endDate">Date and time order form closes</label>
-        <VueDatePicker uid="endDate" v-model="orderForm.enddate" required :dark="themer.isDark"></VueDatePicker>
+        <VueDatePicker uid="endDate" v-model="orderForm.enddate" required :dark="themer.isDark" format="MM/dd/yyyy hh:mm a"></VueDatePicker>
       </div>
     </div>
 

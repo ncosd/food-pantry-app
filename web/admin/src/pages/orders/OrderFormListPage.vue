@@ -3,6 +3,7 @@ import { ref, onBeforeMount } from 'vue'
 import OrdersTabs from '@/components/OrdersTabs.vue'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
 import SortableTableHeader from '@/components/SortableTableHeader.vue'
+import dayjs from 'dayjs'
 
 const db = getFirestore()
 const items = ref()
@@ -52,8 +53,8 @@ onBeforeMount( async () => {
         </thead>
         <tbody>
           <tr v-for="item in items" :key="item.id">
-            <td>{{item.startdate}}</td>
-            <td>{{item.enddate}}</td>
+            <td>{{dayjs(item.startdate.toDate()).format('D MMM YYYY h:mm a z')}}</td>
+            <td>{{dayjs(item.enddate.toDate()).format('D MMM YYYY h:mm a z')}}</td>
             <td>{{item.active}}</td>
             <td>
               <router-link class="btn btn-sm btn-primary" :to="{name:'OrderFormPage', params:{id:item.id} }">Edit</router-link>
