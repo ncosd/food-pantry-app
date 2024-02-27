@@ -42,7 +42,7 @@ onBeforeMount(async()=>{
 
   <div class="my-3">
     <template v-if="currentForm">
-      Current Form: {{ dayjs(currentForm.startdate.toDate()).format('D MMM YYYY h:mm a z') }} - {{ dayjs(currentForm.startdate.toDate()).format('D MMM YYYY h:mm a z') }}
+      Current Form: {{ dayjs(currentForm.startdate.toDate()).format('D MMM YYYY h:mm a z') }} - {{ dayjs(currentForm.enddate.toDate()).format('D MMM YYYY h:mm a z') }}
       <router-link :to="{'name':'OrderFormPage', params: { id: currentForm.id}}">Edit Form</router-link>
     </template>
     <template v-else>No current form found</template>
