@@ -88,6 +88,11 @@ onBeforeMount(async() => {
         showErrMessage = true
         errMessage.value = 'Form does not exist'
       }
+
+      // remove the items in the OrderForm already
+      const filtered = items.value.filter( x => !orderForm.value.items.find(y => (y.id === x.id)))
+      items.value = filtered
+
     }
   } catch (err) {
     showErrMessage.value = true
