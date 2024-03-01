@@ -19,6 +19,18 @@ const routes = [
     component: () => import('@/pages/RegisterPage.vue'),
   },
   {
+    path: '/profile',
+    name: 'GuestProfilePage',
+    component: () => import('@/pages/GuestProfilePage.vue'),
+    meta: { login: true },
+  },
+  {
+    path: '/order',
+    name: 'OrderPage',
+    component: () => import('@/pages/OrderPage.vue'),
+    meta: { login: true },
+  },
+  {
     path: '/about',
     name: 'AboutPage',
     component: () => import('@/pages/AboutPage.vue'),

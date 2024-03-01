@@ -14,8 +14,13 @@ const showSuccess = ref(false)
 const successMessage = ref('')
 const email = ref('')
 const password = ref('')
-const zipcode = ref('')
 const valid = ref(false)
+
+const profile = ref(
+  {
+    zipcode: '',
+  }
+)
 
 const showOutsideArea = ref(false)
 const outsideAreaURL = config.DeliveryOutsideAreaUrl
@@ -24,7 +29,7 @@ const auth = getAuth()
 
 const checkServiceArea = () => {
   if (config.DeliveryZipcodes.length > 0) {
-    if (!config.DeliveryZipcodes.includes(zipcode.value)) {
+    if (!config.DeliveryZipcodes.includes(profile.value.zipcode)) {
       return false
     }
   }
@@ -55,11 +60,9 @@ const save = async () => {
     })
 
     const gProfRef = doc(db, 'guestprofile', uid)
-    await setDoc(gProfRef, { zipcode: zipcode.value })
-
-    // router.replace({name:'HomePage'});
-
-
+    profile.value.numInHousehold = Number(profile.value.numInHousehold)
+    await setDoc(gProfRef, profile.value)
+    router.push({name:'ProfilePage'});
   } catch(err) {
     const code = err.code
     const msg = err.message
@@ -113,9 +116,9 @@ const save = async () => {
 
             <div class="row my-3">
               <label for="regZip" class="form-label">Zipcode</label>
-              <input id="regZip" type="text" v-model="zipcode" class="form-control" placeholder="12345" aria-describedby="regZipHelpBlock" required>
+              <input id="regZip" type="text" v-model="profile.zipcode" class="form-control" placeholder="12345" aria-describedby="regZipHelpBlock" required>
               <div id="regZipHelpBlock" class="form-text">
-                Enter the zipcode where you live.
+                Enter the 5 digit zipcode where you live.  For example: 12345
               </div>
             </div>
 

@@ -37,7 +37,10 @@ const signOutClick = () => {
           <a class="nav-link" :href="config.VolunteerPortalURL">Volunteer Portal</a>
         </li>
         <li class="nav-item" v-if="user.isLoggedIn">
-          <router-link class="nav-link" :to="{name:'AboutPage'}">Profile</router-link>
+          <router-link class="nav-link" :to="{name:'GuestProfilePage'}">Profile</router-link>
+        </li>
+        <li class="nav-item" v-if="config.EnableGuestOrder && user.isLoggedIn">
+          <router-link class="nav-link" :to="{name:'OrderPage'}">Order</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" :to="{name:'AboutPage'}">About</router-link>

@@ -12,6 +12,7 @@ export let config = {
   DeliveryFormURL: import.meta.env.VITE_DELIVERY_FORM_URL || "/delivery-form",
   VolunteerPortalURL: import.meta.env.VITE_VOLUNTEER_PORTAL_URL || "VOLUNTEER_PORTAL_URL",
   EnableGuestLogin: import.meta.env.VITE_ENABLE_GUEST_LOGIN || "false",
+  EnableGuestOrder: import.meta.env.VITE_ENABLE_GUEST_ORDER || "false",
   MainOrgURL: import.meta.env.VITE_MAIN_ORG_URL || '#main-org-url-not-set',
 
   meta: {

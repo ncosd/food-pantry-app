@@ -15,5 +15,12 @@ const user = useAuthUserStore()
       <a :href="config.MainOrgURL">{{config.MainOrgURL}}</a> for guest services.
     </p>
 
+    <template v-if="config.EnableGuestOrder === 'true'">
+      <p>Orders are enabled.</p>
+      <p><RouterLink :to="{name:'OrderPage'}">Click Here to place an Order</RouterLink></p>
+
+    </template>
+
+
   </div>
 </template>

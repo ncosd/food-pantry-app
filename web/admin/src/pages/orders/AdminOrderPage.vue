@@ -27,6 +27,10 @@ const item = ref(
   {
     guestid: '',
     guestname: '',
+    numInHousehold: 1,
+    numChild: 0,
+    numAdult: 1,
+    numSenior: 0,
     orderdate: dayjs().toDate(),
     enddate: null,  // TODO: get current form
     delivery: false,
