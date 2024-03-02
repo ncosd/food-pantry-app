@@ -39,6 +39,8 @@ const profile = ref(
   }
 )
 
+const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+
 const showOutsideArea = ref(false)
 const outsideAreaURL = config.DeliveryOutsideAreaUrl
 
@@ -104,11 +106,73 @@ onBeforeMount(async () => {
       <div class="p-3">If you are outside our service area check <a :href="outsideAreaURL">{{ outsideAreaURL }}</a></div>
     </template>
 
+    <div class="row my-3">
+      <div class="col">
+        <label for="idFirstName" class="form-label">First Name</label>
+        <input id="idFirstName" type="text" v-model="profile.firstname" class="form-control" placeholder="" required>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="idLastname" class="form-label">Last Name</label>
+        <input id="idLastname" type="text" v-model="profile.lastname" class="form-control" placeholder="" required>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="idDisplayName" class="form-label">Display Name</label>
+        <input id="idDisplayName" type="text" v-model="profile.displayName" class="form-control" placeholder="" required>
+        <div id="regZipHelpBlock" class="form-text">
+          Display Name is what shows in the navigation bar.
+        </div>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="idPhone" class="form-label">Phone Number</label>
+        <input id="idPhone" type="text" v-model="profile.phone" class="form-control" placeholder="610-555-1212" required>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="street" class="form-label">Street Address</label>
+        <input id="street" type="text" v-model="profile.street" class="form-control" placeholder="" required>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="street2" class="form-label">Suite/Apt</label>
+        <input id="street2" type="text" v-model="profile.street2" class="form-control" placeholder="">
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="city" class="form-label">City</label>
+        <input id="city" type="text" v-model="profile.city" class="form-control" placeholder="" required>
+      </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col">
+        <label for="state" class="form-label">State</label>
+        <select id="state" class="form-select" v-model="profile.state" required>
+          <template v-for="state in states" :key="state">
+            <option :value="state">{{state}}</option>
+          </template>
+        </select>
+      </div>
+    </div>
 
     <div class="row my-3">
       <div class="col">
         <label for="regZip" class="form-label">Zipcode</label>
-        <input id="regZip" type="text" v-model="profile.zipcode" class="form-control" placeholder="12345" aria-describedby="regZipHelpBlock" required>
+        <input id="regZip" type="text" v-model="profile.zipcode" class="form-control" placeholder="" aria-describedby="regZipHelpBlock" required>
         <div id="regZipHelpBlock" class="form-text">
           Enter the 5 digit zipcode where you live.  For example: 12345
         </div>
@@ -129,7 +193,7 @@ onBeforeMount(async () => {
           <option value="8">8</option>
           <option value="9">9 or more</option>
         </select>
-        <div id="numInHouseholdHelp" class="form-text">Enter the same number you will enter on the TEFAP form.</div>
+        <div id="numInHouseholdHelp" class="form-text">Enter the number of people in your household. Enter the same number you will enter on the TEFAP form.</div>
       </div>
     </div>
 
@@ -190,6 +254,15 @@ onBeforeMount(async () => {
       </div>
     </div>
 
+    <template v-if="showSuccessMsg">
+      <div class="text-bg-success p-3">{{successMsg}}</div>
+    </template>
+    <template v-if="showErrMsg">
+      <div class="text-bg-danger p-3">{{errorMsg}}</div>
+    </template>
+    <template v-if="showOutsideArea">
+      <div class="p-3">If you are outside our service area check <a :href="outsideAreaURL">{{ outsideAreaURL }}</a></div>
+    </template>
 
     <div class="my-3">
       <button type="submit" class="btn btn-primary">Submit</button>

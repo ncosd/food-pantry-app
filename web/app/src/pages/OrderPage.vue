@@ -72,6 +72,17 @@ onBeforeMount(async() => {
     console.error(err)
   }
 })
+const saveOrder = async () => {
+  console.log('saveOrder')
+
+  order.value.formid = currentForm.value.id
+  order.value.enddate = currentForm.value.enddate
+
+
+  console.log('order', order.value)
+
+
+}
 </script>
 
 <template>
@@ -91,7 +102,20 @@ onBeforeMount(async() => {
 
   <template v-else>
     <div class="mt-3">
-      Order form here.
+      <h1 class="fs-3">Order ends {{ dayjs(currentForm.enddate.toDate()).format('MM-DD-YYYY h:mm a') }}</h1>
+
+      <form @submit.prevent="saveOrder">
+
+        Order form here.  {{ currentForm.id }}
+
+
+        <div class="row mt-3">
+          <div class="col">
+            <button type="submit" class="btn btn-primary">Save Order</button>
+          </div>
+        </div>
+
+      </form>
     </div>
   </template>
 
