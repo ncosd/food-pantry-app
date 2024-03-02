@@ -21,6 +21,7 @@ const routes = [
   {
     path: '/profile',
     name: 'GuestProfilePage',
+    props: true,
     component: () => import('@/pages/GuestProfilePage.vue'),
     meta: { login: true },
   },
