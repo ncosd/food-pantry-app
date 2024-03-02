@@ -22,6 +22,8 @@ const email = ref('')
 const password = ref('')
 const valid = ref(false)
 
+const invalidNumInHousehold = ref(false)
+
 const profile = ref(
   {
     zipcode: '',
@@ -74,6 +76,14 @@ const saveProfile = async () => {
   }
 }
 
+watch(profile, (n,o)=>{
+  if (isNaN(n.numInHousehold) || n.numInHousehold < 1) {
+    invalidNumInHousehold.value = true
+  } else {
+    invalidNumInHousehold.value = false
+  }
+}, { deep: true })
+
 watch(useRoute(), (n,o) => {
   if (n.query.msg) {
     msg.value = n.query.msg
@@ -97,6 +107,10 @@ onBeforeMount(async () => {
   const profSnap = await getDoc(profRef)
   if (profSnap.exists()) {
     profile.value = profSnap.data()
+
+    if (isNaN(profile.value.numInHousehold) || profile.value.numInHousehold < 1) {
+      invalidNumInHousehold.value = true
+    }
   }
 })
 </script>
@@ -217,7 +231,7 @@ onBeforeMount(async () => {
     <div class="row my-3">
       <div class="col">
         <label for="numInHousehold" class="form-label">Household Size</label>
-        <select id="numInHousehold" class="form-select" v-model="profile.numInHousehold">
+        <select id="numInHousehold" class="form-select" :class="{'is-invalid':invalidNumInHousehold}" v-model="profile.numInHousehold">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -228,7 +242,8 @@ onBeforeMount(async () => {
           <option value="8">8</option>
           <option value="9">9 or more</option>
         </select>
-        <div id="numInHouseholdHelp" class="form-text">Enter the number of people in your household. Enter the same number you will enter on the TEFAP form.</div>
+        <div id="numInHouseholdHelp" class="form-text" :class="{'text-danger':invalidNumInHousehold}">
+          Enter the number of people in your household. Enter the same number you will enter on the TEFAP form.</div>
       </div>
     </div>
 
