@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { config } from '@/config.js'
-import { collection, getFirestore, query, where, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore'
+import { collection, getFirestore, query, where, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, setDoc, orderBy } from 'firebase/firestore'
 import { useAuthUserStore } from '@/stores/authUser'
 import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
@@ -16,9 +16,9 @@ const router = useRouter()
 const showSaveMessage = ref(false)
 const showErrMessage = ref(false)
 const showDeleteMessage = ref(false)
-const saveMessage = ref('Item Saved')
+const saveMessage = ref('Order Saved')
 const errMessage = ref('An error occurred')
-const deleteMessage = ref('Item Deleted')
+const deleteMessage = ref('Order Deleted')
 const currentForm = ref(null)
 const profile = ref(null)
 const order = ref(
@@ -27,11 +27,51 @@ const order = ref(
     guestname: user.data.displayName,
     orderdate: dayjs().toDate(),
     enddate: null,
+    numInHousehold: 1,
+    numChild: 0,
+    numAdult: 0,
+    numSenior: 0,
     delivery: false,
     items: [],
     note: '',
   }
 )
+
+const pickupWindows = ref([
+  {
+    value: "10:00",
+    name: "10:00 am - 10:29 am"
+  },
+  {
+    value: "10:30",
+    name: "10:30 am - 10:59 am"
+  },
+  {
+    value: "1100",
+    name: "11:00 am - 11:29 am"
+  },
+  {
+    value: "12:30",
+    name: "12:30 pm - 12:59 pm"
+  },
+  {
+    value: "13:00",
+    name: "1:00 pm - 1:29 pm"
+  },
+  {
+    value: "13:30",
+    name: "1:30 pm - 1:59 pm"
+  },
+  {
+    value: "14:00",
+    name: "2:00 pm - 2:29 pm"
+  },
+  {
+    value: "delivery",
+    name: "My food is delivered"
+  }
+])
+
 
 const getProfile = async () => {
   const prof = await getDoc(doc(db, 'guestprofile', user.data.uid))
@@ -71,8 +111,6 @@ const checkValidProfile = () => {
       !profile.value.numInHousehold ||
       isNaN(profile.value.numInHousehold)
      ) {
-
-    console.log('cvp returning false ', profile.value.firstname, !profile.value.firstname)
     isValid = false
   }
   return isValid
@@ -90,19 +128,35 @@ onBeforeMount(async() => {
     }
 
     if (props.id) {
-      const itemRef = doc(db, 'order', props.id)
-      const itemSnap = await getDoc(itemRef)
-      if (itemSnap.exists()) {
-        item.value = itemSnap.data()
-        oldName.value = itemSnap.data().guestname
-      } else {
-        showErrMessage.value = true
-        errMessage.value = 'Item does not exist'
+      const orderRef = doc(db, 'order', props.id)
+      const orderSnap = await getDoc(orderRef)
+      if (orderSnap.exists()) {
+        order.value = orderSnap.data()
       }
-    } else {
-      order.value.guestname = profile.value.firstname + ' ' + profile.value.lastname
-      order.value.phone = profile.value.phone
 
+
+    } else {
+
+      // check if order exists formid.userid
+      const orderId = currentForm.value.id + '-' + user.data.uid
+      const orderRef = doc(db, 'order', orderId)
+      const orderSnap = await getDoc(orderRef)
+      if (orderSnap.exists()) {
+        order.value = orderSnap.data()
+      } else {
+        order.value.guestname = profile.value.firstname + ' ' + profile.value.lastname
+        order.value.phone = profile.value.phone
+        order.value.street = profile.value.street
+        order.value.street2 = profile.value.street2
+        order.value.city = profile.value.city
+        order.value.state = profile.value.state
+        order.value.zipcode = profile.value.zipcode
+        order.value.numInHousehold = profile.value.numInHousehold
+        order.value.numChild = profile.value.numChild
+        order.value.numAdult = profile.value.numAdult
+        order.value.numSenior = profile.value.numSenior
+        order.value.email = user.data.email
+      }
 
     }
   } catch(err) {
@@ -112,14 +166,30 @@ onBeforeMount(async() => {
 })
 
 const saveOrder = async () => {
-  console.log('saveOrder')
+  resetShowMessages()
 
-  order.value.formid = currentForm.value.id
-  order.value.enddate = currentForm.value.enddate
+  delete order.value.status
 
+  try {
+    if (props.id) {
+      const orderRef = doc(db, 'order', props.id)
+      await updateDoc(orderRef, order.value)
+      showSaveMessage.value = true
 
-  console.log('order', order.value)
+    } else {
+      order.value.formid = currentForm.value.id
+      order.value.enddate = currentForm.value.enddate
 
+      // orderId is formid.userid
+      const orderId = currentForm.value.id + '-' + user.data.uid
+      const orderRef = doc(db, 'order', orderId)
+      await setDoc(orderRef, order.value, { merge: true})
+      showSaveMessage.value = true
+    }
+  } catch (err) {
+    showErrMessage.value = true
+    console.error(err)
+  }
 
 }
 </script>
@@ -145,8 +215,71 @@ const saveOrder = async () => {
 
       <form @submit.prevent="saveOrder">
 
-        Order form here.  {{ currentForm.id }}
+        <div v-if="showSaveMessage" class="p-3 text-bg-success">{{saveMessage}}</div>
+        <div v-if="showDeleteMessage" class="p-3 text-bg-danger">{{deleteMessage}}</div>
+        <div v-if="showErrMessage" class="p-3 text-bg-danger">{{errMessage}}</div>
 
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label">Name</div>
+            <div class="form-control">{{ order.guestname }}</div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label">Phone</div>
+            <div class="form-control">{{ order.phone }}</div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label">Email</div>
+            <div class="form-control">{{ order.email }}</div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label">Address</div>
+            <div class="form-control">{{ order.street }}<br>{{ order.street2}}<br>{{order.city}}, {{ order.state}} {{ order.zipcode }}</div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label">Number in Household</div>
+            <div class="form-control">{{ order.numInHousehold }}</div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label">Number Children, Adults, Seniors</div>
+            <div class="form-control">{{ order.numChild }}, {{ order.numAdult }}, {{ order.numSenior }}</div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col">
+            <div class="form-label me-3">Choose a 30 minute window to pick up the order. You must arrive in the 30 minute window you select.</div>
+
+        <div class="form-check" v-for="p in pickupWindows">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            {{ p.name }}
+          </label>
+        </div>
+
+          </div>
+        </div>
+
+
+        <template v-if="showSaveMessage || showDeleteMessage || showErrMessage">
+          <div class="row mt-3">
+            <div class="col">
+              <div v-if="showSaveMessage" class="p-3 text-bg-success">{{saveMessage}}</div>
+              <div v-if="showDeleteMessage" class="p-3 text-bg-danger">{{deleteMessage}}</div>
+              <div v-if="showErrMessage" class="p-3 text-bg-danger">{{errMessage}}</div>
+            </div>
+          </div>
+        </template>
 
         <div class="row mt-3">
           <div class="col">

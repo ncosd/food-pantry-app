@@ -8,6 +8,7 @@ import ConfigTabs from '@/components/ConfigTabs.vue'
 const props = defineProps({
   id: String,
 })
+const db = getFirestore()
 const user = useAuthUserStore()
 var location = ref()
 var showSaveMessage = ref(false)
@@ -25,7 +26,6 @@ const resetShowMessages = (()=>{
 const deleteLocation = ( async ()=> {
   console.log('deleteLocation', props.id)
   resetShowMessages()
-  const db = getFirestore()
   await deleteDoc(doc(db, "location", props.id))
   showDeleteMessage.value = true
   router.replace({name: 'LocationsList'})
@@ -34,14 +34,12 @@ const deleteLocation = ( async ()=> {
 const createLocation = ( async ()=>{
   resetShowMessages()
   if (props.id !== null && props.id !== '' && props.id !== undefined) {
-    const db = getFirestore()
     const locDocRef = await doc(db, 'location', props.id)
     await updateDoc(locDocRef, location.value)
     showSaveMessage.value = true
     console.log('updated location', locDocRef.id)
 
   } else {
-    const db = getFirestore()
     const locDocRef = await addDoc(collection(db, 'location'), location.value)
     console.log('saved location', locDocRef.id)
     router.replace({name: 'LocationsList'})
@@ -65,7 +63,6 @@ clearCreate()
 onBeforeMount( async () => {
   if (props.id) {
     console.log('onBeforeMount id=',props.id)
-    const db = getFirestore()
     const locRef = doc(db, 'location', props.id)
     const locSnap = await getDoc(locRef)
     if (locSnap.exists()) {

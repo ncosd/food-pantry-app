@@ -98,16 +98,16 @@ const routes = [
     meta: { requiresLogin: true, admin: true },
   },
   {
-    path: '/orders/orders',
-    name: 'OrdersListPage',
-    component: () => import('@/pages/orders/OrdersListPage.vue'),
-    meta: { requiresLogin: true, admin: true },
-  },
-  {
     path: '/orders/orders/order/:id?',
     name: 'AdminOrderPage',
     props: true,
     component: () => import('@/pages/orders/AdminOrderPage.vue'),
+    meta: { requiresLogin: true, admin: true },
+  },
+  {
+    path: '/orders/orders',
+    name: 'OrdersListPage',
+    component: () => import('@/pages/orders/OrdersListPage.vue'),
     meta: { requiresLogin: true, admin: true },
   },
   {

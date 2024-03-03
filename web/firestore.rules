@@ -122,7 +122,13 @@ service cloud.firestore {
     }
 
     match /order/{id} {
-      allow read, create, update, delete, list: if request.auth != null && request.auth.token.admin == true;
+      allow read: if request.auth != null && (resource == null || request.auth.uid == resource.data.guestid || request.auth.token.admin == true);
+      allow list: if request.auth != null && (request.auth.token.admin == true || request.auth.uid == resource.data.guestid);
+      allow create: if request.auth != null && (request.auth.uid == request.resource.data.guestid &&
+            (!request.resource.data.keys().hasAny(['status']))) || request.auth.token.admin == true;
+      allow update: if request.auth != null && (request.auth.uid == request.resource.data.guestid &&
+            (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['status']))) || request.auth.token.admin == true;
+      allow delete: if request.auth != null && request.auth.token.admin == true;
     }
 
 
