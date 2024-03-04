@@ -258,15 +258,23 @@ const saveOrder = async () => {
 
         <div class="row mt-3">
           <div class="col">
+            <div class="fs-3">Pick up date: {{ dayjs(currentForm.pickupdate.toDate()).format('ddd MM/DD/YYYY') }}</div>
             <div class="form-label me-3">Choose a 30 minute window to pick up the order. You must arrive in the 30 minute window you select.</div>
 
-        <div class="form-check" v-for="p in pickupWindows">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
-            {{ p.name }}
-          </label>
-        </div>
-
+            <div class="form-check" v-for="p in currentForm.pickuptimes">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" :id="'pickup'+dayjs(p.starttime).format('HHmm')"
+                     v-model="order.pickuptime" :value="p">
+              <label class="form-check-label" for="flexRadioDefault1">
+                {{ dayjs(p.starttime).format('hh:mm a') }} - {{ dayjs(p.endtime).format('hh:mm a') }}
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="pickupDelivery"
+                     v-model="order.pickuptime" value="{delivery:true}">
+              <label class="form-check-label" for="flexRadioDefault1">
+                My food is delivered
+              </label>
+            </div>
           </div>
         </div>
 

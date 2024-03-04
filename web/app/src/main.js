@@ -11,6 +11,15 @@ import { getFunctions, connectFunctionsEmulator } from "firebase/functions"
 import { useAuthUserStore } from '@/stores/authUser'
 import './scss/styles.scss'
 import * as bootstrap from 'bootstrap'
+import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+import objectSupport from 'dayjs/plugin/objectSupport'
+dayjs.extend(objectSupport);
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(advancedFormat)
 
 
 fetch('/__/firebase/init.json').then(async response => {

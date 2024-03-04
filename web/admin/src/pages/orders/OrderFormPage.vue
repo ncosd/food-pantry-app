@@ -29,10 +29,43 @@ const items = ref([])
 const formData = ref({
   startdate: dayjs().toDate(),
   enddate: dayjs().toDate(),
+  pickupdate: dayjs().add(7, 'day').toDate(),
+  genpickuptime: { hours: 10, minutes: 0},
+  pickuptimes: [],
+  displaypickuptimes: [],
   numMaxOrders: 200,
   items: [],
   estimatedTotalWeight: 0,
 })
+
+const generatePickuptimes = () => {
+  let times = []
+
+  let start = dayjs({ hour: orderForm.value.genpickuptime.hours, minute: orderForm.value.genpickuptime.minutes })
+  let endtime = start.add(29, 'minute')
+  for (let i=0; i < 10; i++) {
+    times.push({ starttime: {hour:start.hour(), minute: start.minute()}, endtime: { hour:endtime.hour(), minute: endtime.minute()}})
+    start = start.add(30,'minute')
+    endtime = endtime.add(30, 'minute')
+  }
+
+  orderForm.value.displaypickuptimes = times
+  orderForm.value.pickuptimes = times
+}
+
+const addEarlier = () => {
+  let first = orderForm.value.displaypickuptimes[0]
+  let st = dayjs(first.starttime).subtract(30, 'minute')
+  let en = dayjs(first.endtime).subtract(30, 'minute')
+  orderForm.value.displaypickuptimes.unshift({starttime: { hour: st.hour(), minute: st.minute()}, endtime: {hour: en.hour(), minute: en.minute()}})
+}
+
+const addLater = () => {
+  let last = orderForm.value.displaypickuptimes[orderForm.value.displaypickuptimes.length-1]
+  let st = dayjs(last.starttime).add(30, 'minute')
+  let en = dayjs(last.endtime).add(30, 'minute')
+  orderForm.value.displaypickuptimes.push({starttime: { hour: st.hour(), minute: st.minute()}, endtime: {hour: en.hour(), minute: en.minute()}})
+}
 
 const orderForm = ref(formData)
 
@@ -84,6 +117,9 @@ onBeforeMount(async() => {
         orderForm.value = formSnap.data()
         orderForm.value.startdate = formSnap.data().startdate.toDate()
         orderForm.value.enddate = formSnap.data().enddate.toDate()
+        if (formSnap.data().pickupdate) {
+          orderForm.value.pickupdate = formSnap.data().pickupdate.toDate()
+        }
       } else {
         showErrMessage = true
         errMessage.value = 'Form does not exist'
@@ -93,6 +129,9 @@ onBeforeMount(async() => {
       const filtered = items.value.filter( x => !orderForm.value.items.find(y => (y.id === x.id)))
       items.value = filtered
 
+    } else {
+      // generate initial pickuptimes
+      generatePickuptimes()
     }
   } catch (err) {
     showErrMessage.value = true
@@ -154,6 +193,34 @@ const deleteItem = async() => {
       <div class="col">
         <label class="form-label" for="dp-input-endDate">Date and time order form closes</label>
         <VueDatePicker uid="endDate" v-model="orderForm.enddate" required :dark="themer.isDark" format="MM/dd/yyyy hh:mm a"></VueDatePicker>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="dp-input-pickupDate">Pickup/Delivery Date</label>
+        <VueDatePicker uid="pickupDate" v-model="orderForm.pickupdate" required :dark="themer.isDark" format="MM/dd/yyyy" type="date" date-picker :enable-time-picker="false"></VueDatePicker>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="dp-input-pickupStartTime">Generate Pickup Times start</label>
+        <VueDatePicker uid="pickupDate" v-model="orderForm.genpickuptime" required :dark="themer.isDark" format="hh:mm a" time-picker></VueDatePicker>
+        <button class="mt-2 btn btn-secondary btn-sm" type="button" @click="generatePickuptimes">Generate</button>
+        <div class="form-text">Clicking generate will erase and re-create the pickup times below.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <div class="form-label">Pickup times</div>
+        <div class="form-check" v-for="t in orderForm.displaypickuptimes" :key="t.starttime">
+          <input class="form-check-input" type="checkbox" :value="t" v-model="orderForm.pickuptimes">
+          <label class="form-check-label">{{ dayjs(t.starttime).format('hh:mm a') }} - {{ dayjs(t.endtime).format('hh:mm a')}}</label>
+        </div>
+        <div class="mt-3"><button class="btn btn-secondary btn-sm" type="button" @click="addEarlier">Add earlier</button> <button class="ms-3 btn btn-secondary btn-sm" type="button" @click="addLater">Add later</button></div>
+
       </div>
     </div>
 
