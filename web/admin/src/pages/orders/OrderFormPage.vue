@@ -298,6 +298,10 @@ const deleteItem = async() => {
       </div>
     </div>
 
+    <div v-if="showSaveMessage" class="text-bg-success p-3">{{saveMessage}}</div>
+    <div v-if="showDeleteMessage" class="text-bg-success p-3">{{deleteMessage}}</div>
+    <div v-if="showErrMessage" class="text-bg-danger p-3">{{errMessage}}</div>
+
     <div class="row mb-3">
       <div class="col">
         <button class="btn btn-primary" type="submit" id="saveButton">Save</button>
