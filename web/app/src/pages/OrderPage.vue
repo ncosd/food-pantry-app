@@ -82,7 +82,7 @@ const getCurrentForm = async ()=> {
   const now = dayjs()
   const q = query(collection(db, 'orderform'), where('enddate', '>', now.toDate()), orderBy('enddate', 'asc'))
   const formDocs = await getDocs(q)
-  if (formDocs.size === 0) { return null }
+  if (formDocs.size === 0) { console.log('no orders'); return null }
   if (formDocs.size === 1) {
     const formSnap = formDocs.docs[0]
     return {id:formSnap.id, ...formSnap.data()}
@@ -147,7 +147,7 @@ onBeforeMount(async() => {
         order.value.guestname = profile.value.firstname + ' ' + profile.value.lastname
         order.value.phone = profile.value.phone
         order.value.street = profile.value.street
-        order.value.street2 = profile.value.street2
+        order.value.street2 = profile.value.street2 || ''
         order.value.city = profile.value.city
         order.value.state = profile.value.state
         order.value.zipcode = profile.value.zipcode
@@ -275,6 +275,21 @@ const saveOrder = async () => {
                 My food is delivered
               </label>
             </div>
+          </div>
+        </div>
+
+
+        <div class="row mt-3">
+          <div class="col">
+            <div class="fs-3">Choose items</div>
+          </div>
+        </div>
+
+        <div class="row mt-3" v-for="item in currentForm.items" :key="item.id">
+          <div class="col">
+
+            <input class="form-check-input" type="checkbox" :value="item" v-model="order.items" :id="'orderitem'+item.id">
+            <label class="form-check-label ms-3" :for="'orderitem' + item.id">{{ item.name }}</label>
           </div>
         </div>
 

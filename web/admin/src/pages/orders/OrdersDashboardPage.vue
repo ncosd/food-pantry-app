@@ -33,6 +33,17 @@ onBeforeMount(async()=>{
   if (currentForm.value && currentForm.value.items) {
     numItemsOnForm.value = currentForm.value.items.length
   }
+
+  if (currentForm.value) {
+    console.log('formid', currentForm.value.id)
+    const numOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id)))
+    numTotalOrders.value = numOrdersSnap.data().count
+  }
+
+
+
+
+
 })
 </script>
 

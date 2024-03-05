@@ -60,9 +60,8 @@ const save = async () => {
     })
 
     const gProfRef = doc(db, 'guestprofile', uid)
-    profile.value.numInHousehold = Number(profile.value.numInHousehold)
     await setDoc(gProfRef, profile.value)
-    router.push({name:'ProfilePage'});
+    router.push({name:'GuestProfilePage', query: { msg: 'Complete your profile'}});
   } catch(err) {
     const code = err.code
     const msg = err.message
