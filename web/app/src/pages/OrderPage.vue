@@ -37,42 +37,6 @@ const order = ref(
   }
 )
 
-const pickupWindows = ref([
-  {
-    value: "10:00",
-    name: "10:00 am - 10:29 am"
-  },
-  {
-    value: "10:30",
-    name: "10:30 am - 10:59 am"
-  },
-  {
-    value: "1100",
-    name: "11:00 am - 11:29 am"
-  },
-  {
-    value: "12:30",
-    name: "12:30 pm - 12:59 pm"
-  },
-  {
-    value: "13:00",
-    name: "1:00 pm - 1:29 pm"
-  },
-  {
-    value: "13:30",
-    name: "1:30 pm - 1:59 pm"
-  },
-  {
-    value: "14:00",
-    name: "2:00 pm - 2:29 pm"
-  },
-  {
-    value: "delivery",
-    name: "My food is delivered"
-  }
-])
-
-
 const getProfile = async () => {
   const prof = await getDoc(doc(db, 'guestprofile', user.data.uid))
   return prof.data()
@@ -170,6 +134,13 @@ const saveOrder = async () => {
 
   delete order.value.status
 
+  // set delivery flag
+  if (order.value.pickuptime === '{delivery:true}') {
+    order.value.delivery = true
+  } else {
+    order.value.delivery = false
+  }
+
   try {
     if (props.id) {
       const orderRef = doc(db, 'order', props.id)
@@ -179,6 +150,7 @@ const saveOrder = async () => {
     } else {
       order.value.formid = currentForm.value.id
       order.value.enddate = currentForm.value.enddate
+      order.value.pickupdate = currentForm.value.pickupdate
 
       // orderId is formid.userid
       const orderId = currentForm.value.id + '-' + user.data.uid

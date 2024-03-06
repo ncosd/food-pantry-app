@@ -48,6 +48,9 @@ onBeforeMount( async () => {
             <SortableTableHeader heading="Guest Name" sortKey="guestname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="Order Date" sortKey="orderdate" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <SortableTableHeader heading="End Date" sortKey="enddate" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Distribution Date" sortKey="pickupdate" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Delivery" sortKey="delivery" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Status" sortKey="status" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -56,6 +59,9 @@ onBeforeMount( async () => {
             <td>{{item.guestname}}</td>
             <td>{{dayjs(item.orderdate.toDate()).format('MM-DD-YYYY')}}</td>
             <td>{{item.enddate && dayjs(item.enddate.toDate()).format('MM-DD-YYYY')}}</td>
+            <td>{{item.pickupdate && dayjs(item.pickupdate.toDate()).format('MM-DD-YYYY')}}</td>
+            <td>{{item.delivery ? 'delivery' : 'pick-up'}}</td>
+            <td>{{item.status || 'pending'}}</td>
             <td>
               <router-link class="btn btn-sm btn-primary" :to="{name:'AdminOrderPage', params:{id:item.id} }">Edit</router-link>
             </td>

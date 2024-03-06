@@ -9,9 +9,9 @@ const currentForm = ref(null)
 const numTotalOrders = ref(0)
 const numPickupOrders = ref(0)
 const numDeliveryOrders = ref(0)
-const numExpectedOrders = ref(0)  // predict from previous order
-const numItemsOnForm = ref(0)
-const numItemsOrdered = ref(0)
+const numCompletedOrders = ref(0)
+const numPickedUp = ref(0)
+const numDelivered = ref(0)
 
 const getCurrentForm = async ()=> {
   const now = dayjs()
@@ -30,20 +30,28 @@ const getCurrentForm = async ()=> {
 
 onBeforeMount(async()=>{
   currentForm.value = await getCurrentForm()
-  if (currentForm.value && currentForm.value.items) {
-    numItemsOnForm.value = currentForm.value.items.length
-  }
-
   if (currentForm.value) {
-    console.log('formid', currentForm.value.id)
     const numOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id)))
     numTotalOrders.value = numOrdersSnap.data().count
+    const numPickupOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id),
+                                                              where('delivery', '==', false)))
+    numPickupOrders.value = numPickupOrdersSnap.data().count
+    const numDeliveryOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id),
+                                                              where('delivery', '==', true)))
+    numDeliveryOrders.value = numDeliveryOrdersSnap.data().count
+    const numCompletedOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id),
+                                                              where('status', '==', 'completed')))
+    numCompletedOrders.value = numCompletedOrdersSnap.data().count
+    const numPickedupOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id),
+                                                              where('delivery', '==', false), where('status', '==', 'completed')))
+    numPickedUp.value = numPickedupOrdersSnap.data().count
+    const numDeliveredOrdersSnap = await getCountFromServer(query(collection(db, 'order'), where('formid', '==', currentForm.value.id),
+                                                              where('delivery', '==', true), where('status', '==', 'completed')))
+    numDelivered.value = numDeliveredOrdersSnap.data().count
+
+
+
   }
-
-
-
-
-
 })
 </script>
 
@@ -104,10 +112,10 @@ onBeforeMount(async()=>{
       <div class="card h-100">
         <div class="card-body">
           <div class="row">
-            <div class="col"><h5 class="card-title">Expected Orders</h5></div>
-            <div class="col-2"><i class="bi bi-bag-plus fs-3"></i></div>
+            <div class="col"><h5 class="card-title">Completed Orders</h5></div>
+            <div class="col-2"><i class="bi bi-bag-check fs-3"></i></div>
           </div >
-          <h1 class="text-center">{{ numExpectedOrders }}</h1>
+          <h1 class="text-center">{{ numCompletedOrders }}</h1>
         </div>
       </div >
     </div >
@@ -116,10 +124,10 @@ onBeforeMount(async()=>{
       <div class="card h-100">
         <div class="card-body">
           <div class="row">
-            <div class="col"><h5 class="card-title">Items on Form</h5></div>
-            <div class="col-2"><i class="bi bi-list-check fs-3"></i></div>
+            <div class="col"><h5 class="card-title">Picked Up</h5></div>
+            <div class="col-2"><i class="bi bi-bag-check fs-3"></i></div>
           </div >
-          <h1 class="text-center">{{ numItemsOnForm }}</h1>
+          <h1 class="text-center">{{ numPickedUp }}</h1>
         </div>
       </div >
     </div >
@@ -127,10 +135,10 @@ onBeforeMount(async()=>{
       <div class="card h-100">
         <div class="card-body">
           <div class="row">
-            <div class="col"><h5 class="card-title">Items Ordered</h5></div>
-            <div class="col-2"><i class="bi bi-bag-check fs-3"></i></div>
+            <div class="col"><h5 class="card-title">Delivered</h5></div>
+            <div class="col-2"><i class="bi bi-house-check fs-3"></i></div>
           </div >
-          <h1 class="text-center">{{ numItemsOrdered }}</h1>
+          <h1 class="text-center">{{ numDelivered }}</h1>
         </div>
       </div >
     </div >

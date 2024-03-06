@@ -139,13 +139,42 @@ onBeforeMount(async() => {
     <div v-if="showErrMessage" class="p-3 text-bg-danger">{{errMessage}}</div>
 
     <div class="row mb-3">
-      <div class="col">
-        <label class="form-label" for="guestName">Guest Name</label>
-        <input id="guestName" type="text" class="form-control" v-model="item.guestname" required>
-        <div id="guestHelpBlock" class="form-text">Guest ID: {{item.guestid || 'not registered'}}</div>
+      <div class="col-md">
+        <span class="form-label">Name:</span> {{ item.guestname }}<br>
+        <span class="form-label">Phone:</span> {{ item.phone }}<br>
+        <span class="form-label">Email:</span> {{ item.email }}<br>
+      </div>
+      <div class="col-md">
+        <div class="form-label">Address:</div>
+        {{ item.street }}<br>
+        <template v-if="item.street2">{{item.street2}}<br></template>
+        {{item.city}}, {{item.state}} {{ item.zipcode }}<br>
       </div>
     </div>
 
+    <div class="row mb-3">
+      <div class="col-md">
+        <span class="form-label">Number in Household:</span> {{ item.numInHousehold }}<br>
+        <template v-if="item.delivery"><span class="form-label">Pickup/Delivery:</span> Delivery</template>
+        <template v-else><span class="form-label">Pickup time:</span> {{ dayjs(item.pickuptime.starttime).format('HH:mm a')}}
+        - {{ dayjs(item.pickuptime.endtime).format('HH:mm a')}}
+        </template>
+      </div>
+      <div class="col-md">
+        <span class="form-label">Children:</span> {{ item.numChild }}<br>
+        <span class="form-label">Adults:</span> {{ item.numAdult }}<br>
+        <span class="form-label">Seniors:</span> {{ item.numSenior }}<br>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <div class="form-label">Items in this order:</div>
+        <div v-for="i in item.items" :key="'orderitem' + i.id">
+          {{ i.name }}
+        </div>
+      </div>
+    </div>
 
     <div class="row mb-3">
       <div class="col">
