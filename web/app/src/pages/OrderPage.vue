@@ -193,40 +193,35 @@ const saveOrder = async () => {
 
         <div class="row mt-3">
           <div class="col">
-            <div class="form-label">Name</div>
-            <div class="form-control">{{ order.guestname }}</div>
+            <span class="form-label">Name:</span> {{ order.guestname }}<br>
+            <span class="form-label">Phone:</span> {{ order.phone }}<br>
+            <span class="form-label">Email:</span> {{ order.email }}<br>
+          </div>
+          <div class="col-md">
+            <div class="form-label">Address:</div>
+            {{ order.street }}<br>
+            <template v-if="order.street2">{{order.street2}}<br></template>
+            {{order.city}}, {{order.state}} {{ order.zipcode }}<br>
           </div>
         </div>
+
+        <div class="row mt-3">
+          <div class="col-md">
+            <span class="form-label">Number in Household:</span> {{ order.numInHousehold }}<br>
+          </div>
+          <div class="col-md">
+            <span class="form-label">Children:</span> {{ order.numChild }}<br>
+            <span class="form-label">Adults:</span> {{ order.numAdult }}<br>
+            <span class="form-label">Seniors:</span> {{ order.numSenior }}<br>
+          </div>
+        </div>
+
         <div class="row mt-3">
           <div class="col">
-            <div class="form-label">Phone</div>
-            <div class="form-control">{{ order.phone }}</div>
+            <span class="form-label">Order Status:</span> {{ order.status || 'new' }}
           </div>
         </div>
-        <div class="row mt-3">
-          <div class="col">
-            <div class="form-label">Email</div>
-            <div class="form-control">{{ order.email }}</div>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <div class="form-label">Address</div>
-            <div class="form-control">{{ order.street }}<br>{{ order.street2}}<br>{{order.city}}, {{ order.state}} {{ order.zipcode }}</div>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <div class="form-label">Number in Household</div>
-            <div class="form-control">{{ order.numInHousehold }}</div>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col">
-            <div class="form-label">Number Children, Adults, Seniors</div>
-            <div class="form-control">{{ order.numChild }}, {{ order.numAdult }}, {{ order.numSenior }}</div>
-          </div>
-        </div>
+
 
         <div class="row mt-3">
           <div class="col">
@@ -278,7 +273,7 @@ const saveOrder = async () => {
 
         <div class="row mt-3">
           <div class="col">
-            <button type="submit" class="btn btn-primary">Save Order</button>
+            <button type="submit" class="btn btn-primary" :disabled="order.status === 'completed' || order.status === 'in-transit'">Save Order</button>
           </div>
         </div>
 

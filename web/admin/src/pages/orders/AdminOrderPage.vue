@@ -60,18 +60,6 @@ const resetShowMessages = () => {
   errMessage.value = 'An error occurred'
 }
 
-const deleteItem = async() => {
-  resetShowMessages()
-  try {
-    await deleteDoc(doc(db, 'order', props.id))
-    showDeleteMessage.value = true
-    router.push({name: 'OrdersListPage'})
-  } catch(err) {
-    showErrMessage.value = true
-    console.error(err)
-  }
-}
-
 const saveItem = async () => {
   resetShowMessages()
   try {
@@ -82,21 +70,6 @@ const saveItem = async () => {
       showSaveMessage.value = true
     } else {
 
-      const q = query(collection(db, 'order'), where('name', '==', item.value.guestname))
-      const docs = await getDocs(q)
-      if (docs.size > 0) {
-        errMessage.value = 'Order with guestname ' + item.value.guestname + ' already exists'
-        showErrMessage = true
-        return
-      }
-
-      console.log('saveItem currentForm, enddate', currentForm.value, currentForm.value.enddate)
-      if (currentForm.value && currentForm.value.enddate) {
-        item.value.enddate = currentForm.value.enddate
-      }
-
-      const itemRef = await addDoc(collection(db, 'order'), item.value)
-      router.push({name: 'OrdersListPage'})
 
     }
   } catch(err) {
@@ -156,14 +129,29 @@ onBeforeMount(async() => {
       <div class="col-md">
         <span class="form-label">Number in Household:</span> {{ item.numInHousehold }}<br>
         <template v-if="item.delivery"><span class="form-label">Pickup/Delivery:</span> Delivery</template>
-        <template v-else><span class="form-label">Pickup time:</span> {{ dayjs(item.pickuptime.starttime).format('HH:mm a')}}
-        - {{ dayjs(item.pickuptime.endtime).format('HH:mm a')}}
+        <template v-else><span class="form-label">Pickup time:</span> {{ item.pickuptime && item.pickuptime.starttime && dayjs(item.pickuptime.starttime).format('HH:mm a')}}
+        - {{ item.pickuptime && item.pickuptime.endtime && dayjs(item.pickuptime.endtime).format('HH:mm a')}}
         </template>
       </div>
       <div class="col-md">
         <span class="form-label">Children:</span> {{ item.numChild }}<br>
         <span class="form-label">Adults:</span> {{ item.numAdult }}<br>
         <span class="form-label">Seniors:</span> {{ item.numSenior }}<br>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <div class="form-label">Order Status:</div>
+        <select class="form-select" v-model="item.status">
+          <option value="new">New</option>
+          <option value="approved">Approved</option>
+          <option value="packed">Packed</option>
+          <option value="in-transit">In-Transit</option>
+          <option value="completed">Completed</option>
+          <option value="invalid">Invalid</option>
+        </select>
+
       </div>
     </div>
 
@@ -179,9 +167,6 @@ onBeforeMount(async() => {
     <div class="row mb-3">
       <div class="col">
         <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-      <div class="col text-end">
-        <button @click.prevent="deleteItem" class="btn btn-danger" :disabled="props.id === '' || props.id === null || props.id === undefined">Delete</button>
       </div>
     </div>
   </form>
