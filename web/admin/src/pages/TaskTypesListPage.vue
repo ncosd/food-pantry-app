@@ -2,21 +2,34 @@
 import { ref, onBeforeMount } from 'vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { collection, getFirestore, query, where, doc, getDocs, addDoc, updateDoc, orderBy } from 'firebase/firestore'
+import SortableTableHeader from '@/components/SortableTableHeader.vue'
 import ConfigTabs from '@/components/ConfigTabs.vue'
 
 const user = useAuthUserStore()
 const tasktypes = ref()
+const sortBy = ref("name")
+const sortAsc = ref(true)
+const db = getFirestore()
 
-onBeforeMount( async () => {
-  const db = getFirestore()
-  const q = query(collection(db, "tasktype"), orderBy('name'))
+const refreshList = async () => {
+  const q = query(collection(db, "tasktype"), orderBy(sortBy.value, sortAsc.value ? "asc" : "desc"))
   const ttRef = await getDocs(q)
   const ttarray = []
   ttRef.forEach((tt)=> {
     ttarray.push({id:tt.id,...tt.data()})
   })
   tasktypes.value = ttarray
+}
 
+const sortList = param => {
+  sortAsc.value = sortBy.value === param ? !sortAsc.value : true
+  sortBy.value = param
+
+  refreshList()
+}
+
+onBeforeMount( async () => {
+  await refreshList()
 })
 </script>
 
@@ -29,9 +42,9 @@ onBeforeMount( async () => {
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Display Name</th>
-            <th scope="col">Description</th>
+            <SortableTableHeader heading="Name" sortKey="name" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Display Name" sortKey="displayname" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
+            <SortableTableHeader heading="Description" sortKey="description" :sortBy="sortBy" :sortAsc="sortAsc" @sort-list="sortList" />
             <th scope="col">Action</th>
           </tr>
         </thead>

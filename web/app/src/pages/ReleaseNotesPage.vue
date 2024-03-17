@@ -5,7 +5,7 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.21.0">March 13, 2024 - 1.21.0</h2>
+  <h2 id="1.21.0">March 20, 2024 - 1.21.0</h2>
   <ul>
     <li>No Issues</li>
   </ul>

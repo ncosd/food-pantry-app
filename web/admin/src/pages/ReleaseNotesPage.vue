@@ -5,9 +5,9 @@
 <template>
 <div class="container">
   <h1>Release Notes</h1>
-  <h2 id="1.21.0">March 13, 2024 - 1.21.0</h2>
+  <h2 id="1.21.0">March 20, 2024 - 1.21.0</h2>
   <ul>
-    <li>No Issues</li>
+    <li><a href="https://github.com/ncosd/food-pantry-app/issues/274">#274</a> Adds sorting to TaskType admin page.</li>
   </ul>
   <h2 id="1.20.0">March 6, 2024 - 1.20.0</h2>
   <ul>
