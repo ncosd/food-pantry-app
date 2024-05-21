@@ -65,7 +65,7 @@ const saveItem = async () => {
         const docs = await getDocs(q)
         if (docs.size > 0) {
           errMessage.value = 'Item with name ' + item.value.name + ' already exists'
-          showErrMessage = true
+          showErrMessage.value = true
           return
         }
       }
@@ -78,7 +78,7 @@ const saveItem = async () => {
       const docs = await getDocs(q)
       if (docs.size > 0) {
         errMessage.value = 'Item with name ' + item.value.name + ' already exists'
-        showErrMessage = true
+        showErrMessage.value = true
         return
       }
 

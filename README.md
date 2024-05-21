@@ -56,7 +56,7 @@ Set the env to be the dev one
 
 Prepare the `.env` files:
 - Copy `web/app/env.demo` to `web/app/.env`.
-- Copy `web/admin/env.demo` to `web/admin/.env` to create a `.env` file for both `app` and `admin` folders.
+- Copy `web/app/env.demo` to `web/admin/.env` to create a `.env` file for both `app` and `admin` folders.
 - Configure the `VITE_FB_` values from your firebase project configuration into the following environment variables in the `.env` files:
 ```sh
 VITE_FB_APIKEY="big-long-string"

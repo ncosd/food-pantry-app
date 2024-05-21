@@ -121,7 +121,7 @@ onBeforeMount(async() => {
           orderForm.value.pickupdate = formSnap.data().pickupdate.toDate()
         }
       } else {
-        showErrMessage = true
+        showErrMessage.value = true
         errMessage.value = 'Form does not exist'
       }
 
