@@ -96,7 +96,7 @@ sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVir
 #### Hosting port 5000 is not open?
 If you see `hosting: Port 5000 is not open on 127.0.0.1, could not start Hosting Emulator.`
 
-This is because the airplay receiver is listening on port 5000.  You can either turn it off in System Preferences | Sharing | uncheck "airport receiver" or configure firebase to use a different port.
+This is because the airplay receiver is listening on port 5000.  You can either turn it off in `System Settings > General > AirDrop & Handoff > AirPlay Receiver`, or configure firebase to use a different port.
 
 ### Component development
 When you are developing components, [Storybook](https://storybook.js.org/) helps the process by letting you focus on the component without worrying about all the other dependencies in the site.
