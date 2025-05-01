@@ -31,15 +31,15 @@
     "vue-signature-pad": "^3.0.2"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.6.6",
+    "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-interactions": "^7.6.6",
     "@storybook/addon-links": "^7.6.6",
     "@storybook/addon-mdx-gfm": "^7.6.6",
-    "@storybook/blocks": "^7.6.6",
+    "@storybook/blocks": "^8.6.12",
     "@storybook/testing-library": "^0.2.2",
-    "@storybook/vue3": "^7.6.6",
-    "@storybook/vue3-vite": "^7.6.6",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@storybook/vue3": "^8.6.12",
+    "@storybook/vue3-vite": "^8.6.12",
+    "@vitejs/plugin-vue": "^5.2.3",
     "@vue/test-utils": "^2.3.0",
     "eslint": "^8.5.0",
     "eslint-plugin-vue": "^9.0.0",
@@ -47,10 +47,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.58.3",
-    "storybook": "^7.6.6",
+    "storybook": "^8.6.12",
     "terser": "^5.14.2",
-    "vite": "^4.5.13",
-    "vitest": "^0.31.3"
+    "vite": "^6.3.4",
+    "vitest": "^3.1.2"
   },
   "browserslist": [
     "> 1%",
