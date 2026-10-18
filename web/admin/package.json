@@ -42,7 +42,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/test-utils": "^2.3.0",
     "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^9.0.0",
+    "eslint-plugin-vue": "^10.11.1",
     "jsdom": "^28.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
